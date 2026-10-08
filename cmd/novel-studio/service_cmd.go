@@ -4,6 +4,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -17,6 +18,7 @@ import (
 	"time"
 
 	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/chenhongyang/novel-studio/internal/i18n"
 	dashboardassets "github.com/chenhongyang/novel-studio/services/dashboard"
 )
 
@@ -207,11 +209,11 @@ func ensureDashboardServiceForRun(outputDir string) {
 		return
 	}
 	if err := stopIncompatibleDashboard(flags); err != nil {
-		fmt.Fprintf(os.Stderr, "[dashboard] 旧服务不可复用（创作继续）：%v\n", err)
+		fmt.Fprintf(os.Stderr, i18n.T("service.staleReusable"), err)
 		return
 	}
 	if err := startServiceBackground(flags, outputDir); err != nil {
-		fmt.Fprintf(os.Stderr, "[dashboard] 启动失败（创作继续）：%v\n", err)
+		fmt.Fprintf(os.Stderr, i18n.T("service.startFailed"), err)
 		return
 	}
 	fmt.Fprintf(os.Stderr, "[dashboard] %s\n", serviceNovelURL(flags))
@@ -512,14 +514,14 @@ func findProjectRootFrom(path string) string {
 func findDashboardPython() (string, error) {
 	python, err := exec.LookPath("python3")
 	if err != nil {
-		return "", fmt.Errorf("需要 Python 3.9+ 才能启动看板；请安装 Python 3 后重试，或运行 novel-studio doctor 查看修复建议")
+		return "", errors.New(i18n.T("service.pythonNeeded"))
 	}
 	major, minor, err := pythonVersion(python)
 	if err != nil {
-		return "", fmt.Errorf("无法读取 Python 版本（%s）：%w", python, err)
+		return "", fmt.Errorf(i18n.T("service.pythonProbe"), python, err)
 	}
 	if major < 3 || (major == 3 && minor < 9) {
-		return "", fmt.Errorf("看板需要 Python 3.9+，当前为 %d.%d（%s）", major, minor, python)
+		return "", errors.New(i18n.T("service.pythonOld", major, minor, python))
 	}
 	return python, nil
 }

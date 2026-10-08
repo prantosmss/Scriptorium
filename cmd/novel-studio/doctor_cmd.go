@@ -12,6 +12,7 @@ import (
 	"strings"
 
 	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/chenhongyang/novel-studio/internal/i18n"
 	buildversion "github.com/chenhongyang/novel-studio/internal/version"
 	dashboardassets "github.com/chenhongyang/novel-studio/services/dashboard"
 )
@@ -179,13 +180,13 @@ func printDoctorReport(report doctorReport) {
 	for _, check := range report.Checks {
 		fmt.Printf("%s %-12s %s\n", icons[check.Status], check.Name, check.Detail)
 		if check.Fix != "" {
-			fmt.Printf("  修复：%s\n", check.Fix)
+			fmt.Println(i18n.T("doctor.fix", check.Fix))
 		}
 	}
 	if report.OK {
-		fmt.Println("\n结果：本地运行前置条件已就绪。下一步运行 novel-studio --check 验证真实模型连接。")
+		fmt.Println(i18n.T("doctor.resultReady"))
 	} else {
-		fmt.Println("\n结果：存在必须修复的项目；按上方建议处理后重新运行 doctor。")
+		fmt.Println(i18n.T("doctor.resultIssues"))
 	}
 }
 

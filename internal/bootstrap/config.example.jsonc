@@ -8,6 +8,9 @@
   // 可选。默认推理强度：off / low / medium / high / xhigh / max。
   // 省略或空字符串 = 不覆盖，沿用模型/provider 默认。
   "reasoning_effort": "medium",
+  // 可选。界面语言：en（默认）/ zh。用 `novel-studio lang en|zh` 切换，
+  // 或在看板右上角点 EN / 中文；只影响界面文案，不影响发给模型的 prompt。
+  "language": "en",
 
   // Provider 凭证库。key 自定义，用作上面 provider 字段引用的目标。
   // api_key_env 可从环境变量读取密钥并优先于 api_key，适合 CI/Docker；

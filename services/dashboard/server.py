@@ -2793,6 +2793,133 @@ def broadcast_detail(book_id):
     return result
 
 
+# ---------------------------------------------------------------------------
+# UI language (/api/settings)
+#
+# The dashboard and the CLI share one setting: "language" in config.json. The
+# toggle in the page header POSTs here, this module patches the file the same
+# way `novel-studio lang` does (in place, so the user's // comments and unknown
+# keys survive), and the next CLI run picks the value up.
+# ---------------------------------------------------------------------------
+
+SETTINGS_LANGUAGES = ("en", "zh")
+_DEFAULT_LANGUAGE = "en"
+
+# Anchored to the start of a line so a comment that merely mentions
+# "language": ... is never mistaken for the real entry.
+_LANGUAGE_ENTRY_RE = re.compile(r'(?m)^([ \t]*"language"[ \t]*:[ \t]*")[^"]*(")')
+_BOM = "\ufeff"
+
+
+def settings_config_path() -> Path:
+    """Same precedence as the CLI: project override, else the global config."""
+    project = Path.cwd() / ".novel-studio" / "config.json"
+    if project.is_file():
+        return project
+    return Path.home() / ".novel-studio" / "config.json"
+
+
+def _strip_json_comments(text: str) -> str:
+    """Remove // comments that are outside strings (mirrors the Go loader)."""
+    out = []
+    in_string = False
+    escaped = False
+    i, n = 0, len(text)
+    while i < n:
+        ch = text[i]
+        if escaped:
+            out.append(ch)
+            escaped = False
+            i += 1
+            continue
+        if in_string:
+            out.append(ch)
+            if ch == "\\":
+                escaped = True
+            elif ch == '"':
+                in_string = False
+            i += 1
+            continue
+        if ch == '"':
+            in_string = True
+            out.append(ch)
+            i += 1
+            continue
+        if ch == "/" and i + 1 < n and text[i + 1] == "/":
+            while i < n and text[i] != "\n":
+                i += 1
+            if i < n:
+                out.append("\n")
+            continue
+        out.append(ch)
+        i += 1
+    return "".join(out)
+
+
+def _read_config_text(path: Path) -> str:
+    # newline="" keeps CRLF intact; a BOM is stripped for parsing and put back
+    # on write, so patching never changes how the file is encoded.
+    with path.open("r", encoding="utf-8", newline="") as handle:
+        return handle.read()
+
+
+def _write_config_text(path: Path, text: str) -> None:
+    with path.open("w", encoding="utf-8", newline="") as handle:
+        handle.write(text)
+
+
+def read_settings() -> dict:
+    """Current UI settings; never raises (a broken config means "defaults")."""
+    path = settings_config_path()
+    language = _DEFAULT_LANGUAGE
+    try:
+        raw = _read_config_text(path).lstrip(_BOM)
+        data = json.loads(_strip_json_comments(raw))
+        if isinstance(data, dict) and data.get("language") in SETTINGS_LANGUAGES:
+            language = data["language"]
+    except (OSError, ValueError):
+        pass
+    return {"language": language, "path": str(path), "exists": path.is_file()}
+
+
+def write_settings_language(language: str) -> dict:
+    """Patch "language" into config.json in place. Returns an error dict when
+    the config does not exist yet (first run has to go through the CLI)."""
+    path = settings_config_path()
+    if not path.is_file():
+        return {"error": "no config file", "hint": "run novel-studio once to create it",
+                "path": str(path)}
+    try:
+        text = _read_config_text(path)
+    except OSError as exc:
+        return {"error": f"read config: {exc}", "path": str(path)}
+    has_bom = text.startswith(_BOM)
+    if has_bom:
+        text = text[len(_BOM):]
+
+    match = _LANGUAGE_ENTRY_RE.search(text)
+    if match:
+        # Splice between the quotes: end of group 1, start of group 2.
+        text = text[:match.end(1)] + language + text[match.start(2):]
+    else:
+        brace = text.find("{")
+        if brace < 0:
+            return {"error": "config file has no JSON object to edit", "path": str(path)}
+        rest = text[brace + 1:]
+        eol = "\r\n" if "\r\n" in text else "\n"
+        # json.loads rejects trailing commas (comments are stripped first).
+        trailing = "" if rest.lstrip().startswith("}") else ","
+        insert = (f'{eol}  // UI language: "en" | "zh"{eol}'
+                  f'  "language": "{language}"{trailing}')
+        text = text[:brace + 1] + insert + rest
+
+    try:
+        _write_config_text(path, _BOM + text if has_bom else text)
+    except OSError as exc:
+        return {"error": f"write config: {exc}", "path": str(path)}
+    return {"language": language, "path": str(path), "exists": True}
+
+
 class Handler(BaseHTTPRequestHandler):
     server_version = "novel-studio-dashboard/3.0"
 
@@ -2836,6 +2963,8 @@ class Handler(BaseHTTPRequestHandler):
             if path == "/api/health":
                 return self._json({"ok": True, "runs_dir": str(RUNS_DIR), "time": time.time(),
                                    "version": SERVICE_VERSION, "script": SERVICE_SCRIPT})
+            if path == "/api/settings":
+                return self._json(read_settings())
             if path == "/api/novels":
                 return self._json({"runs_dir": str(RUNS_DIR),
                                    "novels": [summarize_run(r) for r in list_runs()]})
@@ -2864,6 +2993,32 @@ class Handler(BaseHTTPRequestHandler):
         except Exception as exc:  # 看板永不 500 裸奔，返回结构化错误
             if path in BROADCAST_STATIC or path == "/api/broadcast" or path.endswith("/broadcast"):
                 return self._json({"error": "broadcast unavailable"}, 503)
+            return self._json({"error": str(exc)}, 500)
+
+    def do_POST(self):
+        """Writes settings back to config.json (currently just the UI language)."""
+        path = urllib.parse.unquote(self.path.split("?", 1)[0])
+        try:
+            if path == "/api/settings":
+                length = int(self.headers.get("Content-Length") or 0)
+                if length <= 0 or length > 4096:
+                    return self._json({"error": "invalid payload size"}, 400)
+                try:
+                    payload = json.loads(self.rfile.read(length).decode("utf-8") or "{}")
+                except (ValueError, UnicodeDecodeError):
+                    return self._json({"error": "invalid JSON body"}, 400)
+                language = str(payload.get("language", "")).strip().lower()
+                if language not in SETTINGS_LANGUAGES:
+                    return self._json({"error": "unknown language",
+                                       "supported": list(SETTINGS_LANGUAGES)}, 400)
+                result = write_settings_language(language)
+                if "error" in result:
+                    return self._json(result, 409)
+                return self._json(result)
+            return self._json({"error": "not found"}, 404)
+        except BrokenPipeError:
+            pass
+        except Exception as exc:
             return self._json({"error": str(exc)}, 500)
 
 

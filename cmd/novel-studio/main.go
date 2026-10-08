@@ -2,12 +2,14 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"strings"
 
 	"github.com/chenhongyang/novel-studio/internal/bootstrap"
 	"github.com/chenhongyang/novel-studio/internal/eval"
+	"github.com/chenhongyang/novel-studio/internal/i18n"
 	"github.com/chenhongyang/novel-studio/internal/rules"
 	buildversion "github.com/chenhongyang/novel-studio/internal/version"
 )
@@ -22,9 +24,16 @@ var (
 var headlessMode bool
 
 func main() {
+	// 界面语言必须先于一切子命令分发生效：doctor/service/skills/rag 这些在
+	// LoadConfig 之前就被拦截，等配置加载完再切语言就来不及了。
+	i18n.Set(bootstrap.LoadLanguage(scanConfigFlag(os.Args[1:])))
+
 	// 子命令在常规 flag 解析之前拦截：eval 是离线评测 harness，参数体系独立。
 	if len(os.Args) > 1 && os.Args[1] == "eval" {
 		os.Exit(eval.Command(os.Args[2:]))
+	}
+	if len(os.Args) > 1 && os.Args[1] == "lang" {
+		os.Exit(runLangCommand(os.Args[2:], scanConfigFlag(os.Args[1:])))
 	}
 	if len(os.Args) > 1 && os.Args[1] == "service" {
 		os.Exit(runServiceCommand(os.Args[2:]))
@@ -207,13 +216,14 @@ func main() {
 	// 首次引导
 	if bootstrap.NeedsSetup(opts.ConfigPath) {
 		if opts.Headless {
-			die("error: headless 模式不支持首次引导，请先在交互终端运行一次 novel-studio 完成配置，或手写配置文件")
+			die("%s", i18n.T("die.headlessNoSetup"))
 		}
 		setupCfg, err := bootstrap.RunSetupAt(opts.ConfigPath)
 		if err != nil {
 			die("setup: %v", err)
 		}
 		// 引导完成后使用生成的配置继续
+		i18n.Set(setupCfg.Language)
 		runWithConfig(setupCfg, opts, args)
 		return
 	}
@@ -223,6 +233,7 @@ func main() {
 	if err != nil {
 		die("config: %v", err)
 	}
+	i18n.Set(cfg.Language)
 
 	runWithConfig(cfg, opts, args)
 }
@@ -234,10 +245,10 @@ func die(format string, args ...any) {
 	msg := fmt.Sprintf(format, args...)
 	fmt.Fprintln(os.Stderr, msg)
 	if path := bootstrap.WriteStartupError(msg); path != "" {
-		fmt.Fprintf(os.Stderr, "（详细错误已记录到 %s）\n", path)
+		fmt.Fprintln(os.Stderr, i18n.T("die.loggedAt", path))
 	}
 	if !headlessMode && stdinIsTerminal() {
-		fmt.Fprint(os.Stderr, "\n按回车键退出...")
+		fmt.Fprint(os.Stderr, i18n.T("die.pressEnter"))
 		_, _ = fmt.Fscanln(os.Stdin)
 	}
 	os.Exit(1)
@@ -257,7 +268,7 @@ func runWithConfig(_ bootstrap.Config, opts cliOptions, args []string) {
 	rules.EnsureHomeRulesDir()
 
 	if len(args) > 0 {
-		die("error: 不支持命令行直接传入小说需求，请用 --pipeline --prompt <文本> 或对应子命令")
+		die("%s", i18n.T("die.directPrompt"))
 	}
 
 	if opts.Headless {
@@ -267,7 +278,7 @@ func runWithConfig(_ bootstrap.Config, opts cliOptions, args []string) {
 		return
 	}
 	if opts.Prompt != "" || opts.PromptFile != "" {
-		die("error: --prompt/--prompt-file 需要配合 --pipeline 使用")
+		die("%s", i18n.T("die.promptNeedsPipeline"))
 	}
 	// 交互式 TUI 已移除：无子命令、非 headless 时打印用法供用户选择具体功能。
 	printTopUsage(os.Stdout)
@@ -296,7 +307,7 @@ func parseCLIOptions(argv []string) (cliOptions, []string, error) {
 			opts.Version = true
 		case "version":
 			if i+1 < len(argv) {
-				return opts, nil, fmt.Errorf("version 不接受参数")
+				return opts, nil, errors.New(i18n.T("flag.versionArgs"))
 			}
 			opts.Version = true
 		case "--help", "-h", "help":
@@ -306,22 +317,22 @@ func parseCLIOptions(argv []string) (cliOptions, []string, error) {
 			args = append(args, argv[i])
 		case "update":
 			if opts.Update {
-				return opts, nil, fmt.Errorf("update 只能指定一次")
+				return opts, nil, errors.New(i18n.T("flag.updateOnce"))
 			}
 			opts.Update = true
 			if i+1 < len(argv) {
 				if strings.HasPrefix(argv[i+1], "-") {
-					return opts, nil, fmt.Errorf("update 只接受一个可选版本参数")
+					return opts, nil, errors.New(i18n.T("flag.updateVersionArg"))
 				}
 				opts.UpdateVersion = argv[i+1]
 				i++
 			}
 			if i+1 < len(argv) {
-				return opts, nil, fmt.Errorf("update 只接受一个可选版本参数")
+				return opts, nil, errors.New(i18n.T("flag.updateVersionArg"))
 			}
 		case "--config":
 			if i+1 >= len(argv) {
-				return opts, nil, fmt.Errorf("--config 缺少值")
+				return opts, nil, errors.New(i18n.T("flag.configValue"))
 			}
 			opts.ConfigPath = argv[i+1]
 			i++
@@ -329,7 +340,7 @@ func parseCLIOptions(argv []string) (cliOptions, []string, error) {
 			// 项目根目录：OutputDir（相对路径时）以它为基准解析，等价于 cd 过去再跑。
 			// 子命令（--build-rag/--zero-init/--pipeline 等）由 loadCfgBundle 统一消费。
 			if i+1 >= len(argv) {
-				return opts, nil, fmt.Errorf("--dir 缺少值")
+				return opts, nil, errors.New(i18n.T("flag.dirValue"))
 			}
 			opts.Dir = argv[i+1]
 			i++
@@ -337,13 +348,13 @@ func parseCLIOptions(argv []string) (cliOptions, []string, error) {
 			opts.Headless = true
 		case "--prompt":
 			if i+1 >= len(argv) {
-				return opts, nil, fmt.Errorf("--prompt 缺少值")
+				return opts, nil, errors.New(i18n.T("flag.promptValue"))
 			}
 			opts.Prompt = argv[i+1]
 			i++
 		case "--prompt-file":
 			if i+1 >= len(argv) {
-				return opts, nil, fmt.Errorf("--prompt-file 缺少值")
+				return opts, nil, errors.New(i18n.T("flag.promptFileValue"))
 			}
 			opts.PromptFile = argv[i+1]
 			i++
@@ -352,13 +363,13 @@ func parseCLIOptions(argv []string) (cliOptions, []string, error) {
 		}
 	}
 	if opts.Prompt != "" && opts.PromptFile != "" {
-		return opts, nil, fmt.Errorf("--prompt 和 --prompt-file 不能同时使用")
+		return opts, nil, errors.New(i18n.T("flag.promptExclusive"))
 	}
 	if opts.Version && (opts.Update || opts.ConfigPath != "" || opts.Dir != "" || opts.Headless || opts.Prompt != "" || opts.PromptFile != "" || len(args) > 0) {
-		return opts, nil, fmt.Errorf("version 不能与其他启动参数混用")
+		return opts, nil, errors.New(i18n.T("flag.versionCombo"))
 	}
 	if opts.Update && (opts.ConfigPath != "" || opts.Dir != "" || opts.Headless || opts.Prompt != "" || opts.PromptFile != "" || len(args) > 0) {
-		return opts, nil, fmt.Errorf("update 不能与其他启动参数混用")
+		return opts, nil, errors.New(i18n.T("flag.updateCombo"))
 	}
 	return opts, args, nil
 }
@@ -383,11 +394,11 @@ func runSelfUpdate(target string) error {
 		return err
 	}
 	if !result.Updated {
-		fmt.Printf("novel-studio 已是最新版本 %s\n", result.Version)
+		fmt.Println(i18n.T("update.upToDate", result.Version))
 		return nil
 	}
-	fmt.Printf("novel-studio 已更新到 %s\n", result.Version)
-	fmt.Printf("安装位置：%s\n", result.Path)
+	fmt.Println(i18n.T("update.updated", result.Version))
+	fmt.Println(i18n.T("update.installPath", result.Path))
 	return nil
 }
 
@@ -404,7 +415,7 @@ func loadPrompt(opts cliOptions) (string, error) {
 		data, err = os.ReadFile(opts.PromptFile)
 	}
 	if err != nil {
-		return "", fmt.Errorf("读取 prompt 失败: %w", err)
+		return "", fmt.Errorf(i18n.T("load.promptRead"), err)
 	}
 	return strings.TrimSpace(string(data)), nil
 }
@@ -455,63 +466,31 @@ func stripRoutingTokens(argv []string, tokens ...string) []string {
 	return out
 }
 
-// printTopUsage 打印顶层 usage。覆盖最常见的本地运行场景，避免用户去找 README。
+// printTopUsage 打印顶层 usage。文案在 i18n 目录里，`novel-studio lang` 切语言即整体换掉。
 func printTopUsage(w *os.File) {
-	fmt.Fprintln(w, "novel-studio — AI 长篇小说创作引擎")
+	fmt.Fprintln(w, i18n.T("usage.title"))
 	fmt.Fprintln(w)
-	fmt.Fprintln(w, "首次运行:")
-	fmt.Fprintln(w, "  1. novel-studio doctor       # 检查本机环境并给出修复建议")
-	fmt.Fprintln(w, "  2. novel-studio              # 创建配置（仅首次需要）")
-	fmt.Fprintln(w, "  3. novel-studio --check      # 发起最小真实模型请求")
+	fmt.Fprintln(w, i18n.T("usage.firstRun"))
 	fmt.Fprintln(w)
-	fmt.Fprintln(w, "用法:")
-	fmt.Fprintln(w, "  novel-studio --pipeline --prompt <text>     # 可恢复流水线：设计→按弧推演→逐章渲染审核")
-	fmt.Fprintln(w, "  novel-studio --pipeline --prompt-file p.md  # 从文件读 prompt 后进入流水线")
-	fmt.Fprintln(w, "  novel-studio --cocreate                     # 多轮对话澄清需求，定稿创作指令")
-	fmt.Fprintln(w, "  novel-studio --headless --prompt <text>     # 兼容别名：内部转为 --pipeline")
+	fmt.Fprintln(w, i18n.T("usage.usage"))
 	fmt.Fprintln(w)
-	fmt.Fprintln(w, "功能子命令（无 TTY、CI / 远程可用）:")
-	fmt.Fprintln(w, "  novel-studio --check                        # LLM 连通性自检（先确认能用再创作）")
-	fmt.Fprintln(w, "  novel-studio --pipeline --stages review     # 逐章 Editor 评审（不改原文）")
-	fmt.Fprintln(w, "  novel-studio --draft-ai-judge --chapter N  # 对当前草稿做独立 DeepSeek 裸正文预审")
-	fmt.Fprintln(w, "  novel-studio --pipeline --stages rewrite    # 按评审反馈逐章 Writer 重写")
-	fmt.Fprintln(w, "  novel-studio --diag                        # 诊断当前项目产物")
-	fmt.Fprintln(w, "  novel-studio --writing-assets list         # 查看/启停/组合/绑定/试写写法资产")
-	fmt.Fprintln(w, "  novel-studio --writing-assets seed-defaults # 初始化本书基础写法资产")
-	fmt.Fprintln(w, "  novel-studio --refresh-progress [--dir d]  # 回填章节推进/人物变化/下一章计划台账")
-	fmt.Fprintln(w, "  novel-studio --build-rag [--dir d]         # 构建本书 RAG 索引并可探测召回")
-	fmt.Fprintln(w, "  novel-studio --rag-ready [--dir d]         # 只修复/验证 RAG，不启动写作")
-	fmt.Fprintln(w, "  novel-studio rag audit [--root data/runs] # 审计全部主索引和历史 RAG 快照")
-	fmt.Fprintln(w, "  novel-studio rag maintain --apply         # 备份、整理主索引并压缩重复快照")
-	fmt.Fprintln(w, "  novel-studio --architect-check [--dir d]   # 检查 Architect foundation，通过后才允许 zero-init")
-	fmt.Fprintln(w, "  novel-studio --zero-init [--dir d]         # 新书第一章前的角色/关系/资源推演资产")
-	fmt.Fprintln(w, "  novel-studio eval inspect --cases evals/cases/harness # Harness 检查既有项目产物")
-	fmt.Fprintln(w, "  novel-studio --simulate [--no-diag]         # 分析 simulate/ 语料合成仿写画像")
-	fmt.Fprintln(w, "  novel-studio --import-sim <profile.json>    # 导入此前生成的仿写画像（默认写 diag）")
-	fmt.Fprintln(w, "  novel-studio --steer \"<指令>\"               # 排队一条干预，下次启动生效")
+	fmt.Fprintln(w, i18n.T("usage.features"))
 	fmt.Fprintln(w)
-	fmt.Fprintln(w, "其它:")
-	fmt.Fprintln(w, "  novel-studio doctor                         # 本地环境/配置/看板前置检查（不调用模型）")
-	fmt.Fprintln(w, "  novel-studio service start                  # 启动浏览器进度看板（长篇 output/novel + 短篇服务）")
-	fmt.Fprintln(w, "  novel-studio service open                   # 手动打开小说项目进度看板")
-	fmt.Fprintln(w, "  novel-studio service status                 # 检查看板服务 /api/health")
-	fmt.Fprintln(w, "  novel-studio skills list                    # 列出内置 skills")
-	fmt.Fprintln(w, "  novel-studio skills export --to <dir>       # 导出 skills 到项目目录")
-	fmt.Fprintln(w, "  novel-studio --version                      # 打印版本信息")
-	fmt.Fprintln(w, "  novel-studio update [version]               # 自我更新")
-	fmt.Fprintln(w, "  novel-studio --config <path>                # 用指定配置文件启动")
-	fmt.Fprintln(w, "  novel-studio --dir <project>                # 指定项目根目录（OutputDir 基准），免 cd")
+	fmt.Fprintln(w, i18n.T("usage.other"))
 	fmt.Fprintln(w)
-	fmt.Fprintln(w, "每个子命令的专属选项：")
-	fmt.Fprintln(w, "  novel-studio service --help")
-	fmt.Fprintln(w, "  novel-studio --pipeline --help")
-	fmt.Fprintln(w, "  novel-studio --review-existing --help      # 兼容别名")
-	fmt.Fprintln(w, "  novel-studio --rewrite-existing --help     # 兼容别名")
-	fmt.Fprintln(w, "  novel-studio skills --help")
+	fmt.Fprintln(w, i18n.T("usage.subUsage"))
 	fmt.Fprintln(w)
-	fmt.Fprintln(w, "提示:")
-	fmt.Fprintln(w, "  · 配置默认读 ~/.novel-studio/config.json（项目内可用 ./.novel-studio/config.json 覆盖）")
-	fmt.Fprintln(w, "  · 首次启动会跑 setup 引导：选 Provider / 填 Key / 填 Base URL / 填模型")
-	fmt.Fprintln(w, "  · 章节输出在 output/novel/chapters/*.md（可在配置里改 OutputDir）")
+	fmt.Fprintln(w, i18n.T("usage.tips"))
 	fmt.Fprintln(w)
+}
+
+// scanConfigFlag 从 argv 里挑出 --config 的值。放在最前面是为了在任何子命令
+// 分发之前拿到配置路径——语言要先于 doctor/service 这类"早拦截"子命令生效。
+func scanConfigFlag(argv []string) string {
+	for i := 0; i < len(argv); i++ {
+		if argv[i] == "--config" && i+1 < len(argv) {
+			return argv[i+1]
+		}
+	}
+	return ""
 }

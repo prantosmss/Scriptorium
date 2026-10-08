@@ -7,6 +7,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -14,6 +15,7 @@ import (
 	"time"
 
 	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/chenhongyang/novel-studio/internal/i18n"
 	"github.com/voocel/agentcore"
 )
 
@@ -29,15 +31,13 @@ type checkFlags struct {
 func parseCheckFlags(argv []string) (checkFlags, []string, error) {
 	fs := flag.NewFlagSet("check", flag.ContinueOnError)
 	fs.Usage = func() {
-		fmt.Fprintf(os.Stderr, "用法: novel-studio --check [--timeout 30s] [--provider <name> --model <model>]\n\n")
-		fmt.Fprintf(os.Stderr, "对默认模型与各角色模型做一次最小真实调用，逐一报告是否可用。\n")
-		fmt.Fprintf(os.Stderr, "指定 --provider/--model 时只测该目标（不改配置），用于验证某个备用 provider。\n\n选项：\n")
+		fmt.Fprint(os.Stderr, i18n.T("check.usage"))
 		fs.PrintDefaults()
 	}
 	f := checkFlags{Timeout: 30 * time.Second}
-	fs.DurationVar(&f.Timeout, "timeout", f.Timeout, "单次连通性调用的超时")
-	fs.StringVar(&f.Provider, "provider", "", "只测指定 provider（配置里 providers 的 key 名），需配 --model")
-	fs.StringVar(&f.Model, "model", "", "配合 --provider 指定要测的模型名")
+	fs.DurationVar(&f.Timeout, "timeout", f.Timeout, i18n.T("check.timeout"))
+	fs.StringVar(&f.Provider, "provider", "", i18n.T("check.provider"))
+	fs.StringVar(&f.Model, "model", "", i18n.T("check.model"))
 	if err := fs.Parse(argv); err != nil {
 		return f, nil, err
 	}
@@ -73,9 +73,9 @@ type checkTarget struct {
 func (t checkTarget) label() string {
 	parts := make([]string, 0, len(t.serves))
 	for _, s := range t.serves {
-		kind := "主"
+		kind := i18n.T("check.label.primary")
 		if s.fallback {
-			kind = "兜底"
+			kind = i18n.T("check.label.fallback")
 		}
 		parts = append(parts, s.role+"("+kind+")")
 	}
@@ -92,24 +92,24 @@ func checkPipeline(opts cliOptions, args []string) error {
 		return err
 	}
 	if len(extra) > 0 {
-		return fmt.Errorf("--check 不接受额外参数：%v", extra)
+		return errors.New(i18n.T("check.unknownArgs", extra))
 	}
 	if (flags.Provider == "") != (flags.Model == "") {
-		return fmt.Errorf("--provider 和 --model 必须同时指定")
+		return errors.New(i18n.T("check.pairRequired"))
 	}
 
 	if bootstrap.NeedsSetup(opts.ConfigPath) {
-		return fmt.Errorf("尚未配置，请先在交互终端运行一次 novel-studio 完成配置引导，或手写配置文件")
+		return errors.New(i18n.T("check.noConfig"))
 	}
 	cfg, err := bootstrap.LoadConfig(opts.ConfigPath)
 	if err != nil {
-		return fmt.Errorf("加载配置失败: %w", err)
+		return fmt.Errorf(i18n.T("check.loadConfig"), err)
 	}
 
 	// --provider/--model：只测这一个目标。把它设为默认、清空角色覆盖，复用同一条路径。
 	if flags.Provider != "" {
 		if _, ok := cfg.Providers[flags.Provider]; !ok {
-			return fmt.Errorf("配置里没有名为 %q 的 provider", flags.Provider)
+			return errors.New(i18n.T("check.unknownProvider", flags.Provider))
 		}
 		cfg.Provider = flags.Provider
 		cfg.ModelName = flags.Model
@@ -118,13 +118,13 @@ func checkPipeline(opts cliOptions, args []string) error {
 
 	ms, err := bootstrap.NewModelSet(cfg)
 	if err != nil {
-		return fmt.Errorf("构建模型失败（配置层就不通，无需联网即失败）: %w", err)
+		return fmt.Errorf(i18n.T("check.buildModel"), err)
 	}
 
 	// 按 provider/model 去重：多个角色常指向同一模型，只需 ping 一次。
 	targets := dedupeCheckTargets(ms)
 
-	fmt.Fprintf(os.Stderr, "[check] 共 %d 个待测模型目标（含兜底，超时 %s/个）\n\n", len(targets), flags.Timeout)
+	fmt.Fprintf(os.Stderr, i18n.T("check.targets"), len(targets), flags.Timeout)
 	for i := range targets {
 		latency, perr := pingModel(targets[i].chat, flags.Timeout)
 		targets[i].ok = perr == nil
@@ -162,34 +162,34 @@ func reportRoleUsability(targets []checkTarget) error {
 		}
 	}
 
-	fmt.Fprintln(os.Stderr, "\n按角色汇总：")
+	fmt.Fprintln(os.Stderr, i18n.T("check.byRole"))
 	var unusable, degraded []string
 	for _, role := range order {
 		switch {
 		case primaryOK[role]:
-			fmt.Fprintf(os.Stderr, "  ✓ %s：主模型可用\n", role)
+			fmt.Fprintln(os.Stderr, i18n.T("check.primaryOK", role))
 		case fallbackOK[role]:
 			degraded = append(degraded, role)
-			fmt.Fprintf(os.Stderr, "  ⚠ %s：主模型不可用，已可走兜底\n", role)
+			fmt.Fprintln(os.Stderr, i18n.T("check.fallbackOK", role))
 		case role == "default":
 			// default 是未显式配置角色的兜底模板；具名角色都配齐时它不参与创作主流程，
 			// 故仅提示、不计入硬失败（若具名角色没配，它们会解析到 default 并各自触发失败）。
-			fmt.Fprintf(os.Stderr, "  ⚠ %s：默认模型不可用（仅影响未配置兜底的辅助路径，如共创）\n", role)
+			fmt.Fprintln(os.Stderr, i18n.T("check.defaultDown", role))
 		default:
 			unusable = append(unusable, role)
-			fmt.Fprintf(os.Stderr, "  ✗ %s：主与兜底均不可用\n", role)
+			fmt.Fprintln(os.Stderr, i18n.T("check.allDown", role))
 		}
 	}
 
 	fmt.Fprintln(os.Stderr)
 	if len(unusable) > 0 {
-		return fmt.Errorf("以下角色无任何可用模型：%s（常见原因：代理未启动 / api_key 失效 / base_url 写错）", strings.Join(unusable, ", "))
+		return errors.New(i18n.T("check.noUsableModel", strings.Join(unusable, ", ")))
 	}
 	if len(degraded) > 0 {
-		fmt.Fprintf(os.Stderr, "[check] 可创作（降级）：%s 将走兜底；如需主模型请启动其 provider。\n", strings.Join(degraded, ", "))
+		fmt.Fprintln(os.Stderr, i18n.T("check.degraded", strings.Join(degraded, ", ")))
 		return nil
 	}
-	fmt.Fprintln(os.Stderr, "[check] 全部角色主模型可用 ✓")
+	fmt.Fprintln(os.Stderr, i18n.T("check.allOK"))
 	return nil
 }
 
@@ -233,7 +233,7 @@ func pingModel(model agentcore.ChatModel, timeout time.Duration) (time.Duration,
 		return 0, err
 	}
 	if resp == nil || resp.Message.TextContent() == "" {
-		return 0, fmt.Errorf("模型返回空响应（连接通但无内容，疑似代理/模型名问题）")
+		return 0, errors.New(i18n.T("check.emptyResponse"))
 	}
 	return time.Since(start), nil
 }

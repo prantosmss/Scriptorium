@@ -152,6 +152,11 @@ type Config struct {
 	// 角色未单独配置 reasoning_effort 时回落到此值。
 	ReasoningEffort string `json:"reasoning_effort,omitempty"`
 
+	// Language 界面语言：en / zh。留空 = 英文（默认）。
+	// 只影响 CLI 输出与看板文案，不影响发给模型的 prompt。
+	// 由 novel-studio lang [en|zh] 与看板右上角开关写入。
+	Language string `json:"language,omitempty"`
+
 	// Provider 凭证库
 	Providers map[string]ProviderConfig `json:"providers,omitempty"`
 

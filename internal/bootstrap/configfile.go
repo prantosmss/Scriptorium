@@ -1,6 +1,7 @@
 package bootstrap
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -10,6 +11,9 @@ import (
 	"strings"
 	"time"
 )
+
+// utf8BOM is the byte-order mark some Windows editors prepend to UTF-8 files.
+var utf8BOM = []byte{0xEF, 0xBB, 0xBF}
 
 const configDirName = ".novel-studio"
 
@@ -142,7 +146,9 @@ func loadJSONFile(path string) (Config, error) {
 	if err != nil {
 		return Config{}, err
 	}
-	cleaned := stripJSONComments(data)
+	// Windows editors often save UTF-8 with a BOM; json.Unmarshal rejects the
+	// bytes, so a hand-edited config would fail with a confusing parse error.
+	cleaned := stripJSONComments(bytes.TrimPrefix(data, utf8BOM))
 	var cfg Config
 	if err := json.Unmarshal(cleaned, &cfg); err != nil {
 		return Config{}, fmt.Errorf("parse %s: %w", path, err)
@@ -160,6 +166,9 @@ func mergeConfig(base, overlay Config) Config {
 	}
 	if overlay.ReasoningEffort != "" {
 		base.ReasoningEffort = overlay.ReasoningEffort
+	}
+	if overlay.Language != "" {
+		base.Language = overlay.Language
 	}
 	if overlay.Style != "" {
 		base.Style = overlay.Style

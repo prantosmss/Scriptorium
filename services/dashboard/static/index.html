@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>novel-studio · 创作进度看板</title>
+<title>novel-studio · Writing progress console</title>
 <style>
   :root {
     --bg: #0a0c12;
@@ -601,6 +601,10 @@
     .event-row { grid-template-columns: 100px 62px 1fr; }
     .event-row span:last-child { grid-column: 1 / -1; }
   }
+  .lang-switch { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel); }
+  .lang-switch button { font: inherit; font-size: 11px; line-height: 1; padding: 4px 9px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; transition: background .15s, color .15s; }
+  .lang-switch button:hover { color: var(--text); background: var(--panel-hi); }
+  .lang-switch button.on { background: linear-gradient(135deg, var(--accent1), var(--accent2)); color: #fff; }
 </style>
 </head>
 <body>
@@ -609,15 +613,19 @@
     <div class="brand-mark">NS</div>
     <div class="brand-copy">
       <h1>novel-studio</h1>
-      <p>创作进度控制台</p>
+      <p data-i18n="brand.tagline">Writing progress console</p>
     </div>
   </div>
   <div class="head-meta">
-    <a class="pill" href="/broadcast" style="text-decoration:none" title="打开直播展示页">直播模式 ↗</a>
-    <span id="conn"><span class="dot live"></span><span>已连接</span></span>
-    <span id="runs-source-wrap">数据源 <code id="runs-dir">data/runs/</code></span>
+    <div class="lang-switch" id="lang-switch" role="group" data-i18n-aria="lang.group" aria-label="Interface language">
+      <button type="button" data-lang="en" class="on">EN</button>
+      <button type="button" data-lang="zh">中文</button>
+    </div>
+    <a class="pill" href="/broadcast" style="text-decoration:none" data-i18n="nav.broadcast" data-i18n-title="nav.broadcastTitle" title="Open the live view page">Live view ↗</a>
+    <span id="conn"><span class="dot live"></span><span data-i18n="conn.live">Live</span></span>
+    <span id="runs-source-wrap"><span data-i18n="header.dataSource">Data source</span> <code id="runs-dir">data/runs/</code></span>
     <span id="tick">—</span>
-    <button class="icon-btn" id="manual-refresh" type="button" title="立即刷新" aria-label="立即刷新">↻</button>
+    <button class="icon-btn" id="manual-refresh" type="button" data-i18n-title="header.refresh" data-i18n-aria="header.refresh" title="Refresh now" aria-label="Refresh now">↻</button>
   </div>
 </header>
 
@@ -625,10 +633,10 @@
   <section class="portfolio" aria-labelledby="portfolio-title">
     <div class="portfolio-head">
       <div>
-        <h2 id="portfolio-title">创作全局</h2>
-        <p>正文、评审、运行队列与沉淀资产的实时汇总</p>
+        <h2 id="portfolio-title" data-i18n="portfolio.title">Project overview</h2>
+        <p data-i18n="portfolio.subtitle">Live summary of drafts, reviews, the run queue and accumulated assets</p>
       </div>
-      <div class="scan-meta" id="scan-meta">等待首次扫描</div>
+      <div class="scan-meta" id="scan-meta" data-i18n="portfolio.scanWaiting">Waiting for the first scan</div>
     </div>
     <div class="portfolio-metrics" id="portfolio-metrics"></div>
   </section>
@@ -636,27 +644,27 @@
   <div class="toolbar">
     <label class="search-box">
       <span aria-hidden="true">⌕</span>
-      <input id="project-search" type="search" placeholder="搜索书名、目录、模型" autocomplete="off">
+      <input id="project-search" type="search" data-i18n-ph="toolbar.search" placeholder="Search title, folder, model" autocomplete="off">
     </label>
-    <div class="segmented" id="project-filter" aria-label="项目状态筛选">
-      <button type="button" class="on" data-filter="all">全部</button>
-      <button type="button" data-filter="running">运行中</button>
-      <button type="button" data-filter="attention">待处理</button>
-      <button type="button" data-filter="idle">空闲</button>
+    <div class="segmented" id="project-filter" data-i18n-aria="toolbar.filter" aria-label="Filter by status">
+      <button type="button" class="on" data-filter="all" data-i18n="filter.all">All</button>
+      <button type="button" data-filter="running" data-i18n="filter.running">Running</button>
+      <button type="button" data-filter="attention" data-i18n="filter.attention">Needs attention</button>
+      <button type="button" data-filter="idle" data-i18n="filter.idle">Idle</button>
     </div>
-    <select id="project-sort" aria-label="项目排序">
-      <option value="activity">按最近活动</option>
-      <option value="attention">按待处理优先</option>
-      <option value="progress">按完成进度</option>
-      <option value="name">按书名</option>
+    <select id="project-sort" data-i18n-aria="toolbar.sort" aria-label="Sort projects">
+      <option value="activity" data-i18n="sort.activity">By recent activity</option>
+      <option value="attention" data-i18n="sort.attention">Needs attention first</option>
+      <option value="progress" data-i18n="sort.progress">By completion</option>
+      <option value="name" data-i18n="sort.name">By title</option>
     </select>
-    <span class="result-count" id="result-count">0 个项目</span>
+    <span class="result-count" id="result-count" data-i18n="toolbar.results">0 projects</span>
   </div>
 
   <div class="project-list" id="grid"></div>
   <div class="empty" id="empty" style="display:none">
-    <b>还没有书目工程</b>
-    在 <code>data/runs/&lt;书名&gt;/</code> 下用 <code>novel-studio --pipeline</code> 开一本书，这里会自动出现它的进度。
+    <b data-i18n="empty.title">No projects yet</b>
+    <span data-i18n-html="empty.body">Start one with <code>novel-studio --pipeline</code> under <code>data/runs/&lt;title&gt;/</code> and its progress shows up here automatically.</span>
   </div>
 </main>
 
@@ -669,29 +677,421 @@
       <button class="close" id="d-close">✕</button>
     </div>
     <div class="tabs" id="tabs">
-      <button class="tab on" data-tab="overview">总览</button>
-      <button class="tab" data-tab="setting">设定</button>
-      <button class="tab" data-tab="cast">人物</button>
-      <button class="tab" data-tab="growth">成长轨迹</button>
-      <button class="tab" data-tab="plan">计划</button>
-      <button class="tab" data-tab="offscreen">离屏世界</button>
-      <button class="tab" data-tab="quality">质量</button>
-      <button class="tab" data-tab="log">运行</button>
+      <button class="tab on" data-tab="overview" data-i18n="tab.overview">Overview</button>
+      <button class="tab" data-tab="setting" data-i18n="tab.setting">Settings</button>
+      <button class="tab" data-tab="cast" data-i18n="tab.cast">Characters</button>
+      <button class="tab" data-tab="growth" data-i18n="tab.growth">Growth arc</button>
+      <button class="tab" data-tab="plan" data-i18n="tab.plan">Plan</button>
+      <button class="tab" data-tab="offscreen" data-i18n="tab.offscreen">Off-screen world</button>
+      <button class="tab" data-tab="quality" data-i18n="tab.quality">Quality</button>
+      <button class="tab" data-tab="log" data-i18n="tab.log">Run log</button>
     </div>
   </div>
-  <div class="drawer-body" id="d-body"><div class="loading">加载中…</div></div>
+  <div class="drawer-body" id="d-body"><div class="loading" data-i18n="drawer.loading">Loading…</div></div>
 </aside>
 
 <script>
 "use strict";
 const $ = (s, el = document) => el.querySelector(s);
+
+/* ---------- interface language ------------------------------------------
+   English is canonical (I18N.en / DICT.*.en). The zh entries are legacy: a
+   missing key falls back to English, so deleting them later ("remove Chinese
+   altogether") needs no call-site changes — same rule as the Go catalogs. */
+const I18N = {
+  en: {
+    "brand.tagline": "Writing progress console",
+    "title.base": "novel-studio · Writing progress console",
+    "title.running": "%s running · ",
+    "nav.broadcast": "Live view ↗",
+    "nav.broadcastTitle": "Open the live view page",
+    "lang.group": "Interface language",
+    "conn.live": "Live",
+    "conn.streaming": "Live updating",
+    "conn.down": "Disconnected, retrying…",
+    "header.dataSource": "Data source",
+    "header.refresh": "Refresh now",
+
+    "portfolio.title": "Project overview",
+    "portfolio.subtitle": "Live summary of drafts, reviews, the run queue and accumulated assets",
+    "portfolio.scanWaiting": "Waiting for the first scan",
+    "portfolio.scanEvery": "Scans every 4 s · last at %s",
+
+    "toolbar.search": "Search title, folder, model",
+    "toolbar.filter": "Filter by status",
+    "toolbar.sort": "Sort projects",
+    "toolbar.results": "%s projects",
+    "filter.all": "All",
+    "filter.running": "Running",
+    "filter.attention": "Needs attention",
+    "filter.idle": "Idle",
+    "sort.activity": "By recent activity",
+    "sort.attention": "Needs attention first",
+    "sort.progress": "By completion",
+    "sort.name": "By title",
+
+    "empty.title": "No projects yet",
+    "empty.body": "Start one with <code>novel-studio --pipeline</code> under <code>data/runs/&lt;title&gt;/</code> and its progress shows up here automatically.",
+
+    "tab.overview": "Overview",
+    "tab.setting": "Settings",
+    "tab.cast": "Characters",
+    "tab.growth": "Growth arc",
+    "tab.plan": "Plan",
+    "tab.offscreen": "Off-screen world",
+    "tab.quality": "Quality",
+    "tab.log": "Run log",
+    "drawer.loading": "Loading…",
+    "drawer.loadError": "Failed to load: %s — retrying shortly…",
+    "num.k": "k",
+    "card.openDetail": "Open details for %s",
+    "verdict.pass": "Pass",
+    "verdict.pending": "Pending review",
+
+    "word.chapters": "chapters",
+    "time.secAgo": "%s sec ago",
+    "time.minAgo": "%s min ago",
+    "time.hourAgo": "%s h ago",
+    "time.dayAgo": "%s d ago",
+    "time.minutes": "%s min",
+    "time.hours": "%s h",
+    "time.days": "%s d",
+    "chapter.current": "Chapter %s",
+    "chapter.none": "not started yet",
+
+    "step.chainProgress": "progress",
+    "plan.stageFallback": "Planning stage",
+    "plan.cycle": " / cycle %s",
+    "plan.rehearsing": "Rehearsing chapter %s",
+    "plan.targeting": "Planning chapter %s",
+    "plan.notRunning": " (not running)",
+    "plan.summary": "Accepted %s chapters | %s | formal plan %s/%s",
+    "plan.noCommit": "no role-planning commit yet",
+    "plan.lastEvent": "Checkpoint pending review",
+    "plan.stalled": " · persistent progress stalled",
+    "plan.latestCommit": "Latest business commit (run level)",
+    "plan.heartbeat": "Heartbeat",
+    "plan.heartbeatNote": " (liveness only, no progress credit)",
+
+    "card.ragRebuild": "RAG rebuild",
+    "card.rewriteChapter": "Rewrite chapter %s",
+    "card.noChapter": "no prose yet",
+    "card.awaitingNext": "waiting for the next step",
+    "card.awaitingPipeline": "waiting for a pipeline action",
+    "card.planning": "planning",
+    "card.notStarted": "not started",
+    "card.notSet": "not set",
+    "card.modelMissing": "model not recorded",
+    "card.noGenerationId": "no generation id",
+    "card.pendingHealth": "unchecked",
+    "card.archived": "Archived",
+    "card.toRewrite": "%s chapters to rewrite",
+    "card.bookProgress": "Book progress",
+    "card.archivedLabel": "Committed",
+    "card.outlineFrozen": "Frozen outline",
+    "card.arcPlanning": "Arc planning",
+    "card.qualityPassed": "Quality passed",
+    "card.cursor": "Prose cursor",
+    "card.volumeArc": "Volume/arc",
+    "card.onDisk": "On disk",
+    "card.outlined": "Outline entries",
+    "card.currentRun": "Current run",
+    "card.qualityOutput": "Quality & output",
+    "card.words": "%s words",
+    "card.reviewsPassed": "Reviews passed",
+    "card.aiGate": "AI gate",
+    "card.rewrittenChapters": "Rewritten chapters",
+    "card.avgWords": "Avg words/chapter",
+    "card.wordContract": "Word contract",
+    "card.coreAssets": "Core assets",
+
+    "card.stagesUnrecorded": "not recorded",
+    "card.model": "Model",
+    "card.tokens": "In/out",
+    "card.ledgerCost": "Ledger cost",
+    "card.mode": "Mode",
+    "card.updated": "Updated %s",
+    "card.ragRunning": "Rebuilding the project index; the prose chapter counter does not advance.",
+    "card.planningNote": "Working on planning assets; the prose chapter counter has not started.",
+    "card.errorRecovered": "Continued after a recent error: ",
+    "card.errorCurrent": "Current error: ",
+    "card.rewriteReasonLabel": "Rewrite reason: ",
+
+    "pf.projects": "Projects",
+    "pf.projectsSub": "%s chapter target",
+    "pf.running": "Running now",
+    "pf.runningYes": "run queue updating",
+    "pf.runningNo": "no active task right now",
+    "pf.attention": "Needs attention",
+    "pf.attentionSub": "%s chapters in the rewrite queue",
+    "pf.committed": "Committed chapters",
+    "pf.committedSub": "%s chapters written to disk",
+    "pf.reviews": "Reviews passed",
+    "pf.reviewsSub": "%s chapters passed the AI gate",
+    "pf.words": "Prose words",
+    "pf.wordsSub": "%s output tokens",
+    "pf.cost": "Ledger cost",
+    "pf.costSub": "cache savings %s",
+    "pf.issues": "Data drift",
+    "pf.issuesYes": "expand a project for details",
+    "pf.issuesNo": "progress matches the prose"
+  },
+  zh: {
+    "brand.tagline": "创作进度控制台",
+    "title.base": "novel-studio · 创作进度看板",
+    "title.running": "%s 本执行中 · ",
+    "nav.broadcast": "直播模式 ↗",
+    "nav.broadcastTitle": "打开直播展示页",
+    "lang.group": "界面语言",
+    "conn.live": "已连接",
+    "conn.streaming": "实时刷新",
+    "conn.down": "连接断开，重试中…",
+    "header.dataSource": "数据源",
+    "header.refresh": "立即刷新",
+
+    "portfolio.title": "创作全局",
+    "portfolio.subtitle": "正文、评审、运行队列与沉淀资产的实时汇总",
+    "portfolio.scanWaiting": "等待首次扫描",
+    "portfolio.scanEvery": "每 4 秒扫描 · 最近 %s",
+
+    "toolbar.search": "搜索书名、目录、模型",
+    "toolbar.filter": "项目状态筛选",
+    "toolbar.sort": "项目排序",
+    "toolbar.results": "%s 个项目",
+    "filter.all": "全部",
+    "filter.running": "运行中",
+    "filter.attention": "待处理",
+    "filter.idle": "空闲",
+    "sort.activity": "按最近活动",
+    "sort.attention": "按待处理优先",
+    "sort.progress": "按完成进度",
+    "sort.name": "按书名",
+
+    "empty.title": "还没有书目工程",
+    "empty.body": "在 <code>data/runs/&lt;书名&gt;/</code> 下用 <code>novel-studio --pipeline</code> 开一本书，这里会自动出现它的进度。",
+
+    "tab.overview": "总览",
+    "tab.setting": "设定",
+    "tab.cast": "人物",
+    "tab.growth": "成长轨迹",
+    "tab.plan": "计划",
+    "tab.offscreen": "离屏世界",
+    "tab.quality": "质量",
+    "tab.log": "运行",
+    "drawer.loading": "加载中…",
+    "drawer.loadError": "加载失败：%s，稍后自动重试…",
+    "num.k": "k",
+    "card.openDetail": "查看 %s 详情",
+    "verdict.pass": "通过",
+    "verdict.pending": "待审",
+
+    "word.chapters": "章",
+    "time.secAgo": "%s 秒前",
+    "time.minAgo": "%s 分钟前",
+    "time.hourAgo": "%s 小时前",
+    "time.dayAgo": "%s 天前",
+    "time.minutes": "%s 分钟",
+    "time.hours": "%s 小时",
+    "time.days": "%s 天",
+    "chapter.current": "第 %s 章",
+    "chapter.none": "尚未进入正文",
+
+    "step.chainProgress": "进展",
+    "plan.stageFallback": "规划阶段",
+    "plan.cycle": "／周期 %s",
+    "plan.rehearsing": "正在推演第 %s 章",
+    "plan.targeting": "规划目标第 %s 章",
+    "plan.notRunning": "（未运行）",
+    "plan.summary": "已接受 %s 章｜%s｜正式计划 %s/%s",
+    "plan.noCommit": "尚无角色规划提交",
+    "plan.lastEvent": "检查点待核对",
+    "plan.stalled": " · 持久进展停滞",
+    "plan.latestCommit": "最近业务提交（运行级）",
+    "plan.heartbeat": "心跳",
+    "plan.heartbeatNote": "（仅存活，不计进展）",
+
+    "card.ragRebuild": "RAG 重建",
+    "card.rewriteChapter": "返工第 %s 章",
+    "card.noChapter": "尚未进入章节",
+    "card.awaitingNext": "等待下一步",
+    "card.awaitingPipeline": "等待 pipeline 动作",
+    "card.planning": "规划",
+    "card.notStarted": "未开始",
+    "card.notSet": "未设置",
+    "card.modelMissing": "模型未记录",
+    "card.noGenerationId": "无 generation id",
+    "card.pendingHealth": "待校验",
+    "card.archived": "历史工程",
+    "card.toRewrite": "%s 章待返工",
+    "card.bookProgress": "全书进度",
+    "card.archivedLabel": "已归档",
+    "card.outlineFrozen": "冻结分层大纲",
+    "card.arcPlanning": "正式弧规划",
+    "card.qualityPassed": "质检通过",
+    "card.cursor": "正文游标",
+    "card.volumeArc": "卷/弧",
+    "card.onDisk": "落盘",
+    "card.outlined": "分层大纲",
+    "card.currentRun": "当前执行",
+    "card.qualityOutput": "质量与产出",
+    "card.words": "%s 字",
+    "card.reviewsPassed": "评审通过",
+    "card.aiGate": "AI 门禁",
+    "card.rewrittenChapters": "已返工章",
+    "card.avgWords": "章均字数",
+    "card.wordContract": "字数契约",
+    "card.coreAssets": "核心资产",
+
+    "card.stagesUnrecorded": "未记录",
+    "card.model": "模型",
+    "card.tokens": "输入/输出",
+    "card.ledgerCost": "账本记录成本",
+    "card.mode": "模式",
+    "card.updated": "更新 %s",
+    "card.ragRunning": "正在重建项目检索索引，不推进正文章号。",
+    "card.planningNote": "当前处理规划资产，不代表正文章号已经开始。",
+    "card.errorRecovered": "近期错误后已继续：",
+    "card.errorCurrent": "当前错误：",
+    "card.rewriteReasonLabel": "返工原因：",
+
+    "pf.projects": "项目",
+    "pf.projectsSub": "%s 章总目标",
+    "pf.running": "正在执行",
+    "pf.runningYes": "运行队列持续更新",
+    "pf.runningNo": "当前无活跃任务",
+    "pf.attention": "待处理",
+    "pf.attentionSub": "%s 章返工队列",
+    "pf.committed": "已归档章节",
+    "pf.committedSub": "%s 章正文落盘",
+    "pf.reviews": "评审通过",
+    "pf.reviewsSub": "%s 章通过 AI 门禁",
+    "pf.words": "正文实算",
+    "pf.wordsSub": "%s 输出 tokens",
+    "pf.cost": "账本记录成本",
+    "pf.costSub": "缓存节省 %s",
+    "pf.issues": "数据差异",
+    "pf.issuesYes": "展开项目查看明细",
+    "pf.issuesNo": "进度与正文一致"
+  }
+};
+
+/* Label tables. en is canonical; zh overlays it, so a key missing from zh
+   shows English instead of a raw identifier. */
+const DICT = {
+  phase: {
+    en: { init: "Init", premise: "Premise design", outline: "Outline", writing: "Writing", complete: "Complete", unknown: "Unknown" },
+    zh: { init: "初始化", premise: "前提设计", outline: "大纲规划", writing: "写作中", complete: "已完结", unknown: "未知" }
+  },
+  step: {
+    en: { rag: "RAG rebuild", simulate: "Rehearse", plan: "Plan", draft: "Draft", check: "Check", commit: "Commit", review: "Review", rewrite: "Rewrite", deliver: "Deliver" },
+    zh: { rag: "RAG 重建", simulate: "推演", plan: "计划", draft: "落稿", check: "校验", commit: "提交", review: "评审", rewrite: "返工", deliver: "交付" }
+  },
+  stage: {
+    en: { "rag-build": "RAG rebuild", foundation: "Foundation freeze", "outline-all": "Full-book outline", preplan: "Arc planning prep", "rehearse-arc": "Arc rehearsal (informal chapter plan)", "project-all": "Formal arc planning", seal: "Arc planning sealed", render: "Prose rendering" },
+    zh: { "rag-build": "RAG 重建", foundation: "基础冻结", "outline-all": "全书分层大纲", preplan: "弧规划准备", "rehearse-arc": "整弧条件预演（非正式章节计划）", "project-all": "正式弧推演规划", seal: "弧规划封存", render: "正文渲染" }
+  },
+  runtime: {
+    en: { running: "Running", error: "Error", attention: "Needs attention", idle: "Idle", complete: "Complete" },
+    zh: { running: "运行中", error: "运行异常", attention: "待处理", idle: "空闲", complete: "已完结" }
+  },
+  health: {
+    en: { ok: "Consistent", warning: "Drift", error: "Conflict" },
+    zh: { ok: "数据一致", warning: "有差异", error: "数据冲突" }
+  },
+  tier: {
+    en: { core: "Core", important: "Important", secondary: "Secondary", protagonist: "Lead", supporting: "Supporting", background: "Background" },
+    zh: { core: "核心", important: "重要", secondary: "次要", protagonist: "主角", supporting: "配角", background: "背景" }
+  },
+  planPhase: {
+    en: {
+      context_bound: "Context bound (not counted)", proposal_committed: "Role proposal committed",
+      arbitration_committed: "Arbitration committed", cycle_committed: "Cycle committed",
+      readiness_committed: "Readiness committed", bundle_committed: "Formal chapter plan committed"
+    },
+    zh: {
+      context_bound: "本周期输入已绑定（不计业务进展）", proposal_committed: "角色提案已提交",
+      arbitration_committed: "裁决已提交", cycle_committed: "周期已提交",
+      readiness_committed: "就绪判断已提交", bundle_committed: "正式章节计划已提交"
+    }
+  }
+};
+
+let LANG = "en";
+let booted = false;
+let phaseName, stepName, stageName, runtimeName, healthName, TIER_LABEL, planPhase;
+
+const LOCALE = () => (LANG === "zh" ? "zh-CN" : "en-GB");
+const t = key => (I18N[LANG] && I18N[LANG][key]) || I18N.en[key] || key;
+const tf = (key, ...args) => {
+  let i = 0;
+  return t(key).replace(/%s/g, () => String(args[i++]));
+};
+
+function loadDictionaries() {
+  const pick = name => ({ ...DICT[name].en, ...(DICT[name][LANG] || {}) });
+  phaseName = pick("phase");
+  stepName = pick("step");
+  stageName = pick("stage");
+  runtimeName = pick("runtime");
+  healthName = pick("health");
+  TIER_LABEL = pick("tier");
+  planPhase = pick("planPhase");
+}
+
+function applyLang(lang) {
+  LANG = lang === "zh" ? "zh" : "en";
+  document.documentElement.lang = LANG === "zh" ? "zh-CN" : "en";
+  loadDictionaries();
+  document.querySelectorAll("[data-i18n]").forEach(el => { el.textContent = t(el.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-html]").forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+  document.querySelectorAll("[data-i18n-title]").forEach(el => { el.title = t(el.dataset.i18nTitle); });
+  document.querySelectorAll("[data-i18n-aria]").forEach(el => { el.setAttribute("aria-label", t(el.dataset.i18nAria)); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+  document.querySelectorAll("#lang-switch button").forEach(btn => {
+    btn.classList.toggle("on", btn.dataset.lang === LANG);
+  });
+  // Re-render whatever is on screen with the new language.
+  if (booted) {
+    refresh();
+    if (currentDetail) loadTab(true);
+  }
+}
+
+function initLanguage() {
+  // localStorage first so a returning user never sees a flash of the other
+  // language; the server value wins because config.json is what the CLI reads.
+  let saved = "en";
+  try { saved = localStorage.getItem("ns-lang") || "en"; } catch { /* storage blocked */ }
+  applyLang(saved === "zh" ? "zh" : "en");
+  fetch("/api/settings", { cache: "no-store" })
+    .then(r => (r.ok ? r.json() : null))
+    .then(s => { if (s && s.language && s.language !== LANG) applyLang(s.language); })
+    .catch(() => { /* keep the current language if settings are unreachable */ });
+}
+
+document.querySelectorAll("#lang-switch button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const lang = btn.dataset.lang === "zh" ? "zh" : "en";
+    try { localStorage.setItem("ns-lang", lang); } catch { /* storage blocked */ }
+    applyLang(lang);
+    fetch("/api/settings", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ language: lang })
+    }).catch(() => { /* UI already switched; config write is best effort */ });
+  });
+});
 const grid = $("#grid"), empty = $("#empty");
 const overlay = $("#overlay"), drawer = $("#drawer");
 let currentDetail = null, currentTab = "overview", detailTimer = null;
 let detailRequest = null;
 let allNovels = [], activeFilter = "all", refreshing = false;
 
-const fmtNum = n => (n >= 10000 ? (n / 10000).toFixed(1) + " 万" : String(n ?? 0));
+const fmtNum = n => {
+  if (n < 10000) return String(n ?? 0);
+  // Chinese counts in 万 (10k), English in k — same value, local idiom.
+  return LANG === "zh" ? (n / 10000).toFixed(1) + " 万" : (n / 1000).toFixed(1) + " " + t("num.k");
+};
 const fmtMoney = n => "$" + (n ?? 0).toFixed(2);
 function fmtCharacterCost(usage = {}) {
   const sources = usage.cost_sources || {};
@@ -710,28 +1110,23 @@ function fmtCharacterCost(usage = {}) {
   if (usage.cost_source === "estimated" || Number(sources.estimated) > 0) return `约 ${money}（估算）`;
   return `${money}（已知）`;
 }
-const phaseName = { init: "初始化", premise: "前提设计", outline: "大纲规划", writing: "写作中", complete: "已完结", unknown: "未知" };
-const stepName = { rag: "RAG 重建", simulate: "推演", plan: "计划", draft: "落稿", check: "校验", commit: "提交", review: "评审", rewrite: "返工", deliver: "交付" };
-const stageName = { "rag-build": "RAG 重建", foundation: "基础冻结", "outline-all": "全书分层大纲", preplan: "弧规划准备", "rehearse-arc": "整弧条件预演（非正式章节计划）", "project-all": "正式弧推演规划", seal: "弧规划封存", render: "正文渲染" };
-const runtimeName = { running: "运行中", error: "运行异常", attention: "待处理", idle: "空闲", complete: "已完结" };
-const healthName = { ok: "数据一致", warning: "有差异", error: "数据冲突" };
 const ago = ts => {
   if (!ts) return "—";
   const s = Math.max(0, Date.now() / 1000 - ts);
-  if (s < 60) return Math.floor(s) + " 秒前";
-  if (s < 3600) return Math.floor(s / 60) + " 分钟前";
-  if (s < 86400) return Math.floor(s / 3600) + " 小时前";
-  return Math.floor(s / 86400) + " 天前";
+  if (s < 60) return tf("time.secAgo", Math.floor(s));
+  if (s < 3600) return tf("time.minAgo", Math.floor(s / 60));
+  if (s < 86400) return tf("time.hourAgo", Math.floor(s / 3600));
+  return tf("time.dayAgo", Math.floor(s / 86400));
 };
 const pct = n => Math.max(0, Math.min(100, Number(n) || 0));
-const chapterText = (n, empty = "尚未进入正文") => Number(n) > 0 ? `第 ${Number(n)} 章` : empty;
-const shortTime = value => value ? new Date(value).toLocaleString("zh-CN", { hour12: false, month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "—";
+const chapterText = (n, empty) => Number(n) > 0 ? tf("chapter.current", Number(n)) : (empty || t("chapter.none"));
+const shortTime = value => value ? new Date(value).toLocaleString(LOCALE(), { hour12: false, month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", second: "2-digit" }) : "—";
 const travelTime = days => {
   if (days == null || Number.isNaN(Number(days))) return "—";
   const minutes = Math.round(Number(days) * 24 * 60);
-  if (minutes < 60) return `${minutes} 分钟`;
-  if (minutes < 24 * 60) return `${(minutes / 60).toFixed(minutes % 60 ? 1 : 0)} 小时`;
-  return `${Number(days).toFixed(1)} 天`;
+  if (minutes < 60) return tf("time.minutes", minutes);
+  if (minutes < 24 * 60) return tf("time.hours", (minutes / 60).toFixed(minutes % 60 ? 1 : 0));
+  return tf("time.days", Number(days).toFixed(1));
 };
 const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const api = (p, signal) => fetch(p, { cache: "no-store", signal }).then(r => { if (!r.ok) throw new Error(r.status); return r.json(); });
@@ -744,15 +1139,15 @@ function stepChain(w, compact) {
     if (w.chain_pos >= 0) { if (i < w.chain_pos) cls = "done"; else if (i === w.chain_pos) cls = "now"; }
     return `<span class="step ${cls}">${stepName[s] || s}</span>`;
   }).join("");
-  return `<div class="steps"><span class="lbl">第 ${w.chapter} 章${compact ? "" : " 进展"}</span>${chain}</div>`;
+  return `<div class="steps"><span class="lbl">${chapterText(w.chapter)}${compact ? "" : " " + t("step.chainProgress")}</span>${chain}</div>`;
 }
 
 function planningWorkTitle(w, runtime) {
   if (runtime.current_stage !== "project-all" || !Number.isSafeInteger(w.target_chapter) || w.target_chapter <= 0)
-    return stageName[runtime.current_stage] || "规划阶段";
+    return stageName[runtime.current_stage] || t("plan.stageFallback");
   const running = (runtime.execution || {}).active === true;
-  const cycle = Number.isSafeInteger(w.cycle) && w.cycle > 0 ? `／周期 ${w.cycle}` : "";
-  return `${running ? "正在推演" : "规划目标"}第 ${w.target_chapter} 章${cycle}${running ? "" : "（未运行）"}`;
+  const cycle = Number.isSafeInteger(w.cycle) && w.cycle > 0 ? tf("plan.cycle", w.cycle) : "";
+  return (running ? tf("plan.rehearsing", w.target_chapter) : tf("plan.targeting", w.target_chapter)) + cycle + (running ? "" : t("plan.notRunning"));
 }
 
 function renderPlanningProgress(d) {
@@ -760,15 +1155,13 @@ function renderPlanningProgress(d) {
   if (w.mode !== "planning" || runtime.current_stage !== "project-all") return "";
   const count = value => Number.isSafeInteger(value) && value >= 0 ? value : 0;
   const expected = count(formal.expected_chapters) || "?";
-  const summary = `已接受 ${count(d.chapters_completed)} 章｜${planningWorkTitle(w, runtime)}｜正式计划 ${count(formal.planned_chapters)}/${expected}`;
+  const summary = tf("plan.summary", count(d.chapters_completed), planningWorkTitle(w, runtime), count(formal.planned_chapters), expected);
   const p = runtime.planning_progress;
   let evidence = "";
   if (p) {
-    const phase = { context_bound: "本周期输入已绑定（不计业务进展）", proposal_committed: "角色提案已提交",
-      arbitration_committed: "裁决已提交", cycle_committed: "周期已提交", readiness_committed: "就绪判断已提交", bundle_committed: "正式章节计划已提交" };
-    const last = p.last_progress_kind && phase[p.last_progress_kind]
-      ? `${phase[p.last_progress_kind]} · ${shortTime(p.last_progress_at)}` : "尚无角色规划提交";
-    evidence = `<div class="latest-event">${esc(phase[p.planning_phase] || "检查点待核对")}${p.status === "stalled" ? " · 持久进展停滞" : ""}<br>最近业务提交（运行级）：${esc(last)}<br>心跳 ${esc(shortTime(p.heartbeat_at))}（仅存活，不计进展）</div>`;
+    const last = p.last_progress_kind && planPhase[p.last_progress_kind]
+      ? `${planPhase[p.last_progress_kind]} · ${shortTime(p.last_progress_at)}` : t("plan.noCommit");
+    evidence = `<div class="latest-event">${esc(planPhase[p.planning_phase] || t("plan.lastEvent"))}${p.status === "stalled" ? t("plan.stalled") : ""}<br>${t("plan.latestCommit")}: ${esc(last)}<br>${t("plan.heartbeat")} ${esc(shortTime(p.heartbeat_at))}${t("plan.heartbeatNote")}</div>`;
   }
   return `<div class="latest-event"><b>${esc(summary)}</b></div>${evidence}`;
 }
@@ -777,66 +1170,66 @@ function card(b) {
   const runtime = b.runtime || {}, health = b.health || {}, w = b.working || {};
   const formal = b.formal_planning || {};
   const status = runtime.status || (b.active ? "running" : "idle");
-  const workLabel = w.mode === "rag" ? "RAG 重建" : w.mode === "planning" ? planningWorkTitle(w, runtime) : w.mode === "rewrite" ? `返工第 ${w.chapter} 章` : chapterText(w.chapter, "尚未进入章节");
-  const latest = w.last_step || (runtime.last_event || {}).summary || "等待下一步";
+  const workLabel = w.mode === "rag" ? t("card.ragRebuild") : w.mode === "planning" ? planningWorkTitle(w, runtime) : w.mode === "rewrite" ? tf("card.rewriteChapter", w.chapter) : chapterText(w.chapter, t("card.noChapter"));
+  const latest = w.last_step || (runtime.last_event || {}).summary || t("card.awaitingNext");
   const err = w.last_error || runtime.last_error;
   const errRecovered = err && (typeof runtime.last_error_recovered === "boolean" ? runtime.last_error_recovered : w.last_at && new Date(w.last_at).getTime() > new Date(err.time || 0).getTime() && !w.last_failed);
   const target = b.chapter_word_target || {};
-  const targetText = target.min || target.max ? `${target.min || "?"}–${target.max || "?"}` : "未设置";
+  const targetText = target.min || target.max ? `${target.min || "?"}–${target.max || "?"}` : t("card.notSet");
   const healthCls = `health-${health.status || "warning"}`;
-  const model = runtime.model || "模型未记录";
-  return `<article class="project-card status-${esc(status)}" data-dir="${esc(b.dir)}" tabindex="0" role="button" aria-label="查看 ${esc(b.name)} 详情">
+  const model = runtime.model || t("card.modelMissing");
+  return `<article class="project-card status-${esc(status)}" data-dir="${esc(b.dir)}" tabindex="0" role="button" aria-label="${tf("card.openDetail", esc(b.name))}">
     <div class="project-top">
       <div class="project-identity">
         <div class="project-name-row"><span class="status-dot ${esc(status)}"></span><h2>${esc(b.name)}</h2></div>
-        <div class="project-sub">${esc(b.dir)} · ${esc(b.generation_id || "无 generation id")}</div>
+        <div class="project-sub">${esc(b.dir)} · ${esc(b.generation_id || t("card.noGenerationId"))}</div>
       </div>
       <div class="project-badges">
         <span class="pill phase-${esc(b.phase)}">${phaseName[b.phase] || esc(b.phase)}</span>
         <span class="tag ${status === "running" ? "ok" : status === "error" || status === "attention" ? "rewrite" : "pending"}">${runtimeName[status] || esc(status)}</span>
-        <span class="tag ${healthCls}">${healthName[health.status] || "待校验"}</span>
-        ${b.archived ? '<span class="tag pending">历史工程</span>' : ""}
-        ${b.rewrite_pending ? `<span class="tag rewrite">${b.rewrite_pending} 章待返工</span>` : ""}
+        <span class="tag ${healthCls}">${healthName[health.status] || t("card.pendingHealth")}</span>
+        ${b.archived ? `<span class="tag pending">${t("card.archived")}</span>` : ""}
+        ${b.rewrite_pending ? `<span class="tag rewrite">${tf("card.toRewrite", b.rewrite_pending)}</span>` : ""}
       </div>
       <span class="open-detail" aria-hidden="true">›</span>
     </div>
     <div class="project-body">
       <section class="project-section">
-        <div class="section-kicker"><span>全书进度</span><b>${b.chapters_completed} / ${b.chapters_total || "?"} 章</b></div>
-        <div class="progress-line"><span>已归档</span><span class="trackbar"><i style="width:${pct(b.progress_percent)}%"></i></span><strong>${pct(b.progress_percent).toFixed(1)}%</strong></div>
-        <div class="progress-line plan"><span>冻结分层大纲</span><span class="trackbar"><i style="width:${pct(b.outline_percent)}%"></i></span><strong>${pct(b.outline_percent).toFixed(1)}%</strong></div>
-        <div class="progress-line plan"><span>正式弧规划</span><span class="trackbar"><i style="width:${pct(formal.percent)}%"></i></span><strong>${esc(formal.label || "未开始")} · ${formal.planned_chapters || 0}/${formal.expected_chapters || "?"}</strong></div>
-        <div class="progress-line quality"><span>质检通过</span><span class="trackbar"><i style="width:${pct(b.quality_percent)}%"></i></span><strong>${b.reviews_accepted}/${b.chapters_on_disk}</strong></div>
-        <div class="progress-facts"><span>正文游标 <b>${chapterText(b.current_chapter)}</b></span><span>卷/弧 <b>${b.volume || "-"}/${b.arc || "-"}</b></span><span>落盘 <b>${b.chapters_on_disk}</b></span><span>分层大纲 <b>${b.chapters_outlined || 0}</b></span></div>
+        <div class="section-kicker"><span>${t("card.bookProgress")}</span><b>${b.chapters_completed} / ${b.chapters_total || "?"} ${t("word.chapters")}</b></div>
+        <div class="progress-line"><span>${t("card.archivedLabel")}</span><span class="trackbar"><i style="width:${pct(b.progress_percent)}%"></i></span><strong>${pct(b.progress_percent).toFixed(1)}%</strong></div>
+        <div class="progress-line plan"><span>${t("card.outlineFrozen")}</span><span class="trackbar"><i style="width:${pct(b.outline_percent)}%"></i></span><strong>${pct(b.outline_percent).toFixed(1)}%</strong></div>
+        <div class="progress-line plan"><span>${t("card.arcPlanning")}</span><span class="trackbar"><i style="width:${pct(formal.percent)}%"></i></span><strong>${esc(formal.label || t("card.notStarted"))} · ${formal.planned_chapters || 0}/${formal.expected_chapters || "?"}</strong></div>
+        <div class="progress-line quality"><span>${t("card.qualityPassed")}</span><span class="trackbar"><i style="width:${pct(b.quality_percent)}%"></i></span><strong>${b.reviews_accepted}/${b.chapters_on_disk}</strong></div>
+        <div class="progress-facts"><span>${t("card.cursor")} <b>${chapterText(b.current_chapter)}</b></span><span>${t("card.volumeArc")} <b>${b.volume || "-"}/${b.arc || "-"}</b></span><span>${t("card.onDisk")} <b>${b.chapters_on_disk}</b></span><span>${t("card.outlined")} <b>${b.chapters_outlined || 0}</b></span></div>
       </section>
       <section class="project-section">
-        <div class="section-kicker"><span>当前执行</span><b>${runtimeName[status] || esc(status)}</b></div>
-        <div class="current-title"><b>${workLabel}</b><span>${w.mode === "planning" ? esc(stageName[runtime.current_stage] || runtime.current_stage || "规划") : w.step ? stepName[w.step] || esc(w.step) : "等待 pipeline 动作"}</span></div>
+        <div class="section-kicker"><span>${t("card.currentRun")}</span><b>${runtimeName[status] || esc(status)}</b></div>
+        <div class="current-title"><b>${workLabel}</b><span>${w.mode === "planning" ? esc(stageName[runtime.current_stage] || runtime.current_stage || t("card.planning")) : w.step ? stepName[w.step] || esc(w.step) : t("card.awaitingPipeline")}</span></div>
         ${renderPlanningProgress(b)}
-        ${w.mode === "rag" ? '<div class="latest-event">正在重建项目检索索引，不推进正文章号。</div>' : w.mode === "planning" ? '<div class="latest-event">当前处理规划资产，不代表正文章号已经开始。</div>' : stepChain(w, true)}
+        ${w.mode === "rag" ? `<div class="latest-event">${t("card.ragRunning")}</div>` : w.mode === "planning" ? `<div class="latest-event">${t("card.planningNote")}</div>` : stepChain(w, true)}
         <div class="latest-event"><b>${esc(latest)}</b>${w.last_agent ? ` · ${esc(w.last_agent)}` : ""} · ${shortTime(w.last_at)}</div>
-        ${err && (runtime.active || status === "error") ? `<div class="runtime-error ${errRecovered ? "recovered" : ""}">${errRecovered ? "近期错误后已继续：" : "当前错误："}${esc(err.summary || err.detail)}</div>` : ""}
+        ${err && (runtime.active || status === "error") ? `<div class="runtime-error ${errRecovered ? "recovered" : ""}">${errRecovered ? t("card.errorRecovered") : t("card.errorCurrent")}${esc(err.summary || err.detail)}</div>` : ""}
       </section>
       <section class="project-section">
-        <div class="section-kicker"><span>质量与产出</span><b>${fmtNum(b.words_total)} 字</b></div>
+        <div class="section-kicker"><span>${t("card.qualityOutput")}</span><b>${tf("card.words", fmtNum(b.words_total))}</b></div>
         <div class="quality-grid">
-          <div class="quality-metric"><div class="v">${b.reviews_accepted}/${b.reviews_total}</div><div class="k">评审通过</div></div>
-          <div class="quality-metric"><div class="v">${b.gate_passed}/${b.gate_total}</div><div class="k">AI 门禁</div></div>
-          <div class="quality-metric"><div class="v">${b.rewritten_count}</div><div class="k">已返工章</div></div>
-          <div class="quality-metric"><div class="v">${fmtNum(b.average_chapter_words)}</div><div class="k">章均字数</div></div>
-          <div class="quality-metric"><div class="v">${targetText}</div><div class="k">字数契约</div></div>
-          <div class="quality-metric"><div class="v">${b.assets_ready}/${b.assets_total}</div><div class="k">核心资产</div></div>
+          <div class="quality-metric"><div class="v">${b.reviews_accepted}/${b.reviews_total}</div><div class="k">${t("card.reviewsPassed")}</div></div>
+          <div class="quality-metric"><div class="v">${b.gate_passed}/${b.gate_total}</div><div class="k">${t("card.aiGate")}</div></div>
+          <div class="quality-metric"><div class="v">${b.rewritten_count}</div><div class="k">${t("card.rewrittenChapters")}</div></div>
+          <div class="quality-metric"><div class="v">${fmtNum(b.average_chapter_words)}</div><div class="k">${t("card.avgWords")}</div></div>
+          <div class="quality-metric"><div class="v">${targetText}</div><div class="k">${t("card.wordContract")}</div></div>
+          <div class="quality-metric"><div class="v">${b.assets_ready}/${b.assets_total}</div><div class="k">${t("card.coreAssets")}</div></div>
         </div>
-        <div class="quality-note">${b.rewrite_reason ? `<strong>返工原因：</strong>${esc(b.rewrite_reason)}` : `pipeline ${esc((b.pipeline_stages || []).join(" → ") || "未记录")} · RAG ${fmtNum(b.rag_chunks)} chunks`}</div>
+        <div class="quality-note">${b.rewrite_reason ? `<strong>${t("card.rewriteReasonLabel")}</strong>${esc(b.rewrite_reason)}` : `pipeline ${esc((b.pipeline_stages || []).join(" → ") || t("card.stagesUnrecorded"))} · RAG ${fmtNum(b.rag_chunks)} chunks`}</div>
       </section>
     </div>
     <footer class="project-footer">
-      <span>模型 <b>${esc(model)}</b>${runtime.planning_tier ? ` · ${esc(runtime.planning_tier)}` : ""}</span>
-      <span>输入/输出 <b>${fmtNum(b.tokens_in)} / ${fmtNum(b.tokens_out)}</b></span>
-      <span>账本记录成本 <b>${fmtMoney(b.cost_usd)}</b></span>
+      <span>${t("card.model")} <b>${esc(model)}</b>${runtime.planning_tier ? ` · ${esc(runtime.planning_tier)}` : ""}</span>
+      <span>${t("card.tokens")} <b>${fmtNum(b.tokens_in)} / ${fmtNum(b.tokens_out)}</b></span>
+      <span>${t("card.ledgerCost")} <b>${fmtMoney(b.cost_usd)}</b></span>
       <span>RAG <b>${fmtNum(b.rag_chunks)}</b></span>
-      ${b.generation_mode ? `<span>模式 <b>${esc(b.generation_mode.replace(/_/g, " "))}</b></span>` : ""}
-      <span class="updated">更新 ${ago(b.updated_at)}</span>
+      ${b.generation_mode ? `<span>${t("card.mode")} <b>${esc(b.generation_mode.replace(/_/g, " "))}</b></span>` : ""}
+      <span class="updated">${tf("card.updated", ago(b.updated_at))}</span>
     </footer>
   </article>`;
 }
@@ -847,14 +1240,14 @@ function renderPortfolio(novels) {
   const attention = novels.filter(n => ["error", "attention"].includes((n.runtime || {}).status) || n.rewrite_pending || (n.health || {}).status === "error").length;
   const issues = novels.reduce((n, x) => n + ((x.health || {}).issues || []).length, 0);
   const metrics = [
-    ["项目", novels.length, `${sum("chapters_total")} 章总目标`, ""],
-    ["正在执行", running, running ? "运行队列持续更新" : "当前无活跃任务", "live"],
-    ["待处理", attention, `${sum("rewrite_pending")} 章返工队列`, attention ? "attn" : ""],
-    ["已归档章节", sum("chapters_completed"), `${sum("chapters_on_disk")} 章正文落盘`, ""],
-    ["评审通过", sum("reviews_accepted"), `${sum("gate_passed")} 章通过 AI 门禁`, ""],
-    ["正文实算", fmtNum(sum("words_total")), `${fmtNum(sum("tokens_out"))} 输出 tokens`, ""],
-    ["账本记录成本", fmtMoney(sum("cost_usd")), `缓存节省 ${fmtMoney(sum("saved_usd"))}`, ""],
-    ["数据差异", issues, issues ? "展开项目查看明细" : "进度与正文一致", issues ? "attn" : ""],
+    [t("pf.projects"), novels.length, tf("pf.projectsSub", sum("chapters_total")), ""],
+    [t("pf.running"), running, running ? t("pf.runningYes") : t("pf.runningNo"), "live"],
+    [t("pf.attention"), attention, tf("pf.attentionSub", sum("rewrite_pending")), attention ? "attn" : ""],
+    [t("pf.committed"), sum("chapters_completed"), tf("pf.committedSub", sum("chapters_on_disk")), ""],
+    [t("pf.reviews"), sum("reviews_accepted"), tf("pf.reviewsSub", sum("gate_passed")), ""],
+    [t("pf.words"), fmtNum(sum("words_total")), tf("pf.wordsSub", fmtNum(sum("tokens_out"))), ""],
+    [t("pf.cost"), fmtMoney(sum("cost_usd")), tf("pf.costSub", fmtMoney(sum("saved_usd"))), ""],
+    [t("pf.issues"), issues, issues ? t("pf.issuesYes") : t("pf.issuesNo"), issues ? "attn" : ""],
   ];
   $("#portfolio-metrics").innerHTML = metrics.map(([k, v, s, cls]) => `<div class="portfolio-metric ${cls}"><div class="k">${k}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("");
 }
@@ -873,14 +1266,14 @@ function applyView() {
     return matchesFilter && (!q || haystack.includes(q));
   });
   const sort = $("#project-sort").value;
-  if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name, "zh-CN"));
+  if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name, LOCALE()));
   else if (sort === "progress") list.sort((a, b) => b.progress_percent - a.progress_percent || b.updated_at - a.updated_at);
   else if (sort === "attention") list.sort((a, b) => Number(isAttention(b)) - Number(isAttention(a)) || b.updated_at - a.updated_at);
   else list.sort((a, b) => b.updated_at - a.updated_at);
   list.sort((a, b) => Number(Boolean(a.archived)) - Number(Boolean(b.archived)));
   empty.style.display = allNovels.length ? "none" : "";
   grid.innerHTML = list.map(card).join("");
-  $("#result-count").textContent = `${list.length} / ${allNovels.length} 个项目`;
+  $("#result-count").textContent = tf("toolbar.results", `${list.length} / ${allNovels.length}`);
   grid.querySelectorAll(".project-card").forEach(el => {
     el.addEventListener("click", () => openDetail(el.dataset.dir));
     el.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openDetail(el.dataset.dir); } });
@@ -892,7 +1285,8 @@ function render(novels) {
   renderPortfolio(novels);
   applyView();
   const running = novels.filter(n => (n.runtime || {}).status === "running").length;
-  document.title = (running ? `${running} 本执行中 · ` : "") + "novel-studio · 创作进度看板";
+  document.title = (running ? tf("title.running", running) : "") + t("title.base");
+  booted = true;
 }
 
 async function refresh() {
@@ -903,15 +1297,15 @@ async function refresh() {
     const data = await api("/api/novels");
     $("#runs-dir").textContent = data.runs_dir || "data/runs/";
     render(data.novels || []);
-    $("#conn").innerHTML = '<span class="dot live"></span>实时刷新';
-    $("#scan-meta").textContent = `每 4 秒扫描 · 最近 ${new Date().toLocaleTimeString("zh-CN", { hour12: false })}`;
+    $("#conn").innerHTML = `<span class="dot live"></span>${t("conn.streaming")}`;
+    $("#scan-meta").textContent = tf("portfolio.scanEvery", new Date().toLocaleTimeString(LOCALE(), { hour12: false }));
   } catch {
-    $("#conn").innerHTML = '<span class="dot err"></span>连接断开，重试中…';
+    $("#conn").innerHTML = `<span class="dot err"></span>${t("conn.down")}`;
   } finally {
     refreshing = false;
     $("#manual-refresh").disabled = false;
   }
-  $("#tick").textContent = new Date().toLocaleTimeString("zh-CN", { hour12: false });
+  $("#tick").textContent = new Date().toLocaleTimeString(LOCALE(), { hour12: false });
 }
 
 $("#project-search").addEventListener("input", applyView);
@@ -953,8 +1347,8 @@ function mdToHtml(src) {
 }
 
 /* ---------- 页签渲染 ---------- */
-const verdictTag = v => v === "accept" ? '<span class="tag accept">通过</span>'
-  : v ? `<span class="tag rewrite">${esc(v)}</span>` : '<span class="tag pending">待审</span>';
+const verdictTag = v => v === "accept" ? `<span class="tag accept">${t("verdict.pass")}</span>`
+  : v ? `<span class="tag rewrite">${esc(v)}</span>` : `<span class="tag pending">${t("verdict.pending")}</span>`;
 
 function renderCharacterPlanningProjection(projection) {
   if (!projection) return "";
@@ -1015,7 +1409,7 @@ function renderOverview(d) {
   const lastError = runtime.last_error;
   const lastEvent = runtime.last_event || {};
   const errorRecovered = lastError && (typeof runtime.last_error_recovered === "boolean" ? runtime.last_error_recovered : lastEvent.time && new Date(lastEvent.time).getTime() > new Date(lastError.time || 0).getTime() && !lastEvent.failed);
-  const healthTag = `<span class="tag health-${health.status || "warning"}">${healthName[health.status] || "待校验"}</span>`;
+  const healthTag = `<span class="tag health-${health.status || "warning"}">${healthName[health.status] || t("card.pendingHealth")}</span>`;
   const workTitle = w.mode === "rag" ? "RAG 重建" : w.mode === "planning" ? planningWorkTitle(w, runtime) : w.mode === "rewrite" ? `返工第 ${w.chapter} 章` : chapterText(w.chapter, "尚未进入章节");
   return `
     <div class="detail-kpis">
@@ -1159,7 +1553,6 @@ function renderSetting(s) {
 }
 
 const OCEAN_AXES = [["openness", "开放"], ["conscientiousness", "尽责"], ["extraversion", "外向"], ["agreeableness", "宜人"], ["neuroticism", "神经质"]];
-const TIER_LABEL = { core: "核心", important: "重要", secondary: "次要", protagonist: "主角", supporting: "配角", background: "背景" };
 
 function oceanHTML(bf) {
   if (!bf || !Object.keys(bf).length) return "";
@@ -1533,7 +1926,7 @@ async function loadTab(keepScroll) {
     else if (tab === "quality") body.innerHTML = renderQuality(d);
   } catch (e) {
     if (isCurrent() && e.name !== "AbortError") {
-      body.innerHTML = `<div class="loading">加载失败：${esc(e.message)}，稍后自动重试…</div>`;
+      body.innerHTML = `<div class="loading">${tf("drawer.loadError", esc(e.message))}</div>`;
     }
   } finally {
     if (detailRequest === request) detailRequest = null;
@@ -1543,7 +1936,7 @@ async function loadTab(keepScroll) {
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.tab === tab));
-  $("#d-body").innerHTML = '<div class="loading">加载中…</div>';
+  $("#d-body").innerHTML = `<div class="loading">${t("drawer.loading")}</div>`;
   loadTab(false);
 }
 document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => switchTab(b.dataset.tab)));
@@ -1568,6 +1961,7 @@ overlay.addEventListener("click", closeDetail);
 $("#d-close").addEventListener("click", closeDetail);
 document.addEventListener("keydown", e => e.key === "Escape" && closeDetail());
 
+initLanguage();
 refresh();
 setInterval(() => !document.hidden && refresh(), 4000);
 document.addEventListener("visibilitychange", () => {
