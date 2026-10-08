@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500;700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
@@ -17,32 +17,33 @@
     --font-display: "Pixelify Sans", "PingFang SC", "Microsoft YaHei", ui-monospace, monospace;
     --font-body: "Instrument Sans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
     --font-code: "JetBrains Mono", "PingFang SC", ui-monospace, monospace;
-    /* semantic layer - Paper */
-    --bg: var(--paper);
-    --surface: var(--paper);
-    --surface-soft: var(--sky);
-    --surface-strong: #CFE0FF;
-    --panel: var(--sky);
-    --panel-hi: #CFE0FF;
-    --line: var(--ink);
-    --line-strong: var(--ink);
-    --text: var(--ink);
-    --muted: #4A5A80;
-    --subtle: #4A5A80;
+    /* semantic layer - Ink (dark is the only theme: #07102B / #EAF1FF / #9FB2DD / #0F1D45) */
+    color-scheme: dark;
+    --bg: #07102B;
+    --surface: #07102B;
+    --surface-soft: #0F1D45;
+    --surface-strong: #15265A;
+    --panel: #0F1D45;
+    --panel-hi: #15265A;
+    --line: #EAF1FF;
+    --line-strong: #EAF1FF;
+    --text: #EAF1FF;
+    --muted: #9FB2DD;
+    --subtle: #9FB2DD;
     --accent1: var(--blue);
     --accent2: var(--deep);
     --info: var(--blue);
     --cyan: var(--blue);
     --purple: var(--deep);
     --bad: var(--err);
-    --shadow: 4px 4px 0 var(--ink);
-    --shadow-s: 4px 4px 0 var(--ink);
-    --shadow-m: 8px 8px 0 var(--ink);
+    --shadow: 4px 4px 0 #EAF1FF;
+    --shadow-s: 4px 4px 0 #EAF1FF;
+    --shadow-m: 8px 8px 0 #EAF1FF;
     --mono: var(--font-code);
-    --ok-ink: #0B7A50; --warn: #8A5A00; --warn-ink: #8A5A00;
-    --err-ink: #B3272C; --info-ink: #1B4FD1;
-    --tint-ok: #E6F6EF; --tint-warn: #FFF4D9; --tint-err: #FDE7E9;
-    --tint-info: #DCE8FF; --tint-neutral: #EDF3FF;
+    --ok-ink: #3FCF96; --warn: #FFC93C; --warn-ink: #FFC93C;
+    --err-ink: #FF8086; --info-ink: #8FB4FF;
+    --tint-ok: #0C2B22; --tint-warn: #2E2510; --tint-err: #2C1418;
+    --tint-info: #0F1D45; --tint-neutral: #0F1D45;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { height: 100%; }
@@ -53,7 +54,7 @@
     -webkit-font-smoothing: antialiased;
     min-height: 100%;
   }
-  ::selection {background: var(--tint-info); }
+  ::selection { background: var(--sky); color: var(--ink); }
 
   header {
     position: sticky; top: 0; z-index: 20;
@@ -314,32 +315,33 @@
     --font-display: "Pixelify Sans", "PingFang SC", "Microsoft YaHei", ui-monospace, monospace;
     --font-body: "Instrument Sans", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
     --font-code: "JetBrains Mono", "PingFang SC", ui-monospace, monospace;
-    /* semantic layer - Paper */
-    --bg: var(--paper);
-    --surface: var(--paper);
-    --surface-soft: var(--sky);
-    --surface-strong: #CFE0FF;
-    --panel: var(--sky);
-    --panel-hi: #CFE0FF;
-    --line: var(--ink);
-    --line-strong: var(--ink);
-    --text: var(--ink);
-    --muted: #4A5A80;
-    --subtle: #4A5A80;
+    /* semantic layer - Ink (dark is the only theme: #07102B / #EAF1FF / #9FB2DD / #0F1D45) */
+    color-scheme: dark;
+    --bg: #07102B;
+    --surface: #07102B;
+    --surface-soft: #0F1D45;
+    --surface-strong: #15265A;
+    --panel: #0F1D45;
+    --panel-hi: #15265A;
+    --line: #EAF1FF;
+    --line-strong: #EAF1FF;
+    --text: #EAF1FF;
+    --muted: #9FB2DD;
+    --subtle: #9FB2DD;
     --accent1: var(--blue);
     --accent2: var(--deep);
     --info: var(--blue);
     --cyan: var(--blue);
     --purple: var(--deep);
     --bad: var(--err);
-    --shadow: 4px 4px 0 var(--ink);
-    --shadow-s: 4px 4px 0 var(--ink);
-    --shadow-m: 8px 8px 0 var(--ink);
+    --shadow: 4px 4px 0 #EAF1FF;
+    --shadow-s: 4px 4px 0 #EAF1FF;
+    --shadow-m: 8px 8px 0 #EAF1FF;
     --mono: var(--font-code);
-    --ok-ink: #0B7A50; --warn: #8A5A00; --warn-ink: #8A5A00;
-    --err-ink: #B3272C; --info-ink: #1B4FD1;
-    --tint-ok: #E6F6EF; --tint-warn: #FFF4D9; --tint-err: #FDE7E9;
-    --tint-info: #DCE8FF; --tint-neutral: #EDF3FF;
+    --ok-ink: #3FCF96; --warn: #FFC93C; --warn-ink: #FFC93C;
+    --err-ink: #FF8086; --info-ink: #8FB4FF;
+    --tint-ok: #0C2B22; --tint-warn: #2E2510; --tint-err: #2C1418;
+    --tint-info: #0F1D45; --tint-neutral: #0F1D45;
   }
   * { letter-spacing: 0; }
   body {
@@ -347,7 +349,7 @@
     color: var(--text);
     min-width: 320px;
   }
-  ::selection { background: #ccebe5; color: #143d38; }
+  ::selection { background: var(--sky); color: var(--ink); }
   header {
     min-height: 62px;
     padding: 10px max(22px, calc((100vw - 1480px) / 2));
@@ -693,62 +695,6 @@
   .tab.on { color: var(--deep); border-bottom-color: var(--blue); }
   main { max-width: 1040px; }
 
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-    /* Semantic layer - dark (guideline tokens: #07102B / #EAF1FF / #9FB2DD / #0F1D45) */
-    --bg: #07102B;
-    --surface: #07102B;
-    --surface-soft: #0F1D45;
-    --surface-strong: #15265A;
-    --panel: #0F1D45;
-    --panel-hi: #15265A;
-    --line: #EAF1FF;
-    --line-strong: #EAF1FF;
-    --text: #EAF1FF;
-    --muted: #9FB2DD;
-    --subtle: #9FB2DD;
-    --shadow: 4px 4px 0 #EAF1FF;
-    --shadow-s: 4px 4px 0 #EAF1FF;
-    --shadow-m: 8px 8px 0 #EAF1FF;
-    --ok-ink: #3FCF96;
-    --warn: #FFC93C;
-    --warn-ink: #FFC93C;
-    --err-ink: #FF8086;
-    --info-ink: #8FB4FF;
-    --tint-ok: #0C2B22;
-    --tint-warn: #2E2510;
-    --tint-err: #2C1418;
-    --tint-info: #0F1D45;
-    --tint-neutral: #0F1D45;
-    }
-  }
-  :root[data-theme="dark"] {
-    /* Semantic layer - dark (guideline tokens: #07102B / #EAF1FF / #9FB2DD / #0F1D45) */
-    --bg: #07102B;
-    --surface: #07102B;
-    --surface-soft: #0F1D45;
-    --surface-strong: #15265A;
-    --panel: #0F1D45;
-    --panel-hi: #15265A;
-    --line: #EAF1FF;
-    --line-strong: #EAF1FF;
-    --text: #EAF1FF;
-    --muted: #9FB2DD;
-    --subtle: #9FB2DD;
-    --shadow: 4px 4px 0 #EAF1FF;
-    --shadow-s: 4px 4px 0 #EAF1FF;
-    --shadow-m: 8px 8px 0 #EAF1FF;
-    --ok-ink: #3FCF96;
-    --warn: #FFC93C;
-    --warn-ink: #FFC93C;
-    --err-ink: #FF8086;
-    --info-ink: #8FB4FF;
-    --tint-ok: #0C2B22;
-    --tint-warn: #2E2510;
-    --tint-err: #2C1418;
-    --tint-info: #0F1D45;
-    --tint-neutral: #0F1D45;
-  }
 </style>
 </head>
 <body>
