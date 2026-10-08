@@ -3,7 +3,7 @@ package rules
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // 取证/验收/公文腔浸透的整章必须被读者体验分惩罚并升级为返工红旗；而正常小说场景

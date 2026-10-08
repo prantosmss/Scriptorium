@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // OutlineStore 管理故事前提、大纲（扁平/分层）和指南针。

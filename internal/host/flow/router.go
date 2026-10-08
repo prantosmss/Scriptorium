@@ -15,8 +15,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	storepkg "github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	storepkg "github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // Instruction 指示 Host 下一步要求 Coordinator 调用的子代理与任务。

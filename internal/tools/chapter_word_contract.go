@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 type chapterWordContractResult struct {

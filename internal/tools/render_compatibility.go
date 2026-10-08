@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
 )
 
 // applyProseRenderCompatibilityOverlay injects the provider-independent v11

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // 运行时检测阈值。

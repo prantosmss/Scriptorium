@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 func TestBlockingMechanicalWarningsAndHighRiskDimensions(t *testing.T) {

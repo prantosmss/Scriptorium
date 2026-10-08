@@ -2,7 +2,7 @@ package tools
 
 import (
 	"encoding/json"
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 	"strings"
 	"testing"
 )

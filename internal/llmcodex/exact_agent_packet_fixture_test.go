@@ -11,14 +11,14 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/modelinput"
+	"github.com/prantosmss/Scriptorium/internal/modelinput"
 	"github.com/voocel/agentcore"
 )
 
 // Replays captured pre-provider fixtures only; it never invokes a model or
 // mutates a story artifact. Set the directory explicitly for private eval data.
 func TestExactAgentPacketRealArbitrationFixtures(t *testing.T) {
-	dir := os.Getenv("NOVEL_STUDIO_EXACT_PACKET_FIXTURE_DIR")
+	dir := os.Getenv("SCRIPTORIUM_EXACT_PACKET_FIXTURE_DIR")
 	if dir == "" {
 		t.Skip("requires an explicit read-only captured fixture directory")
 	}

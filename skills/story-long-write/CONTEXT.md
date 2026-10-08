@@ -1,6 +1,6 @@
 # Context Recovery
 
-长篇网文方法论与 novel-studio pipeline 适配入口。当前仓库内禁止直接生成、续写或改写正文；正文产出必须走 `novel-studio --pipeline`。核心风险是 references 很多、任务跨度长；执行时必须只读当前场景需要的文件，并把当前章号、项目目录、已读资料、风格锚点、下一步写入 .skill-context/story-long-write.md。
+长篇网文方法论与 Scriptorium pipeline 适配入口。当前仓库内禁止直接生成、续写或改写正文；正文产出必须走 `scriptorium --pipeline`。核心风险是 references 很多、任务跨度长；执行时必须只读当前场景需要的文件，并把当前章号、项目目录、已读资料、风格锚点、下一步写入 .skill-context/story-long-write.md。
 
 ## 必读顺序
 

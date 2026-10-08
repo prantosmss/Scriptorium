@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const arcWindowAggregateDirV1 = "meta/planning/v3/arc_cycle/window_aggregates"

@@ -4,8 +4,8 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 const externalSamplingAutomatedReleaseContract = "自动化验收项（本地 AIGC、同哈希 DeepSeek 与事实一致性）全部通过后即可提交；用户手工外部抽查不作为逐章阻塞项"

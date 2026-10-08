@@ -7,7 +7,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // This is a frozen host selection, not a serialized verification capability.

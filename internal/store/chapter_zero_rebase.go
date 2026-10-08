@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // ValidateRebasedChapterZeroFoundationRefresh verifies the read-only evidence

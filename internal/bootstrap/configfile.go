@@ -15,9 +15,9 @@ import (
 // utf8BOM is the byte-order mark some Windows editors prepend to UTF-8 files.
 var utf8BOM = []byte{0xEF, 0xBB, 0xBF}
 
-const configDirName = ".novel-studio"
+const configDirName = ".scriptorium"
 
-// DefaultConfigPath 返回全局配置文件路径 ~/.novel-studio/config.json。
+// DefaultConfigPath 返回全局配置文件路径 ~/.scriptorium/config.json。
 func DefaultConfigPath() string {
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -26,7 +26,7 @@ func DefaultConfigPath() string {
 	return filepath.Join(home, configDirName, "config.json")
 }
 
-// DefaultConfigDir 返回 ~/.novel-studio 目录路径；取不到家目录时返回空字符串。
+// DefaultConfigDir 返回 ~/.scriptorium 目录路径；取不到家目录时返回空字符串。
 // 仅用于读/写不强制存在的文件（如模型缓存），不会自动创建目录。
 func DefaultConfigDir() string {
 	home, err := os.UserHomeDir()
@@ -36,7 +36,7 @@ func DefaultConfigDir() string {
 	return filepath.Join(home, configDirName)
 }
 
-// configDir 返回 ~/.novel-studio 目录路径，不存在时创建。
+// configDir 返回 ~/.scriptorium 目录路径，不存在时创建。
 func configDir() (string, error) {
 	home, err := os.UserHomeDir()
 	if err != nil {
@@ -77,8 +77,8 @@ func projectConfigPath() string {
 }
 
 // LoadConfig 按优先级加载并合并配置：
-//  1. ~/.novel-studio/config.json（全局）
-//  2. ./.novel-studio/config.json（项目级覆盖）
+//  1. ~/.scriptorium/config.json（全局）
+//  2. ./.scriptorium/config.json（项目级覆盖）
 //  3. flagPath 指定的路径（最高优先级）
 func LoadConfig(flagPath string) (Config, error) {
 	var cfg Config
@@ -427,7 +427,7 @@ func stripJSONComments(data []byte) []byte {
 	return out
 }
 
-// WriteStartupError 把启动期致命错误追加写入 ~/.novel-studio/last-error.log，并返回
+// WriteStartupError 把启动期致命错误追加写入 ~/.scriptorium/last-error.log，并返回
 // 该文件路径（best-effort，失败时返回空字符串）。双击启动时控制台窗口会随进程
 // 退出立即关闭、错误一闪而过，落盘是这类用户事后追溯的唯一途径。
 func WriteStartupError(msg string) string {

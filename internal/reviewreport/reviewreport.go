@@ -11,9 +11,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 // MechanicalGatePayload is the machine-readable result written by commit_chapter.

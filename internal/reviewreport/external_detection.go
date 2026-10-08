@@ -11,12 +11,12 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
 )
 
 // RegisteredExternalDetection is a human-triggered result from a named
 // detector such as Zhuque.  Unlike the independent model judge, it represents
-// the exact payload submitted outside novel-studio and therefore participates
+// the exact payload submitted outside scriptorium and therefore participates
 // in gates only when BodySHA256 exactly matches the current prose bytes.
 type RegisteredExternalDetection struct {
 	Chapter        int      `json:"chapter"`

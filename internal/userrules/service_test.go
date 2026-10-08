@@ -3,8 +3,8 @@ package userrules
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // nil 模型 + 空规则目录：归一化全降级，但快照仍可产出（system_defaults 兜底）并落盘。

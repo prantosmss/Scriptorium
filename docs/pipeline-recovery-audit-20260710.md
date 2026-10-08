@@ -45,6 +45,6 @@
 
 ## 验证状态
 
-- 定向 Go 包：`cmd/novel-studio`、`internal/tools`、`internal/store`、`internal/domain`、`internal/agents`、`internal/entry/headless`、`assets` 已通过。
+- 定向 Go 包：`cmd/scriptorium`、`internal/tools`、`internal/store`、`internal/domain`、`internal/agents`、`internal/entry/headless`、`assets` 已通过。
 - 全库测试：`go test ./... -count=1` 已通过。
 - 目标项目迁移与第 1-2 章正式 pipeline：待全库测试通过后执行一次。

@@ -4,8 +4,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // newFlagTestHost 造一个最小 Host，只够驱动 cocreating 标记状态机与并发守卫。

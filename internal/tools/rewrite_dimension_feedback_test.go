@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 const rewriteDimensionRuleDiagnostics = "catalog_stuffing：拆散清单；dialogue_conveyor_overuse：加入有效打断；pov_interiority_thin：补足判断变化；semicolon_overuse：改成口语停顿；dramatic_negation_overuse：删除对仗否定；object_response_rhythm_flat：改变回应节拍。"

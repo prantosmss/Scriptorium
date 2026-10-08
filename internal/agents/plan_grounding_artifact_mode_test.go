@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // This tests the review transport/policy binding, not a synthetic story's

@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 	"github.com/voocel/agentcore"
 )
 

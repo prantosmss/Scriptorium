@@ -1,5 +1,5 @@
 // Package llmcodex 提供一个把 OpenAI Codex CLI（ChatGPT/Codex 订阅）适配成
-// agentcore.ChatModel 的桥。novel-studio 的 writer/architect 走 LLM function-calling，
+// agentcore.ChatModel 的桥。Scriptorium 的 writer/architect 走 LLM function-calling，
 // 而 Codex 订阅是 OAuth 制的 agent CLI（无 HTTP completion 端点）——本适配器把
 // 一次"消息+工具→工具调用/文本"的推理，翻译成一次 `codex exec --output-schema` 调用，
 // 用订阅额度跑 GPT。
@@ -27,7 +27,7 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
 	"github.com/voocel/agentcore"
 	"github.com/voocel/agentcore/llm"
 )
@@ -51,7 +51,7 @@ const (
 	// retain this wider ceiling because their legitimate calls can be much larger.
 	defaultCodexExecHardTimeout = 15 * time.Minute
 	proseCacheProtocol          = "codex-prose-cache/v2"
-	codexReasoningCapEnv        = "NOVEL_STUDIO_CODEX_REASONING_CAP"
+	codexReasoningCapEnv        = "SCRIPTORIUM_CODEX_REASONING_CAP"
 )
 
 var codexExecHardTimeout = configuredCodexExecHardTimeout()
@@ -59,7 +59,7 @@ var codexExecHardTimeout = configuredCodexExecHardTimeout()
 var codexExecCallSeq atomic.Uint64
 
 func configuredCodexExecHardTimeout() time.Duration {
-	raw := strings.TrimSpace(os.Getenv("NOVEL_STUDIO_CODEX_EXEC_HARD_TIMEOUT"))
+	raw := strings.TrimSpace(os.Getenv("SCRIPTORIUM_CODEX_EXEC_HARD_TIMEOUT"))
 	if raw == "" {
 		return defaultCodexExecHardTimeout
 	}
@@ -124,7 +124,7 @@ func detectCodexBinary() string {
 	// unsuitable for nested `codex exec` calls. Let the pipeline bind an exact,
 	// independently executable CLI without mutating the user's global PATH or
 	// provider configuration.
-	if override := strings.TrimSpace(os.Getenv("NOVEL_STUDIO_CODEX_BINARY")); override != "" {
+	if override := strings.TrimSpace(os.Getenv("SCRIPTORIUM_CODEX_BINARY")); override != "" {
 		return override
 	}
 	for _, p := range []string{
@@ -665,12 +665,12 @@ type proseCacheEntry struct {
 }
 
 func proseCachePath(prompt, model, reasoning string) string {
-	root := strings.TrimSpace(os.Getenv("NOVEL_STUDIO_PROSE_CACHE_DIR"))
+	root := strings.TrimSpace(os.Getenv("SCRIPTORIUM_PROSE_CACHE_DIR"))
 	if root == "" {
 		if userCache, err := os.UserCacheDir(); err == nil {
-			root = filepath.Join(userCache, "novel-studio", "prose")
+			root = filepath.Join(userCache, "scriptorium", "prose")
 		} else {
-			root = filepath.Join(os.TempDir(), "novel-studio-prose")
+			root = filepath.Join(os.TempDir(), "scriptorium-prose")
 		}
 	}
 	sum := sha256.Sum256([]byte(proseCacheProtocol + "\x00" + model + "\x00" + reasoning + "\x00" + prompt))

@@ -9,10 +9,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 )
 
 func seedCharacterProtocolRecovery(t *testing.T, chapter int, protocol string) (*store.Store, domain.CharacterObservationPacket) {

@@ -6,7 +6,7 @@
       --human-manifest quality/calibration/human/manifest.json \
       --out docs/aigc-calibration-report.md
 
-三组语料（human/llm/mixed）跑 `novel-studio` 同款 aigc 引擎（经 `go run ./quality/audit/scripts/aigc_score_stdin.go`
+三组语料（human/llm/mixed）跑 `scriptorium` 同款 aigc 引擎（经 `go run ./quality/audit/scripts/aigc_score_stdin.go`
 或直接读已有 ai_gate JSON），输出分布/ROC/给定 FPR≤5% 的可达阈值，并读取
 meta/external_detection_log.jsonl 输出"本地 blended 分 vs 外部分"相关性。
 口径：报告只提议（evolution_report proposed 语义）——**不自动改任何阻断阈值**。

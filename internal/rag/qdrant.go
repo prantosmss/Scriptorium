@@ -17,7 +17,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 type VectorSearcher interface {
@@ -622,7 +622,7 @@ func stringFromPayload(payload map[string]any, key string) string {
 }
 
 func qdrantPointID(id string) string {
-	sum := sha1.Sum([]byte("novel-studio-rag\x00" + id))
+	sum := sha1.Sum([]byte("scriptorium-rag\x00" + id))
 	b := append([]byte(nil), sum[:16]...)
 	b[6] = (b[6] & 0x0f) | 0x50
 	b[8] = (b[8] & 0x3f) | 0x80
@@ -635,7 +635,7 @@ var collectionUnsafe = regexp.MustCompile(`[^a-zA-Z0-9_]+`)
 func CollectionName(prefix, seed string) string {
 	prefix = strings.Trim(collectionUnsafe.ReplaceAllString(prefix, "_"), "_")
 	if prefix == "" {
-		prefix = "novel_studio"
+		prefix = "scriptorium"
 	}
 	seed = strings.TrimSpace(seed)
 	if seed == "" {

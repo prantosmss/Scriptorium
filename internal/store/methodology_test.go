@@ -3,7 +3,7 @@ package store
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestMethodologyStoreOptionalArtifacts(t *testing.T) {

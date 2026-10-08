@@ -6,7 +6,7 @@
 
 用户目标：
 
-- 通读 `novel-studio` 的项目设计、架构和执行逻辑。
+- 通读 `scriptorium` 的项目设计、架构和执行逻辑。
 - 对项目进行实际优化，而不是只给建议。
 - 可查阅最新设计思路、写作参考资料和人味感 / AI 文本识别资料。
 - 最终目标状态需要能被正确更新。
@@ -19,7 +19,7 @@
 
 | 区域 | 当前职责 | 审计结论 |
 |---|---|---|
-| `cmd/novel-studio/` | CLI 入口：pipeline、import、diag、review、rewrite、export、skills、service 等 | 入口清晰，长任务通过子命令复用内部 runtime。 |
+| `cmd/scriptorium/` | CLI 入口：pipeline、import、diag、review、rewrite、export、skills、service 等 | 入口清晰，长任务通过子命令复用内部 runtime。 |
 | `internal/` | Go 运行时：agents、host、flow、tools、store、diag、rules、rag、aigc、eval | 核心依赖方向是 Host/Agents/Tools/Store/Domain，诊断只读。 |
 | `skills/` | 全部 skill 的唯一源目录，可导出给外部 agent | 已补齐上下文读取协议和共享副本防漂移。 |
 | `quality/audit/` | AIGC、AI 味、重复、内容逻辑、错别字审核入口 | 已是审核能力规范目录，和 `skills/review` 保持分工。 |
@@ -55,7 +55,7 @@
 已核对文件：
 
 - `docs/architecture.md`
-- `cmd/novel-studio/pipeline_cmd.go`
+- `cmd/scriptorium/pipeline_cmd.go`
 - `internal/host/flow/router.go`
 - `internal/host/flow/dispatcher.go`
 - `internal/tools/commit_chapter.go`
@@ -118,7 +118,7 @@
 
 - 执行任何 skill 前先读 `skills/CONTEXT_PROTOCOL.md`。
 - 再读对应 `SKILL.md`、`CONTEXT.md`、`context.json`、required / conditional files。
-- `novel-studio skills context --content --state-dir` 的恢复语义保持一致。
+- `scriptorium skills context --content --state-dir` 的恢复语义保持一致。
 
 ### 3. 架构文档依赖口径修正
 
@@ -191,12 +191,12 @@
 |---|---|---|
 | 通读项目结构 | `docs/project-structure.md`、`find . -maxdepth 2`、`find internal cmd docs skills quality assets scripts` | 已完成 |
 | 通读架构设计 | `docs/architecture.md`、`README.md`、`internal/host/flow/*`、`internal/domain/transitions.go` | 已完成 |
-| 通读执行逻辑 | `cmd/novel-studio/*`、`pipeline_cmd.go`、`skills/*/context.json`、`skills/bundle.go` | 已完成 |
+| 通读执行逻辑 | `cmd/scriptorium/*`、`pipeline_cmd.go`、`skills/*/context.json`、`skills/bundle.go` | 已完成 |
 | 整合共性功能 | `scripts/shared_skill_files.json` + `validate_shared_skill_files()` | 已完成 |
 | 不使用软链接 | `validate_shared_skill_files()` 对共享路径检查 `is_symlink()`；`find skills -type l` 验证 | 已完成 |
 | 防止上下文压缩丢 skill 内容 | `skills/CONTEXT_PROTOCOL.md`、`skills/README.md`、`skills context --content` 校验 | 已完成 |
 | 查阅最新资料 | 本文件“外部资料结论”记录来源和工程化结论 | 已完成 |
-| 验证当前实现 | `python3 scripts/validate_skill_context.py`、`go test ./...`、`go build -o novel-studio ./cmd/novel-studio` | 已完成 |
+| 验证当前实现 | `python3 scripts/validate_skill_context.py`、`go test ./...`、`go build -o scriptorium ./cmd/scriptorium` | 已完成 |
 
 ## 最终验证命令
 
@@ -205,7 +205,7 @@
 ```bash
 python3 scripts/validate_skill_context.py
 go test ./...
-go build -o novel-studio ./cmd/novel-studio
+go build -o scriptorium ./cmd/scriptorium
 find skills -type l -print
 rg -n "旧本地依赖口径|旧共享校验脚本名" docs README.md skills scripts
 ```
@@ -218,6 +218,6 @@ rg -n "旧本地依赖口径|旧共享校验脚本名" docs README.md skills scr
 
 - `python3 scripts/validate_skill_context.py`：validated 37 skill context manifests。
 - `go test ./...`：全部 Go package 通过。
-- `go build -o novel-studio ./cmd/novel-studio`：构建成功。
+- `go build -o scriptorium ./cmd/scriptorium`：构建成功。
 - `find skills -type l -print`：无输出，确认 `skills/` 下没有软链接。
 - 旧本地依赖口径和旧共享校验脚本名检查：无残留。

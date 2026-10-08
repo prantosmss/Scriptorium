@@ -11,19 +11,19 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/assets"
-	"github.com/chenhongyang/novel-studio/internal/agents"
-	"github.com/chenhongyang/novel-studio/internal/agents/ctxpack"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/host/flow"
-	"github.com/chenhongyang/novel-studio/internal/host/sim"
-	modelreg "github.com/chenhongyang/novel-studio/internal/models"
-	"github.com/chenhongyang/novel-studio/internal/notify"
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	storepkg "github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/tools"
-	"github.com/chenhongyang/novel-studio/internal/userrules"
+	"github.com/prantosmss/Scriptorium/assets"
+	"github.com/prantosmss/Scriptorium/internal/agents"
+	"github.com/prantosmss/Scriptorium/internal/agents/ctxpack"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/host/flow"
+	"github.com/prantosmss/Scriptorium/internal/host/sim"
+	modelreg "github.com/prantosmss/Scriptorium/internal/models"
+	"github.com/prantosmss/Scriptorium/internal/notify"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	storepkg "github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/userrules"
 	"github.com/voocel/agentcore"
 	corecontext "github.com/voocel/agentcore/context"
 )
@@ -193,7 +193,7 @@ func NewWithOptions(cfg bootstrap.Config, bundle assets.Bundle, opts NewOptions)
 		func(reason string) { h.abortWithEvent(reason, "error") },
 		func(level, summary string) {
 			h.emitEvent(Event{Time: time.Now(), Category: "SYSTEM", Summary: summary, Level: level})
-			h.notifier.Send(notify.Notification{Kind: "budget", Level: level, Title: "novel-studio: 预算", Body: summary})
+			h.notifier.Send(notify.Notification{Kind: "budget", Level: level, Title: "scriptorium: 预算", Body: summary})
 		},
 	); sentinel != nil {
 		h.budget = sentinel
@@ -219,7 +219,7 @@ func NewWithOptions(cfg bootstrap.Config, bundle assets.Bundle, opts NewOptions)
 		usage.SetOnMissingUsage(func() {
 			const blind = "预算盲区：存在未计价或未知调用，当前成本仅是已知小计，不代表完整账单。"
 			h.emitEvent(Event{Time: time.Now(), Category: "SYSTEM", Summary: blind, Level: "warn"})
-			h.notifier.Send(notify.Notification{Kind: "budget", Level: "warn", Title: "novel-studio: 预算", Body: blind})
+			h.notifier.Send(notify.Notification{Kind: "budget", Level: "warn", Title: "scriptorium: 预算", Body: blind})
 		})
 	}
 	h.router = flow.NewDispatcher(coordinator, store)
@@ -229,7 +229,7 @@ func NewWithOptions(cfg bootstrap.Config, bundle assets.Bundle, opts NewOptions)
 	h.router.SetOnRepeat(func(agent, task string, n int) {
 		body := fmt.Sprintf("同一指令已第 %d 次下达（%s）：%s", n, agent, task)
 		h.emitEvent(Event{Time: time.Now(), Category: "SYSTEM", Summary: "指令重复: " + body, Level: "warn"})
-		h.notifier.Send(notify.Notification{Kind: "repeat", Level: "warn", Title: "novel-studio: 指令重复", Body: body})
+		h.notifier.Send(notify.Notification{Kind: "repeat", Level: "warn", Title: "scriptorium: 指令重复", Body: body})
 	})
 	h.router.SetOnStall(func(agent, task string, n int) {
 		reason := fmt.Sprintf("流水线已熔断：同一指令连续 %d 次且 checkpoint 无推进（%s）：%s", n, agent, task)
@@ -633,7 +633,7 @@ func (h *Host) waitDone() {
 		slog.Info(summary, "module", "host")
 		h.emitEvent(Event{Time: time.Now(), Category: "SYSTEM", Summary: summary, Level: "success"})
 		h.notifier.Send(notify.Notification{
-			Kind: "run_end", Level: "info", Title: "novel-studio: 创作完成",
+			Kind: "run_end", Level: "info", Title: "scriptorium: 创作完成",
 			Body: h.runEndBody(progress.NovelName, summary),
 		})
 	} else {
@@ -653,7 +653,7 @@ func (h *Host) waitDone() {
 			slog.Warn(summary, "module", "host")
 			h.emitEvent(Event{Time: time.Now(), Category: "SYSTEM", Summary: summary, Level: "warn"})
 			h.notifier.Send(notify.Notification{
-				Kind: "run_end", Level: "warn", Title: "novel-studio: 创作停止",
+				Kind: "run_end", Level: "warn", Title: "scriptorium: 创作停止",
 				Body: h.runEndBody(name, summary),
 			})
 		}

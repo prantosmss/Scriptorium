@@ -1,19 +1,19 @@
 <div align="center">
 
-<img src="docs/assets/novel-studio-hero.jpg" alt="novel-studio: an open book surrounded by character relationships and a story timeline" width="100%">
+<img src="docs/assets/scriptorium-hero.jpg" alt="scriptorium: an open book surrounded by character relationships and a story timeline" width="100%">
 
-# novel-studio
+# Scriptorium
 
 **An open-source, local-first, recoverable AI engine for long-form fiction.**
 
 Simulate the world and its characters, seal the chapter plan, then render only the causality the point-of-view character can actually perceive.
 
-[![GitHub Stars](https://img.shields.io/github/stars/Xiaoyangy/novel-studio?style=flat&logo=github&color=E3B341)](https://github.com/Xiaoyangy/novel-studio)
-[![Release](https://img.shields.io/github/v/release/Xiaoyangy/novel-studio?logo=github)](https://github.com/Xiaoyangy/novel-studio/releases/latest)
-[![CI](https://github.com/Xiaoyangy/novel-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Xiaoyangy/novel-studio/actions/workflows/ci.yml)
+[![GitHub Stars](https://img.shields.io/github/stars/prantosmss/Scriptorium?style=flat&logo=github&color=E3B341)](https://github.com/prantosmss/Scriptorium)
+[![Release](https://img.shields.io/github/v/release/prantosmss/Scriptorium?logo=github)](https://github.com/prantosmss/Scriptorium/releases/latest)
+[![CI](https://github.com/prantosmss/Scriptorium/actions/workflows/ci.yml/badge.svg)](https://github.com/prantosmss/Scriptorium/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-1.25.5-00ADD8?logo=go&logoColor=white)](go.mod)
 [![Platform](https://img.shields.io/badge/macOS%20%7C%20Linux%20%7C%20WSL2-supported-555)](#requirements)
-[![License](https://img.shields.io/github/license/Xiaoyangy/novel-studio)](LICENSE)
+[![License](https://img.shields.io/github/license/prantosmss/Scriptorium)](LICENSE)
 
 [简体中文](README.md) · [English](README_EN.md)
 
@@ -23,13 +23,13 @@ Simulate the world and its characters, seal the chapter plan, then render only t
 
 ---
 
-novel-studio is designed for novels, serialized fiction, complete short books, and story-production teams. It turns outlines, character state, world state, RAG, reviews, and rewrites from fragile chat history into a local, verifiable, recoverable production pipeline.
+scriptorium is designed for novels, serialized fiction, complete short books, and story-production teams. It turns outlines, character state, world state, RAG, reviews, and rewrites from fragile chat history into a local, verifiable, recoverable production pipeline.
 
 It is not a “continue the previous paragraph” chat wrapper, nor a WYSIWYG desktop editor. New planning freezes the book-wide navigation and rehearses the whole arc conditionally, then lets important characters make independent decisions within the next window of at most three chapters. Only after those consequences are arbitrated and the window is sealed does it render and review prose chapter by chapter. Only accepted prose and observed outcomes become canon.
 
 ## Core capabilities
 
-| Problem | How novel-studio handles it |
+| Problem | How scriptorium handles it |
 |---|---|
 | Characters become irrational for plot convenience or know secrets too early | Important characters in the current arc have stable Agent identities, private observations, and structured memory; the World Arbiter may resolve outcomes but cannot rewrite intent |
 | The outline and prose drift apart | Book-wide chapter slots are frozen first; each detailed planning window then binds character decisions, cross-chapter causality, POV boundaries, and render capacity into immutable chapter contracts |
@@ -42,14 +42,14 @@ It is not a “continue the previous paragraph” chat wrapper, nor a WYSIWYG de
 
 ## Runtime dashboard
 
-![novel-studio dashboard showing chapters, arc planning, review, RAG, model usage, and runtime state](docs/assets/dashboard-overview-20260720.jpg)
+![scriptorium dashboard showing chapters, arc planning, review, RAG, model usage, and runtime state](docs/assets/dashboard-overview-20260720.jpg)
 
 <details>
 <summary><strong>See character and off-screen world views</strong></summary>
 
-![novel-studio character view showing profiles, pressure, knowledge boundaries, relationships, and arcs](docs/assets/dashboard-characters-20260710.webp)
+![scriptorium character view showing profiles, pressure, knowledge boundaries, relationships, and arcs](docs/assets/dashboard-characters-20260710.webp)
 
-![novel-studio off-screen world view showing independent actions, faction clocks, social mood, and information flow](docs/assets/dashboard-offscreen-20260710.webp)
+![scriptorium off-screen world view showing independent actions, faction clocks, social mood, and information flow](docs/assets/dashboard-offscreen-20260710.webp)
 
 </details>
 
@@ -70,7 +70,7 @@ The Dashboard is a read-only production control plane. It distinguishes a frozen
 Most users should install the stable Release:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/prantosmss/Scriptorium/main/scripts/install.sh | sh
 ```
 
 The installer selects a writable destination, verifies SHA-256, and prints a `PATH` fix when needed.
@@ -78,26 +78,26 @@ The installer selects a writable destination, verifies SHA-256, and prints a `PA
 Use the current `main` branch when you need unreleased features:
 
 ```bash
-git clone https://github.com/Xiaoyangy/novel-studio.git
-cd novel-studio
+git clone https://github.com/prantosmss/Scriptorium.git
+cd scriptorium
 ./scripts/run-local.sh doctor
 ```
 
-Source mode needs no separate build step: `scripts/run-local.sh` always runs the current checkout. You can replace `novel-studio` in the commands below with `./scripts/run-local.sh`.
+Source mode needs no separate build step: `scripts/run-local.sh` always runs the current checkout. You can replace `scriptorium` in the commands below with `./scripts/run-local.sh`.
 
 ### 2. Diagnose and configure models
 
 ```bash
-novel-studio doctor
-novel-studio
-novel-studio --check
+scriptorium doctor
+scriptorium
+scriptorium --check
 ```
 
 - `doctor` does not call a model or advance project state. It checks the platform, directories, configuration, Dashboard, and optional RAG dependencies.
-- Running `novel-studio` directly starts the first-run configuration wizard.
+- Running `scriptorium` directly starts the first-run configuration wizard.
 - `--check` sends a minimal real request to validate provider, model, and fallback routing.
 
-Global configuration lives at `~/.novel-studio/config.json`; `./.novel-studio/config.json` overrides it for one project. See [config.example.jsonc](config.example.jsonc) for every field. In production, route `roles.reviewer` independently to DeepSeek. The dedicated `--draft-ai-judge` command verifies that the effective Reviewer really is a DeepSeek route.
+Global configuration lives at `~/.scriptorium/config.json`; `./.scriptorium/config.json` overrides it for one project. See [config.example.jsonc](config.example.jsonc) for every field. In production, route `roles.reviewer` independently to DeepSeek. The dedicated `--draft-ai-judge` command verifies that the effective Reviewer really is a DeepSeek route.
 
 ### 3. Start a book
 
@@ -106,21 +106,21 @@ Global configuration lives at `~/.novel-studio/config.json`; `./.novel-studio/co
 To prepare the world, characters, book outline, and opening state only, add `--init-only`. The command exits after initialization; it does not simulate the arc or generate prose:
 
 ```bash
-novel-studio --pipeline --new-novel --init-only \
+scriptorium --pipeline --new-novel --init-only \
   --prompt "A complete 12-chapter dual-protagonist urban mystery, 2,000–2,500 Chinese characters per chapter."
 ```
 
 Omit `--init-only` to continue into planning and writing after initialization:
 
 ```bash
-novel-studio --pipeline --new-novel \
+scriptorium --pipeline --new-novel \
   --prompt "Write a complete 12-chapter dual-protagonist urban mystery, 2,000–2,500 Chinese characters per chapter; freeze character boundaries and ending payoffs in the outline first."
 ```
 
 For a long-running project, keep the creative contract in a file; this command performs initialization only:
 
 ```bash
-novel-studio --pipeline --new-novel --init-only --prompt-file prompt.md
+scriptorium --pipeline --new-novel --init-only --prompt-file prompt.md
 ```
 
 New projects are written under `data/runs/<book>`. After initialization, the default is `preplan → rehearse-arc → project-all → seal → promote → render`: rehearse the whole arc conditionally, then detail and seal the next at most three chapters (or the remaining chapters at the arc's end). One invocation still completes at most the next chapter's render-and-accept cycle; repeat the same command to continue.
@@ -131,13 +131,13 @@ After initialization, run the resume command below against the same generated bo
 
 ```bash
 # Resume from durable evidence
-novel-studio --pipeline --dir data/runs/<book>
+scriptorium --pipeline --dir data/runs/<book>
 
 # Open the read-only Dashboard
-novel-studio service open
+scriptorium service open
 
 # Produce diagnostics without advancing the novel
-novel-studio --diag --dir data/runs/<book>
+scriptorium --diag --dir data/runs/<book>
 ```
 
 Repeat the same pipeline command to continue arc by arc and chapter by chapter. Never run two pipelines for the same book at once, and do not hand-edit progress, candidate directories, transaction directories, or runtime receipts.
@@ -145,7 +145,7 @@ Repeat the same pipeline command to continue arc by arc and chapter by chapter. 
 For an eligible short book, run exact-book final review after the last chapter and final arc receipts exist:
 
 ```bash
-novel-studio --pipeline --dir data/runs/<book> --stages finalize,deliver
+scriptorium --pipeline --dir data/runs/<book> --stages finalize,deliver
 ```
 
 This produces `output/novel/正文.md`, the whole-book review, and a publication package. Long-form projects currently end with a complete chapter-level acceptance chain; the system does not mislabel that as an exact-book final review.
@@ -252,16 +252,16 @@ Drafter reads only the authorized minimum
 
 ```bash
 # Build or refresh one book's index
-novel-studio --build-rag --dir data/runs/<book>/output/novel
+scriptorium --build-rag --dir data/runs/<book>/output/novel
 
 # Repair and verify embeddings, local vectors, and Qdrant
-novel-studio --rag-ready --dir data/runs/<book>/output/novel
+scriptorium --rag-ready --dir data/runs/<book>/output/novel
 
 # Read-only audit of canonical, projected, candidate, and archived snapshots
-novel-studio rag audit --root data/runs
+scriptorium rag audit --root data/runs
 
 # Back up first, then repair canonical indexes and de-duplicate identical snapshots
-novel-studio rag maintain --root data/runs --apply
+scriptorium rag maintain --root data/runs --apply
 ```
 
 Every arc projection freezes its own `rag_snapshot_root`. The Drafter never sees raw hits or connects to live Qdrant during rendering. See the [RAG lifecycle audit](docs/design-audits/rag-full-lifecycle-audit-20260905.md) for creation, retrieval, cross-project isolation, maintenance, and the full stored-data review.
@@ -289,7 +289,7 @@ Every chapter must answer four questions:
 
 Configured style changes only voice, narrative distance, syntax, rhythm, imagery, paragraphing, and dialogue texture. It cannot alter events, decisions, facts, state, or POV knowledge. Accepted prose also feeds serial style memory that detects unnecessary repeated phrases, exact sentence reuse, and structurally identical openings or endings while excluding canonical names and chapter titles.
 
-A candidate is atomically published only after deterministic gates, the Editor, the independent Reviewer, actual state changes, and the plan contract agree. External human detectors remain optional user-supplied spot checks; novel-studio does not operate them or block on unknown results. See the [writing and review workflow](docs/writing-review-workflow.md) and [external detector protocol](docs/external-detector-protocol.md).
+A candidate is atomically published only after deterministic gates, the Editor, the independent Reviewer, actual state changes, and the plan contract agree. External human detectors remain optional user-supplied spot checks; scriptorium does not operate them or block on unknown results. See the [writing and review workflow](docs/writing-review-workflow.md) and [external detector protocol](docs/external-detector-protocol.md).
 
 ## Models and deployment
 
@@ -312,15 +312,15 @@ Docker quick start:
 
 ```bash
 mkdir -p config workspace
-docker compose run --rm novel-studio
-docker compose run --rm novel-studio doctor --dir /workspace
-docker compose run --rm novel-studio --check
+docker compose run --rm scriptorium
+docker compose run --rm scriptorium doctor --dir /workspace
+docker compose run --rm scriptorium --check
 ```
 
 To start the Dashboard from Compose:
 
 ```bash
-docker compose run --rm --service-ports novel-studio service start --host 0.0.0.0
+docker compose run --rm --service-ports scriptorium service start --host 0.0.0.0
 ```
 
 Then open [http://127.0.0.1:8765/](http://127.0.0.1:8765/). When using the Compose Qdrant service, set `rag.qdrant.url` to `http://qdrant:6333`.
@@ -331,24 +331,24 @@ Then open [http://127.0.0.1:8765/](http://127.0.0.1:8765/). When using the Compo
 
 | Command | Purpose |
 |---|---|
-| `novel-studio doctor [--dir <RUN>]` | Check the environment without calling a model |
-| `novel-studio --check` | Verify provider, model, and fallback connectivity |
-| `novel-studio --pipeline --new-novel --init-only --prompt "..."` | Current main: initialize, then exit; on v0.3.0 replace `--init-only` with `--stages architect,outline-all,zero-init` |
-| `novel-studio --pipeline --new-novel --prompt "..."` | Create a book and start the full workflow |
-| `novel-studio --pipeline --dir <RUN>` | Resume from trusted evidence |
-| `novel-studio --pipeline --dir <RUN> --stages preplan,rehearse-arc,project-all,seal` | At a new planning boundary, rehearse the whole arc and detail/seal the next at most three chapters without writing prose |
-| `novel-studio --pipeline --dir <RUN> --stages promote,render` | Render and review the next sealed chapter bundle |
-| `novel-studio --pipeline --dir <RUN> --stages finalize,deliver` | Run whole-book review and delivery for an eligible short book |
-| `novel-studio --build-rag --dir <RUN>/output/novel` | Build the project RAG index |
-| `novel-studio --rag-ready --dir <RUN>/output/novel` | Verify and recover RAG and Qdrant |
-| `novel-studio rag audit --root data/runs` | Read-only audit of every RAG snapshot |
-| `novel-studio rag maintain --root data/runs --apply` | Back up, repair, and de-duplicate canonical indexes |
-| `novel-studio service open` | Start or open the Dashboard |
-| `novel-studio --diag --dir <RUN>` | Produce diagnostics without advancing project state |
-| `novel-studio --version` | Print the installed version |
-| `novel-studio update [version]` | Update a Release installation |
+| `scriptorium doctor [--dir <RUN>]` | Check the environment without calling a model |
+| `scriptorium --check` | Verify provider, model, and fallback connectivity |
+| `scriptorium --pipeline --new-novel --init-only --prompt "..."` | Current main: initialize, then exit; on v0.3.0 replace `--init-only` with `--stages architect,outline-all,zero-init` |
+| `scriptorium --pipeline --new-novel --prompt "..."` | Create a book and start the full workflow |
+| `scriptorium --pipeline --dir <RUN>` | Resume from trusted evidence |
+| `scriptorium --pipeline --dir <RUN> --stages preplan,rehearse-arc,project-all,seal` | At a new planning boundary, rehearse the whole arc and detail/seal the next at most three chapters without writing prose |
+| `scriptorium --pipeline --dir <RUN> --stages promote,render` | Render and review the next sealed chapter bundle |
+| `scriptorium --pipeline --dir <RUN> --stages finalize,deliver` | Run whole-book review and delivery for an eligible short book |
+| `scriptorium --build-rag --dir <RUN>/output/novel` | Build the project RAG index |
+| `scriptorium --rag-ready --dir <RUN>/output/novel` | Verify and recover RAG and Qdrant |
+| `scriptorium rag audit --root data/runs` | Read-only audit of every RAG snapshot |
+| `scriptorium rag maintain --root data/runs --apply` | Back up, repair, and de-duplicate canonical indexes |
+| `scriptorium service open` | Start or open the Dashboard |
+| `scriptorium --diag --dir <RUN>` | Produce diagnostics without advancing project state |
+| `scriptorium --version` | Print the installed version |
+| `scriptorium update [version]` | Update a Release installation |
 
-Use `novel-studio --pipeline --help`, `novel-studio service --help`, and `novel-studio rag --help` for all options. Advanced rebase, outline repair, successor generation, and slow-run diagnostics live in the [production and operations reference](README-TECHNICAL.md).
+Use `scriptorium --pipeline --help`, `scriptorium service --help`, and `scriptorium rag --help` for all options. Advanced rebase, outline repair, successor generation, and slow-run diagnostics live in the [production and operations reference](README-TECHNICAL.md).
 
 ## Project data
 
@@ -380,16 +380,16 @@ Durable artifacts—not chat history, a model's claims, or one progress number�
 
 | Symptom | What to do |
 |---|---|
-| `novel-studio: command not found` | Run the `export PATH=...` line printed by the installer, or invoke the installed absolute path |
-| You do not know what the machine is missing | Run `novel-studio doctor` first; it does not call a model |
-| Configuration validates but the model is unavailable | Run `novel-studio --check`; verify provider key, model, base URL, quota, and role fallbacks |
+| `scriptorium: command not found` | Run the `export PATH=...` line printed by the installer, or invoke the installed absolute path |
+| You do not know what the machine is missing | Run `scriptorium doctor` first; it does not call a model |
+| Configuration validates but the model is unavailable | Run `scriptorium --check`; verify provider key, model, base URL, quota, and role fallbacks |
 | The Release lacks a README feature | Check `--version` first. This README describes current `main`; use `./scripts/run-local.sh` for unreleased features. On v0.3.0 replace the unsupported `--init-only` with `--stages architect,outline-all,zero-init` |
 | A pipeline was interrupted or appears stuck | Repeat the exact pipeline command; inspect checkpoints through `service open` or `--diag`; do not edit receipts |
 | RAG has no hits or Qdrant differs | Run `--build-rag`, then `--rag-ready`; use the read-only `rag audit` before full maintenance |
-| The Dashboard does not open | Run `novel-studio service status`; use `service start` when foreground logs are needed |
+| The Dashboard does not open | Run `scriptorium service status`; use `service start` when foreground logs are needed |
 | The book reports an execution lock | Confirm that no other pipeline is active; follow diagnostics after a crash instead of deleting lock files |
 
-If the problem remains, open a [GitHub Issue](https://github.com/Xiaoyangy/novel-studio/issues) with the version, platform, command, and redacted `--diag` output. Never attach API keys or prose you are not authorized to share.
+If the problem remains, open a [GitHub Issue](https://github.com/prantosmss/Scriptorium/issues) with the version, platform, command, and redacted `--diag` output. Never attach API keys or prose you are not authorized to share.
 
 ## Scope and limitations
 
@@ -428,7 +428,7 @@ Current limits:
 go test -count=1 ./...
 go test -race ./internal/agents ./internal/agents/ctxpack ./internal/tools ./internal/store ./services/dashboard
 go vet ./...
-go build -o /tmp/novel-studio ./cmd/novel-studio
+go build -o /tmp/scriptorium ./cmd/scriptorium
 
 python3 scripts/validate_skill_context.py
 python3 -m unittest discover -s quality/audit/scripts -p 'test_*.py' -v
@@ -437,7 +437,7 @@ python3 -m unittest services.dashboard.test_server -v
 git diff --check
 ```
 
-Changes to pipeline, storage contracts, or recovery paths must include regression tests. Issues and pull requests are welcome on [GitHub](https://github.com/Xiaoyangy/novel-studio/issues).
+Changes to pipeline, storage contracts, or recovery paths must include regression tests. Issues and pull requests are welcome on [GitHub](https://github.com/prantosmss/Scriptorium/issues).
 
 ## License
 
@@ -445,6 +445,6 @@ Changes to pipeline, storage contracts, or recovery paths must include regressio
 
 <div align="center">
 
-If novel-studio helps you, consider [⭐ starring the repository](https://github.com/Xiaoyangy/novel-studio), [opening an issue](https://github.com/Xiaoyangy/novel-studio/issues), or sharing your experience.
+If scriptorium helps you, consider [⭐ starring the repository](https://github.com/prantosmss/Scriptorium), [opening an issue](https://github.com/prantosmss/Scriptorium/issues), or sharing your experience.
 
 </div>

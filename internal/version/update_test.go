@@ -8,13 +8,13 @@ import (
 
 func TestReleaseURL(t *testing.T) {
 	cases := map[string]string{
-		"":       "https://api.github.com/repos/chenhongyang/novel-studio/releases/latest",
-		"latest": "https://api.github.com/repos/chenhongyang/novel-studio/releases/latest",
-		"1.2.3":  "https://api.github.com/repos/chenhongyang/novel-studio/releases/tags/v1.2.3",
-		"v1.2.3": "https://api.github.com/repos/chenhongyang/novel-studio/releases/tags/v1.2.3",
+		"":       "https://api.github.com/repos/prantosmss/Scriptorium/releases/latest",
+		"latest": "https://api.github.com/repos/prantosmss/Scriptorium/releases/latest",
+		"1.2.3":  "https://api.github.com/repos/prantosmss/Scriptorium/releases/tags/v1.2.3",
+		"v1.2.3": "https://api.github.com/repos/prantosmss/Scriptorium/releases/tags/v1.2.3",
 	}
 	for target, want := range cases {
-		if got := releaseURL("chenhongyang/novel-studio", target); got != want {
+		if got := releaseURL("prantosmss/Scriptorium", target); got != want {
 			t.Fatalf("releaseURL(%q) = %q, want %q", target, got, want)
 		}
 	}
@@ -28,11 +28,11 @@ func TestSelectAsset(t *testing.T) {
 	rel := &release{
 		TagName: "v1.2.3",
 		Assets: []releaseAsset{
-			{Name: "novel-studio_v1.2.3_Windows_x86_64.zip", BrowserDownloadURL: "wrong"},
-			{Name: "novel-studio_v1.2.3" + suffix, BrowserDownloadURL: "right"},
+			{Name: "scriptorium_v1.2.3_Windows_x86_64.zip", BrowserDownloadURL: "wrong"},
+			{Name: "scriptorium_v1.2.3" + suffix, BrowserDownloadURL: "right"},
 		},
 	}
-	asset, err := selectAsset(rel, "novel-studio")
+	asset, err := selectAsset(rel, "scriptorium")
 	if err != nil {
 		t.Fatalf("selectAsset: %v", err)
 	}
@@ -43,7 +43,7 @@ func TestSelectAsset(t *testing.T) {
 
 func TestReplaceExecutable(t *testing.T) {
 	dir := t.TempDir()
-	dst := filepath.Join(dir, "novel-studio")
+	dst := filepath.Join(dir, "scriptorium")
 	src := filepath.Join(dir, "new")
 	if err := os.WriteFile(dst, []byte("old"), 0o755); err != nil {
 		t.Fatal(err)

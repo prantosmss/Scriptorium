@@ -18,8 +18,8 @@ description: "为当前项目排队一条干预指令，下次启动 / 恢复创
 ## 执行
 
 ```bash
-novel-studio --steer "把感情线提前到第4章，增加男女主的对手戏"
-novel-studio --steer "节奏太慢了，加快推进"
+scriptorium --steer "把感情线提前到第4章，增加男女主的对手戏"
+scriptorium --steer "节奏太慢了，加快推进"
 ```
 
 ## 干预示例
@@ -33,4 +33,4 @@ novel-studio --steer "节奏太慢了，加快推进"
 
 ## 生效流程
 
-`novel-studio --steer "<指令>"`（排队）→ `novel-studio --pipeline`（恢复创作，注入生效）。
+`scriptorium --steer "<指令>"`（排队）→ `scriptorium --pipeline`（恢复创作，注入生效）。

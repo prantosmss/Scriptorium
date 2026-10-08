@@ -26,7 +26,7 @@ description: 审核一段/一篇小说(或任意叙事性文本)的「AI 创作�
 
 ## 工作流程
 
-仓库内规范入口是 `quality/audit/scripts/` 与 `quality/audit/references/`。本 skill 目录只保留流程说明，审核脚本和参考资料只维护在 `quality/audit/`。通过 `novel-studio skills export --to <dir>` 导出时，CLI 会把这些审核资源装配进导出产物的 `review/` 目录。
+仓库内规范入口是 `quality/audit/scripts/` 与 `quality/audit/references/`。本 skill 目录只保留流程说明，审核脚本和参考资料只维护在 `quality/audit/`。通过 `scriptorium skills export --to <dir>` 导出时，CLI 会把这些审核资源装配进导出产物的 `review/` 目录。
 
 ### 1. 拿到文本
 - 若用户上传了文件,先读它(`.txt`/`.md` 直接读;`.docx`/`.pdf` 用对应技能提取纯文本)。
@@ -61,7 +61,7 @@ python3 quality/audit/scripts/text_signals.py <文本文件路径> --external-ai
 正常的票据残字、聊天断句、设备误识别可以写，但必须短、可读、能推进剧情或揭示规则。
 
 ### 2.0.1 高质量人工样本锚点
-`novel-studio/deconstruction-library/review-calibration/high-quality-human-prose` 下的样本被用户标定为高质量人工写作、AI率为0。审核时要用它们校准误判：封闭场景、规则推理、强对话和类型名词稳定复现，会让弱模型曲线/滑窗熵看起来很稳，但只要没有脏码、真重复、工程词泄漏和空泛概括，这类稳定不能直接等同于 AIGC 高风险。
+`scriptorium/deconstruction-library/review-calibration/high-quality-human-prose` 下的样本被用户标定为高质量人工写作、AI率为0。审核时要用它们校准误判：封闭场景、规则推理、强对话和类型名词稳定复现，会让弱模型曲线/滑窗熵看起来很稳，但只要没有脏码、真重复、工程词泄漏和空泛概括，这类稳定不能直接等同于 AIGC 高风险。
 
 本地 `aigc_value.py` 会输出 `human_anchor`。小说正文命中 `narrative_scene` 锚点时，只能对概率曲线、弱语言模型、局部熵、风格计量和分片代理做**软降权**，不能覆盖整章单段风险，也不能再把结果固定压到 4.80%；技术说明文的 `technical_expository` 锚点单独校准。无论哪类锚点，都不覆盖内容完整性、真重复、工程词泄漏和项目严格 `<4%` 的交付门槛。
 

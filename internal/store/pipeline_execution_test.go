@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestPipelineExecutionLeaseOwnershipAndRelease(t *testing.T) {
@@ -166,7 +166,7 @@ func TestPipelineRenderExecutionRequiresPlanDigest(t *testing.T) {
 }
 
 func TestPipelineExecutionFlockHelper(t *testing.T) {
-	guardPath := os.Getenv("NOVEL_STUDIO_TEST_FLOCK_PATH")
+	guardPath := os.Getenv("SCRIPTORIUM_TEST_FLOCK_PATH")
 	if guardPath == "" {
 		return
 	}
@@ -175,7 +175,7 @@ func TestPipelineExecutionFlockHelper(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer func() { _ = f.Close() }()
-	if err := os.WriteFile(os.Getenv("NOVEL_STUDIO_TEST_FLOCK_READY"), []byte("ready"), 0o600); err != nil {
+	if err := os.WriteFile(os.Getenv("SCRIPTORIUM_TEST_FLOCK_READY"), []byte("ready"), 0o600); err != nil {
 		t.Fatal(err)
 	}
 	for {
@@ -192,8 +192,8 @@ func TestPipelineExecutionCrossProcessFlockBlocksAndCrashReleases(t *testing.T) 
 	readyPath := filepath.Join(st.Dir(), "meta", "runtime", "flock-helper.ready")
 	cmd := exec.Command(os.Args[0], "-test.run=^TestPipelineExecutionFlockHelper$")
 	cmd.Env = append(os.Environ(),
-		"NOVEL_STUDIO_TEST_FLOCK_PATH="+guardPath,
-		"NOVEL_STUDIO_TEST_FLOCK_READY="+readyPath,
+		"SCRIPTORIUM_TEST_FLOCK_PATH="+guardPath,
+		"SCRIPTORIUM_TEST_FLOCK_READY="+readyPath,
 	)
 	if err := cmd.Start(); err != nil {
 		t.Fatal(err)

@@ -417,7 +417,7 @@ def prose_block_reason(root: Path, abs_path: Path) -> str | None:
         if not (book_dir / "设定.md").exists():
             return None
         if not (book_dir / "小节大纲.md").exists():
-            return f"⛔ 写正文被拦截：{safe_rel(root, abs_path)} 缺少同目录 小节大纲.md。先补齐小节大纲，再通过 novel-studio --pipeline 写正文。"
+            return f"⛔ 写正文被拦截：{safe_rel(root, abs_path)} 缺少同目录 小节大纲.md。先补齐小节大纲，再通过 scriptorium --pipeline 写正文。"
         return None
     if parent != "正文":
         return None
@@ -441,7 +441,7 @@ def prose_block_reason(root: Path, abs_path: Path) -> str | None:
                 found = True
                 break
     if not found:
-        return f"⛔ 写正文被拦截：第 {num} 章缺少细纲（{safe_rel(root, outline_dir)}/细纲_第{num}章.md）。先补建本章细纲，再通过 novel-studio --pipeline 写正文。"
+        return f"⛔ 写正文被拦截：第 {num} 章缺少细纲（{safe_rel(root, outline_dir)}/细纲_第{num}章.md）。先补建本章细纲，再通过 scriptorium --pipeline 写正文。"
     return None
 
 

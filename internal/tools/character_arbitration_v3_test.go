@@ -7,9 +7,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/testutil"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/testutil"
 )
 
 func v3ToolFixture(t *testing.T) (*store.Store, domain.CharacterActivationSession, domain.CharacterActivationInputSet, *store.CharacterArbitrationV3) {

@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // RunMetaStore 管理运行元信息（模型、干预历史、规划级别等）。

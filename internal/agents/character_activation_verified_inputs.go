@@ -3,7 +3,7 @@ package agents
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Never marshal the VerifiedStep itself: its private runtime authority must

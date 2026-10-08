@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
 )
 
 // InspectCommand 对既有 output/novel 目录做离线 harness 检查，不启动模型生成。

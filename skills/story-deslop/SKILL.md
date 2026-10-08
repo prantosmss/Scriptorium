@@ -412,7 +412,7 @@ node scripts/normalize-punctuation.js <正文文件...>
 
 | 时机 | 跳转到 | 命令 |
 |---|---|---|
-| 继续写作 | novel-pipeline / novel-write（story-long-write / story-short-write 只作方法参考） | `novel-studio --pipeline` 或 `novel-studio --pipeline --prompt-file <需求文件>` |
+| 继续写作 | novel-pipeline / novel-write（story-long-write / story-short-write 只作方法参考） | `scriptorium --pipeline` 或 `scriptorium --pipeline --prompt-file <需求文件>` |
 | 发现结构问题（短篇） | story-short-analyze | `/story-short-analyze` |
 
 ---

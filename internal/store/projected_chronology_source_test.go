@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func chronologySourceTestFixture(t *testing.T) (*Store, domain.PlanningGenerationV2, domain.PlanningSourceSnapshotV2, domain.ProjectedChapterBundle) {

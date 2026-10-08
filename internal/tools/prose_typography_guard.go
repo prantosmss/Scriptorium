@@ -3,8 +3,8 @@ package tools
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	qualityrules "github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	qualityrules "github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 // validateFictionProseTypography rejects unambiguous Chinese character

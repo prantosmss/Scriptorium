@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func projectedStateViewFixture(t *testing.T, chapter int) domain.ProjectedPlanningContextV2 {

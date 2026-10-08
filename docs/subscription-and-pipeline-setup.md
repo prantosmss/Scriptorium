@@ -2,7 +2,7 @@
 
 ## 一、订阅接入（Codex/ChatGPT 订阅跑 GPT）
 
-novel-studio 原本只支持 api_key+base_url 的 HTTP provider。现新增 **`codex-cli`** provider 类型，
+Scriptorium 原本只支持 api_key+base_url 的 HTTP provider。现新增 **`codex-cli`** provider 类型，
 经本机 Codex CLI（`/Applications/Codex.app/Contents/Resources/codex`）用 **ChatGPT/Codex 订阅**跑 GPT，
 无需 api_key。
 
@@ -11,7 +11,7 @@ novel-studio 原本只支持 api_key+base_url 的 HTTP provider。现新增 **`c
 `codex exec --output-schema` 调用（sandbox=read-only，禁止 codex 跑命令/改文件），解析回工具调用。
 翻译逻辑已单测（`codex_test.go`）；实际 `codex exec` 调用用订阅额度。
 
-### 配置（已写入 .novel-studio/config.json）
+### 配置（已写入 .scriptorium/config.json）
 ```jsonc
 "providers": { "codex": { "type": "codex-cli", "models": ["gpt-5.6-sol"] } }  // 无需 api_key
 "roles": {
@@ -36,7 +36,7 @@ novel-studio 原本只支持 api_key+base_url 的 HTTP provider。现新增 **`c
 
 ### 新建小说（从头脑风暴开始）
 ```
-novel-studio --pipeline --new-novel --prompt "<你的小说想法>"
+scriptorium --pipeline --new-novel --prompt "<你的小说想法>"
 ```
 先跑**头脑风暴**：web_research 调研题材 + craft_recall 取手法 + 推敲逻辑 → 落盘
 `data/runs/<书名>/brainstorm.md`（预期字数/题材/类型/主角与CP/世界观/关键角色/核心爽点/给
@@ -45,14 +45,14 @@ Architect 的交接…）。之后自动把项目目录设为 `data/runs/<书名
 
 ### 列出所有小说
 ```
-novel-studio list
+scriptorium list
 ```
 扫 data/runs/，显示每本的阶段（brainstorm/foundation/zero-init/writing/complete）、章节进度、字数、
 是否有脑暴，并给出续写命令。
 
 ### 续写已有小说
 ```
-novel-studio --pipeline --dir data/runs/<书名>
+scriptorium --pipeline --dir data/runs/<书名>
 ```
 断点续跑：从当前阶段继续推演/写作/生成新章节。
 

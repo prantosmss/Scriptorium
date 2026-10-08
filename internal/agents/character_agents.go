@@ -15,11 +15,11 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/modelinput"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/modelinput"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 	"github.com/voocel/agentcore"
 )
 
@@ -704,7 +704,7 @@ func requireCharacterAgentGenerationProtocol(st *store.Store, generationID strin
 	}
 	check := func(stimulus *domain.WorldStimulusPacket, storedChapter int) error {
 		if stimulus != nil && characterProtocolForStimulus(*stimulus) != protocol {
-			return fmt.Errorf("character-agent protocol mismatch: generation=%s chapter=%d existing=%s requested=%s；已保留旧观察和提案。请用生成这些工件的原版 novel-studio 恢复，或通过 --pipeline --stages preplan,project-all,seal 在合法弧边界创建新 generation；已封存弧使用 successor/rebase 流程，不要手改 JSON", generationID, storedChapter, characterProtocolForStimulus(*stimulus), protocol)
+			return fmt.Errorf("character-agent protocol mismatch: generation=%s chapter=%d existing=%s requested=%s；已保留旧观察和提案。请用生成这些工件的原版 Scriptorium 恢复，或通过 --pipeline --stages preplan,project-all,seal 在合法弧边界创建新 generation；已封存弧使用 successor/rebase 流程，不要手改 JSON", generationID, storedChapter, characterProtocolForStimulus(*stimulus), protocol)
 		}
 		stored := ""
 		if stimulus != nil {
@@ -722,7 +722,7 @@ func requireCharacterAgentGenerationProtocol(st *store.Store, generationID strin
 			}
 		}
 		if stored != current {
-			return fmt.Errorf("character-agent protocol mismatch: generation=%s chapter=%d stored=%q current=%q；已保留旧观察和提案。请用生成这些工件的原版 novel-studio 恢复，或通过 --pipeline --stages preplan,project-all,seal 在合法弧边界创建新 generation；已封存弧使用 successor/rebase 流程，不要手改 JSON", generationID, storedChapter, stored, current)
+			return fmt.Errorf("character-agent protocol mismatch: generation=%s chapter=%d stored=%q current=%q；已保留旧观察和提案。请用生成这些工件的原版 Scriptorium 恢复，或通过 --pipeline --stages preplan,project-all,seal 在合法弧边界创建新 generation；已封存弧使用 successor/rebase 流程，不要手改 JSON", generationID, storedChapter, stored, current)
 		}
 		if protocol == domain.CharacterAgentDecisionProtocolV2Version && !domain.HasCharacterSourceRefPolicyV2(stimulus.Sources) {
 			return fmt.Errorf("character-agent source-ref policy mismatch: generation=%s chapter=%d；已保留旧观察和提案。请通过 --pipeline --stages preplan,project-all,seal 在合法弧边界创建新 generation，不要重签或复用旧观察", generationID, storedChapter)

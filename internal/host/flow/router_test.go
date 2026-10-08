@@ -8,8 +8,8 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	storepkg "github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	storepkg "github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore"
 )
 

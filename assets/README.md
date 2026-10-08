@@ -11,7 +11,7 @@
 
 补充两条接线事实：
 
-- **prompt 运行时覆盖链**：核心 prompt 支持 `~/.novel-studio/prompts/<name>.md` → `./.novel-studio/prompts/<name>.md` 覆盖（`assets.LoadWithOverrides`），指纹落 `meta/prompt_manifest.json`——改 prompt 实验不必重编译
+- **prompt 运行时覆盖链**：核心 prompt 支持 `~/.scriptorium/prompts/<name>.md` → `./.scriptorium/prompts/<name>.md` 覆盖（`assets.LoadWithOverrides`），指纹落 `meta/prompt_manifest.json`——改 prompt 实验不必重编译
 - **slop 词表**不在本目录：内置 embed 在 `internal/aigc/slop_lexicon.json`，项目级覆盖走 `meta/slop_lexicon.json`（`lexicon_version` 随 ai_gate 报告落盘）
 
 ## 新内容归属判断（五问）
@@ -19,7 +19,7 @@
 1. 这个流程必须被**保证**？→ 不写 prompt，写代码约束（StopAfterTools / 工具守卫 / Flow Router）
 2. 这是裁定判据（什么时候派谁）？→ `prompts/coordinator.md`
 3. 这是某个角色的审美 / 执行标准？→ `prompts/<role>.md`
-4. 这是可机械枚举的默认规则（禁词 / 字数 / 阈值）？→ `internal/rules/snapshot.go` 的 `SystemDefaults()`；用户自定义规则写进 `.novel-studio/rules/*.md`，由归一化快照消费
+4. 这是可机械枚举的默认规则（禁词 / 字数 / 阈值）？→ `internal/rules/snapshot.go` 的 `SystemDefaults()`；用户自定义规则写进 `.scriptorium/rules/*.md`，由归一化快照消费
 5. 这是写作知识材料？→ `references/`（记得三处接线）
 
 ## 一致性保障

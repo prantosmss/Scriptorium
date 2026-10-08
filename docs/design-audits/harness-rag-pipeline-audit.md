@@ -4,9 +4,9 @@
 
 ## 结论
 
-当前 `novel-studio` 的 harness 和 RAG 能力已经接入工程主流程，不是孤立脚本：
+当前 `scriptorium` 的 harness 和 RAG 能力已经接入工程主流程，不是孤立脚本：
 
-- Harness 通过 `novel-studio eval` / `novel-studio eval inspect` 复用 `diag`、`stylestat`、RAG collection collector 和 case contract，能检查真实 pipeline 产物。
+- Harness 通过 `scriptorium eval` / `scriptorium eval inspect` 复用 `diag`、`stylestat`、RAG collection collector 和 case contract，能检查真实 pipeline 产物。
 - Pipeline 写作阶段会在 `pipelineWrite` 前执行 `ensurePipelineRAGReady`，保证项目 RAG index 存在，并在 embedding 启用时写入 Qdrant 和本地 `vector_store.json` fallback。
 - Writer/Editor/Architect 通过 `novel_context` 获取 `selected_memory.rag_recall`、`reference_pack.retrieval_trace`、项目推进台账和角色连续性台账。
 - `save_foundation`、`commit_chapter`、`save_review`、`review-existing`、`rewrite-existing` 的事实沉淀统一走 `UpsertRAGChunks`，按 `source_path` 替换旧 chunk，并过滤参考库污染。
@@ -17,7 +17,7 @@
 
 入口：
 
-- `cmd/novel-studio/main.go`：`eval` 子命令在常规 flag 解析前拦截。
+- `cmd/scriptorium/main.go`：`eval` 子命令在常规 flag 解析前拦截。
 - `internal/eval/eval.go`：负责 single / A-B / repeat 编排、variant prompt 覆盖、报告输出。
 - `internal/eval/inspect.go`：对既有 `output/novel` 产物离线检查，不启动模型生成。
 - `internal/eval/collect.go`：采集 progress、checkpoints、reviews、usage、tool calls、stylestat、RAG index、vector_store 和 Qdrant count。
@@ -37,7 +37,7 @@
 本次验证：
 
 ```bash
-./novel-studio eval inspect --cases evals/cases/harness --out workspace/evals/codex-harness-rag-audit-20260704-after-fix
+./scriptorium eval inspect --cases evals/cases/harness --out workspace/evals/codex-harness-rag-audit-20260704-after-fix
 ```
 
 结果：2 cases PASS，0 hard fails，0 warnings。
@@ -68,7 +68,7 @@
 本次探针：
 
 ```bash
-./novel-studio --build-rag --dir data/runs/鬼城/output/novel --probe-chapter 29
+./scriptorium --build-rag --dir data/runs/鬼城/output/novel --probe-chapter 29
 ```
 
 结果：
@@ -84,10 +84,10 @@
 
 修改：
 
-- `cmd/novel-studio/rag_cmd.go`
+- `cmd/scriptorium/rag_cmd.go`
   - `parseBuildRAGFlags` 默认 `BackfillChapters=true`。
   - `--backfill-chapters=false` 仍可显式关闭。
-- `cmd/novel-studio/rag_cmd_test.go`
+- `cmd/scriptorium/rag_cmd_test.go`
   - 新增默认开启回填测试。
   - 新增显式关闭回填测试。
 - `docs/data-lifecycle-and-progression.md`
@@ -99,10 +99,10 @@
 
 ```bash
 go test ./...
-go build -o novel-studio ./cmd/novel-studio
+go build -o scriptorium ./cmd/scriptorium
 python3 scripts/validate_skill_context.py
-./novel-studio --build-rag --dir data/runs/鬼城/output/novel --probe-chapter 29
-./novel-studio eval inspect --cases evals/cases/harness --out workspace/evals/codex-harness-rag-audit-20260704-after-fix
+./scriptorium --build-rag --dir data/runs/鬼城/output/novel --probe-chapter 29
+./scriptorium eval inspect --cases evals/cases/harness --out workspace/evals/codex-harness-rag-audit-20260704-after-fix
 ```
 
 全部通过。

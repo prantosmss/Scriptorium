@@ -11,12 +11,12 @@ import (
 // complete resume or model latency. All input is an explicitly selected book;
 // the before/after content root must remain unchanged.
 func BenchmarkCharacterActivationIndexedStepCopy(b *testing.B) {
-	output := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT")
+	output := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT")
 	if output == "" {
 		b.Skip("requires an explicit read-only audit book")
 	}
-	generation := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_GENERATION")
-	chapter, err := strconv.Atoi(os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_CHAPTER"))
+	generation := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_GENERATION")
+	chapter, err := strconv.Atoi(os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_CHAPTER"))
 	if err != nil || chapter < 1 {
 		b.Fatal("requires an explicit chapter")
 	}

@@ -96,7 +96,7 @@ func EnsureLocalGGUFServer(ctx context.Context, cfg LocalGGUFConfig) error {
 		return fmt.Errorf("未找到 llama-server（brew install llama.cpp）: %w", err)
 	}
 	stopManagedLocalGGUF(cfg.Port)
-	logPath := fmt.Sprintf("%s/novel-studio-llama-embedding-%d.log", os.TempDir(), cfg.Port)
+	logPath := fmt.Sprintf("%s/scriptorium-llama-embedding-%d.log", os.TempDir(), cfg.Port)
 	logFile, err := os.OpenFile(logPath, os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0o600)
 	if err != nil {
 		return fmt.Errorf("创建 llama-server 日志失败: %w", err)

@@ -1,10 +1,10 @@
 ---
 name: novel-write
-description: "用一句创作需求驱动 novel-studio 走可恢复 pipeline 完整创作（写作→评审→重写→导出）。触发：「帮我写本小说」「按这个设定写」「跑一次创作」，已有明确创作要求且希望无人值守端到端产出章节时使用。"
+description: "用一句创作需求驱动 Scriptorium 走可恢复 pipeline 完整创作（写作→评审→重写→导出）。触发：「帮我写本小说」「按这个设定写」「跑一次创作」，已有明确创作要求且希望无人值守端到端产出章节时使用。"
 ---
 # novel-write：单句需求跑一次 pipeline 创作
 
-把用户的创作要求作为 prompt 交给 `novel-studio --pipeline`，由 pipeline 编排写作、评审、
+把用户的创作要求作为 prompt 交给 `scriptorium --pipeline`，由 pipeline 编排写作、评审、
 重写和导出。章节落盘到 `output/novel/chapters/*.md`。无 TTY，可在 CI / 远程 agent 中运行。
 
 > `--headless --prompt` 只保留为兼容别名，命令层会转入 pipeline。新任务一律直接调用
@@ -18,13 +18,13 @@ description: "用一句创作需求驱动 novel-studio 走可恢复 pipeline 完
 
 ```bash
 # 直接传文本
-novel-studio --pipeline --prompt "写一个赛博朋克背景、主角是义体黑客的长篇开篇"
+scriptorium --pipeline --prompt "写一个赛博朋克背景、主角是义体黑客的长篇开篇"
 
 # 从文件读 prompt（长需求/含换行时推荐）
-novel-studio --pipeline --prompt-file ./requirement.md
+scriptorium --pipeline --prompt-file ./requirement.md
 
 # 从 stdin 读
-echo "需求文本" | novel-studio --pipeline --prompt-file -
+echo "需求文本" | scriptorium --pipeline --prompt-file -
 ```
 
 ## 参数
@@ -49,5 +49,5 @@ echo "需求文本" | novel-studio --pipeline --prompt-file -
 
 ## 失败排查
 
-- 报「首次启动需要先在交互终端运行一次 novel-studio 完成配置引导」→ 先在交互终端跑一次
-  `novel-studio` 完成 stdin 配置，或手写 `~/.novel-studio/config.json`。
+- 报「首次启动需要先在交互终端运行一次 Scriptorium 完成配置引导」→ 先在交互终端跑一次
+  `scriptorium` 完成 stdin 配置，或手写 `~/.scriptorium/config.json`。

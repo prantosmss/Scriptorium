@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
 	"github.com/voocel/agentcore"
 )
 

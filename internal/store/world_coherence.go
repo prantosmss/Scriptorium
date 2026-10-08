@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const (

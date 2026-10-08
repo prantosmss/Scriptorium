@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func loadPipelineEvidence(s *store.Store) (*domain.PipelineState, map[string][]string, map[string][]string, error) {

@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func TestDraftAIGCGateUsesStrictExclusiveBoundary(t *testing.T) {

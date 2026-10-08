@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const (
@@ -150,7 +150,7 @@ func (s *RuntimeStore) ReleasePipelineExecution(owner string) error {
 }
 
 // withPipelineExecutionTransaction serializes the read-check-write sequence
-// across independent novel-studio processes. The JSON lease is the durable
+// across independent scriptorium processes. The JSON lease is the durable
 // phase boundary; the OS advisory lock only makes acquisition, expiry cleanup
 // and release atomic. The kernel releases flock automatically if a process
 // crashes, so recovery never relies on a racy stat-and-unlink stale heuristic.

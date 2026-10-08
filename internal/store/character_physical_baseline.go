@@ -8,7 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const ProjectAllAcceptedCharacterBaselinePath = "meta/runtime/accepted_character_baseline.json"

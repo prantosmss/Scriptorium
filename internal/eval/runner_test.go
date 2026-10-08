@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/host"
+	"github.com/prantosmss/Scriptorium/internal/host"
 )
 
 // fakeEngine 模拟 host：Abort 后像 waitDone 那样向 done 发送一次。done 带 1 缓冲，

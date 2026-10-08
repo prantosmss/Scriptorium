@@ -16,7 +16,7 @@ func TestRenderCLIReportIncludesStaticFindings(t *testing.T) {
 			Target:     "meta/pipeline.json",
 			Title:      "流水线已完成阶段证据失效: review",
 			Evidence:   "missing_artifacts=[reviews/01.md]",
-			Suggestion: "重跑同一条 novel-studio --pipeline 命令。",
+			Suggestion: "重跑同一条 scriptorium --pipeline 命令。",
 		}},
 	}
 
@@ -27,7 +27,7 @@ func TestRenderCLIReportIncludesStaticFindings(t *testing.T) {
 		"[critical/flow] 流水线已完成阶段证据失效: review",
 		"target: meta/pipeline.json",
 		"missing_artifacts=[reviews/01.md]",
-		"重跑同一条 novel-studio --pipeline 命令。",
+		"重跑同一条 scriptorium --pipeline 命令。",
 	} {
 		if !strings.Contains(out, want) {
 			t.Fatalf("report missing %q:\n%s", want, out)

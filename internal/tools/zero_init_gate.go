@@ -9,15 +9,15 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // 本文件是"第 1 章前必须完成零章初始化"卡点的单一事实源，
 // 三个消费方共用同一判定：
 //   - writer 派发守卫（internal/agents）：拒绝在未就绪时派 writer 写第 1 章；
 //   - Coordinator StopGuard（internal/host/reminder）：该场景放行收工，交还宿主编排；
-//   - pipeline write 阶段（cmd/novel-studio）：自动执行 --zero-init 后续跑。
+//   - pipeline write 阶段（cmd/scriptorium）：自动执行 --zero-init 后续跑。
 // 判定 = readiness 工件存在 && ready=true && 未因 foundation 更新而过期。
 
 // zeroInitFreshnessGrace：zero-init 运行过程中自身会补齐 book_world 等缺失

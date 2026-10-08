@@ -10,7 +10,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func readinessTransactionFixture(t *testing.T, version string) (*Store, string, domain.VerifiedCharacterActivationPrefix, domain.CharacterReadinessReviewAudit) {

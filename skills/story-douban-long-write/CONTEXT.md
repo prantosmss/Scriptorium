@@ -1,6 +1,6 @@
 # Context Recovery
 
-该 skill 的上下文恢复入口。当前仓库内禁止直接生成、续写或改写正文；豆瓣长篇正文产出必须走 `novel-studio --pipeline` 或 `novel-douban-write`。执行时先按 context.json 读取必需文件，再根据当前任务选择条件文件。
+该 skill 的上下文恢复入口。当前仓库内禁止直接生成、续写或改写正文；豆瓣长篇正文产出必须走 `scriptorium --pipeline` 或 `novel-douban-write`。执行时先按 context.json 读取必需文件，再根据当前任务选择条件文件。
 
 ## 必读顺序
 

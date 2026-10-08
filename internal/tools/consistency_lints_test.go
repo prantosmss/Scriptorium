@@ -3,9 +3,9 @@ package tools
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func newReconcileStore(t *testing.T) *store.Store {

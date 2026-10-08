@@ -128,12 +128,12 @@ docker-compose down
 ## Architecture and Workflow
 
 ### Key Directories
-- **`cmd/novel-studio`**: Main application entrypoint.
+- **`cmd/scriptorium`**: Main application entrypoint.
 - **`output/`**: Generated output files.
-- **`./.novel-studio/`**: Configuration and state files.
+- **`./.scriptorium/`**: Configuration and state files.
 
 ### Workflow Notes
-- **Go Run**: Always use `go run ./cmd/novel-studio` to ensure the latest source is used.
+- **Go Run**: Always use `go run ./cmd/scriptorium` to ensure the latest source is used.
 - **Relative Paths**: Ensure the working directory is set to the root of the project for correct relative paths.
 
 ### Operational Gotchas
@@ -282,12 +282,12 @@ docker-compose down
 ## Architecture and Workflow
 
 ### Key Directories
-- **`cmd/novel-studio`**: Main application entrypoint.
+- **`cmd/scriptorium`**: Main application entrypoint.
 - **`output/`**: Generated output files.
-- **`./.novel-studio/`**: Configuration and state files.
+- **`./.scriptorium/`**: Configuration and state files.
 
 ### Workflow Notes
-- **Go Run**: Always use `go run ./cmd/novel-studio` to ensure the latest source is used.
+- **Go Run**: Always use `go run ./cmd/scriptorium` to ensure the latest source is used.
 - **Relative Paths**: Ensure the working directory is set to the root of the project for correct relative paths.
 
 ### Operational Gotchas

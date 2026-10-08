@@ -3,7 +3,7 @@ package agents
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/llmcodex"
+	"github.com/prantosmss/Scriptorium/internal/llmcodex"
 )
 
 func TestParseThinkingLevelUltra(t *testing.T) {

@@ -12,7 +12,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 const (

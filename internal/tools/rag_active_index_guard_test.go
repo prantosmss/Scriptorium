@@ -3,8 +3,8 @@ package tools
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/rag"
 )
 
 func TestActiveRAGFactHashesBindsIDAndContentHash(t *testing.T) {

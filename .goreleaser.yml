@@ -6,9 +6,9 @@ before:
     - go mod tidy
 
 builds:
-  - id: novel-studio
-    main: ./cmd/novel-studio
-    binary: novel-studio
+  - id: scriptorium
+    main: ./cmd/scriptorium
+    binary: scriptorium
     env:
       - CGO_ENABLED=0
     ldflags:
@@ -24,9 +24,9 @@ builds:
       - arm64
 
 archives:
-  - id: novel-studio-archive
+  - id: scriptorium-archive
     ids:
-      - novel-studio
+      - scriptorium
     formats:
       - tar.gz
     files:
@@ -65,5 +65,5 @@ changelog:
 
 release:
   github:
-    owner: Xiaoyangy
-    name: novel-studio
+    owner: prantosmss
+    name: scriptorium

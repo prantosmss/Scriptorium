@@ -29,25 +29,25 @@ DOC_DRIFT_RULES = {
 }
 PIPELINE_ADAPTER_GUARDS = {
     "skills/story-long-write/SKILL.md": [
-        "最高优先级：novel-studio 强制 pipeline",
+        "最高优先级：Scriptorium 强制 pipeline",
         "禁止直接生成、续写或改写正文",
-        "novel-studio --pipeline",
+        "scriptorium --pipeline",
     ],
     "skills/story-short-write/SKILL.md": [
-        "最高优先级：novel-studio 强制 pipeline",
+        "最高优先级：Scriptorium 强制 pipeline",
         "禁止直接生成、续写或改写正文",
-        "novel-studio --pipeline",
+        "scriptorium --pipeline",
     ],
     "skills/story-douban-long-write/SKILL.md": [
-        "最高优先级：novel-studio 强制 pipeline",
+        "最高优先级：Scriptorium 强制 pipeline",
         "禁止直接生成、续写或改写正文",
-        "novel-studio --pipeline",
+        "scriptorium --pipeline",
     ],
     "skills/story/SKILL.md": [
-        "原生写作请求必须路由到 novel-studio pipeline",
+        "原生写作请求必须路由到 Scriptorium pipeline",
         "即使用户显式点名",
         "禁止直接生成、续写或改写正文",
-        "novel-studio --pipeline",
+        "scriptorium --pipeline",
     ],
 }
 DIRECT_WRITE_ROUTE_RE = re.compile(
@@ -67,7 +67,7 @@ def main() -> int:
     parser.add_argument(
         "--skip-export",
         action="store_true",
-        help="skip novel-studio skills export validation",
+        help="skip scriptorium skills export validation",
     )
     args = parser.parse_args()
 
@@ -199,9 +199,9 @@ def validate_pipeline_adapter_guards() -> list[str]:
         rel = target.relative_to(ROOT)
         text = target.read_text(encoding="utf-8")
         if DIRECT_WRITE_ROUTE_RE.search(text):
-            errors.append(f"{rel}: direct story-* write route must point to novel-studio --pipeline")
+            errors.append(f"{rel}: direct story-* write route must point to scriptorium --pipeline")
         if DIRECT_WRITE_PROMPT_RE.search(text):
-            errors.append(f"{rel}: direct story-short-write prompt must point to novel-studio --pipeline")
+            errors.append(f"{rel}: direct story-short-write prompt must point to scriptorium --pipeline")
     return errors
 
 
@@ -324,9 +324,9 @@ def clean_ref(value: str) -> str:
 
 def validate_export(skill_dirs: Iterable[Path]) -> list[str]:
     errors: list[str] = []
-    with tempfile.TemporaryDirectory(prefix="novel-studio-skills-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="scriptorium-skills-") as tmp:
         dest = Path(tmp)
-        cmd = ["go", "run", "./cmd/novel-studio", "skills", "export", "--to", str(dest)]
+        cmd = ["go", "run", "./cmd/scriptorium", "skills", "export", "--to", str(dest)]
         proc = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, check=False)
         if proc.returncode != 0:
             errors.append(f"skills export failed: {proc.stderr.strip() or proc.stdout.strip()}")
@@ -362,7 +362,7 @@ def validate_export(skill_dirs: Iterable[Path]) -> list[str]:
 def validate_context_cli(skill_dirs: Iterable[Path]) -> list[str]:
     errors: list[str] = []
     skill_dirs = list(skill_dirs)
-    cmd = ["go", "run", "./cmd/novel-studio", "skills", "context", "--all", "--json"]
+    cmd = ["go", "run", "./cmd/scriptorium", "skills", "context", "--all", "--json"]
     proc = subprocess.run(cmd, cwd=ROOT, text=True, capture_output=True, check=False)
     if proc.returncode != 0:
         return [f"skills context --all failed: {proc.stderr.strip() or proc.stdout.strip()}"]
@@ -416,7 +416,7 @@ def validate_context_content_cli() -> list[str]:
         cmd = [
             "go",
             "run",
-            "./cmd/novel-studio",
+            "./cmd/scriptorium",
             "skills",
             "context",
             skill,
@@ -458,7 +458,7 @@ def validate_context_content_cli() -> list[str]:
 
 def validate_context_state_dir_cli() -> list[str]:
     errors: list[str] = []
-    with tempfile.TemporaryDirectory(prefix="novel-studio-skill-state-") as tmp:
+    with tempfile.TemporaryDirectory(prefix="scriptorium-skill-state-") as tmp:
         root = Path(tmp)
         state_dir = root / ".skill-context"
         tracking_dir = root / "追踪"
@@ -475,7 +475,7 @@ def validate_context_state_dir_cli() -> list[str]:
         cmd = [
             "go",
             "run",
-            "./cmd/novel-studio",
+            "./cmd/scriptorium",
             "skills",
             "context",
             "story-long-write",

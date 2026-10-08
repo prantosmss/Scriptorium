@@ -11,7 +11,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func (s *Store) PrepareAcceptedCharacterMemoryCandidate(bundle domain.ProjectedChapterBundle, outcome domain.ActualOutcomeReceiptV2) (*CharacterMemoryPublicationCandidate, error) {

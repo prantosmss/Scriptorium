@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func CharacterCycle(t *testing.T, index int, previous string, before *domain.WorldPhysicalStateV2, day float64, contextDigests ...string) domain.CharacterActivationCycle {

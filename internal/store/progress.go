@@ -9,8 +9,8 @@ import (
 	"sync"
 	"syscall"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/errs"
 )
 
 // ProgressStore 管理创作进度状态。
@@ -20,7 +20,7 @@ const progressGenerationGuardPath = "meta/runtime/progress_generation.guard"
 
 // Store instances have independent IO mutexes. Pair a process mutex with
 // flock so generation initialization is one read-check-write transaction both
-// within this process and across independent novel-studio processes.
+// within this process and across independent scriptorium processes.
 var progressGenerationProcessMu sync.Mutex
 
 func NewProgressStore(io *IO) *ProgressStore { return &ProgressStore{io: io} }

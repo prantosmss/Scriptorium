@@ -3,7 +3,7 @@ package store
 import (
 	"os"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 type SimulationStore struct{ io *IO }

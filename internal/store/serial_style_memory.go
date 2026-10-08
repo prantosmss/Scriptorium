@@ -1,8 +1,8 @@
 package store
 
 import (
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/stylestat"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/stylestat"
 )
 
 // CanonicalSerialStyleMemoryStopwords returns the exact entity-name set used

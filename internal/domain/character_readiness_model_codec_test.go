@@ -11,8 +11,8 @@ import (
 	"testing"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/testutil"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/testutil"
 )
 
 func readinessCodecFixture(t *testing.T) (domain.CharacterReadinessReviewInput, domain.CharacterReadinessVerdict, *domain.CharacterReadinessModelCodecV1) {
@@ -308,7 +308,7 @@ func TestReadinessModelCodecKeepsSoftObligationsOptionalAndOriginalConflictRules
 // old receipt ordering/digests are left untouched. New compact replies expand
 // in requirement order while each original check and ordered refs is identical.
 func TestReadinessModelCodecRealInputsReadonly(t *testing.T) {
-	dir := os.Getenv("NOVEL_STUDIO_READINESS_CODEC_AUDIT_DIR")
+	dir := os.Getenv("SCRIPTORIUM_READINESS_CODEC_AUDIT_DIR")
 	if dir == "" {
 		t.Skip("requires explicit read-only readiness_audits directory")
 	}

@@ -6,7 +6,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestContinuationSameCallReuseMatchesIndependentBoundaryAndOriginalBytes(t *testing.T) {

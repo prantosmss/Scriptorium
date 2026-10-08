@@ -53,7 +53,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    U["用户一句话 / 已有项目"] --> CLI["cmd/novel-studio<br/>pipeline · list · review · rewrite · check"]
+    U["用户一句话 / 已有项目"] --> CLI["cmd/scriptorium<br/>pipeline · list · review · rewrite · check"]
     CLI --> HOST["Host 薄外壳<br/>阶段恢复 · 事件观察 · flow router"]
     HOST --> CO["Coordinator<br/>LLM 长循环，只做语义裁定与子代理派发"]
     HOST -.->|新建小说| BS["Brainstorm Agent<br/>web_research + craft_recall + novel_context"]
@@ -74,7 +74,7 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    CFG[".novel-studio/config.json<br/>本地密钥与角色模型，不入库"] --> MS["bootstrap.ModelSet<br/>角色级 provider + fallback"]
+    CFG[".scriptorium/config.json<br/>本地密钥与角色模型，不入库"] --> MS["bootstrap.ModelSet<br/>角色级 provider + fallback"]
     MS --> WRM["writer / architect<br/>可走 codex-cli 或其他长上下文模型"]
     MS --> EDM["editor<br/>DeepSeek v4 Pro<br/>reasoning_effort=max"]
     MS --> RVM["reviewer<br/>DeepSeek v4 Pro<br/>reasoning_effort=max"]
@@ -128,22 +128,22 @@ flowchart TD
 
 | 方向 | 主要文件 | 结果 |
 |---|---|---|
-| 新建小说头脑风暴 | `assets/prompts/brainstorm.md`、`internal/agents/brainstorm.go`、`internal/tools/save_brainstorm.go`、`internal/tools/web_research.go`、`cmd/novel-studio/pipeline_cmd.go` | `--pipeline --new-novel` 先调研、推敲并落盘 `brainstorm.md`，再进入 foundation / zero-init / write |
-| 书目进度入口 | `cmd/novel-studio/novels_list.go`、`cmd/novel-studio/main.go` | `novel-studio list` 扫描 `data/runs/`，展示阶段、章节、字数、续写命令 |
+| 新建小说头脑风暴 | `assets/prompts/brainstorm.md`、`internal/agents/brainstorm.go`、`internal/tools/save_brainstorm.go`、`internal/tools/web_research.go`、`cmd/scriptorium/pipeline_cmd.go` | `--pipeline --new-novel` 先调研、推敲并落盘 `brainstorm.md`，再进入 foundation / zero-init / write |
+| 书目进度入口 | `cmd/scriptorium/novels_list.go`、`cmd/scriptorium/main.go` | `scriptorium list` 扫描 `data/runs/`，展示阶段、章节、字数、续写命令 |
 | Codex 订阅适配 | `internal/llmcodex/codex.go`、`internal/llmcodex/codex_test.go`、`internal/bootstrap/*` | 将 Codex CLI 订阅封装为 agentcore ChatModel，支持工具调用与自由文本正文重渲染 |
 | 长文本 AI 检测 | `assets/references/longform-ai-detector.md`、`assets/references/anti-ai-tone.md`、`internal/aigc/aigc.go`、`internal/rules/lint.go` | 针对 3000 字整章检测补 segment floor、段首复读、模板对白、结构性 AI 味规则 |
-| 审核报告一致性 | `internal/reviewreport/*`、`cmd/novel-studio/review_existing.go`、`cmd/novel-studio/review_existing_gate_test.go` | 拦截、统一报告、终端摘要读取同一份 gate 结论；warning 不再误报为主要 blocker |
+| 审核报告一致性 | `internal/reviewreport/*`、`cmd/scriptorium/review_existing.go`、`cmd/scriptorium/review_existing_gate_test.go` | 拦截、统一报告、终端摘要读取同一份 gate 结论；warning 不再误报为主要 blocker |
 | Writer / Drafter 约束 | `assets/prompts/writer.md`、`assets/prompts/drafter.md`、`internal/tools/plan_chapter.go`、`internal/tools/plan_chapter_phases.go`、`internal/tools/craft_recall.go` | Planner 负责完整因果推演，并通过 `reader_retention_plan` 区分显性写出、隐性台账、延后揭示和删压缩内容；Drafter 完整读计划但只按留存节拍渲染，写法 RAG 无料时必须走宽检索或 reference_pack fallback |
-| 世界与 zero-init | `internal/tools/save_foundation.go`、`cmd/novel-studio/zero_init_*`、`internal/tools/worldsim_gate.go` | foundation 改动会使第一章 readiness 过期，世界推演资产和白名单 RAG 更严格 |
+| 世界与 zero-init | `internal/tools/save_foundation.go`、`cmd/scriptorium/zero_init_*`、`internal/tools/worldsim_gate.go` | foundation 改动会使第一章 readiness 过期，世界推演资产和白名单 RAG 更严格 |
 | 上下文治理 | `internal/agents/context_manager.go`、`internal/tools/novel_context*.go`、`internal/tools/context_architect.go` | 加入长文本检测参考、rewrite_brief 机械门禁摘要、计划一致性与 RAG 召回证据 |
-| 设计库内容级打标 | `internal/rag/facet.go`、`internal/rag/craft.go`、`internal/rag/policy.go`、`cmd/novel-studio/rag_cmd.go`、`internal/bootstrap/config.go` | 手法库 / 对标库 / 审核校准库按文件名+正文内容判 18 类 `craft_facet` 并派生 `usage_stage`（architect / plan / writing / review），`craft_recall` 按内容 facet 跨目录检索；新增 `dialogue` 字段与 `review-calibration` 入库（`calibration_reference`） |
+| 设计库内容级打标 | `internal/rag/facet.go`、`internal/rag/craft.go`、`internal/rag/policy.go`、`cmd/scriptorium/rag_cmd.go`、`internal/bootstrap/config.go` | 手法库 / 对标库 / 审核校准库按文件名+正文内容判 18 类 `craft_facet` 并派生 `usage_stage`（architect / plan / writing / review），`craft_recall` 按内容 facet 跨目录检索；新增 `dialogue` 字段与 `review-calibration` 入库（`calibration_reference`） |
 | 质量审计脚本 | `quality/audit/scripts/content_lint.py` | 离线审计补结构性 AI 味和章节机械规则检查 |
 | 文档与运维 | `docs/subscription-and-pipeline-setup.md`、`docs/production-interruption-analysis-20260707.md`、本文件 | 记录订阅接入、新流水线、生产中断原因、第一章审核证据与架构图 |
 
 ## DeepSeek 接入说明
 
-- 代码层支持角色级 provider / fallback / reasoning effort；本机 `.novel-studio/config.json` 使用 DeepSeek 作为 editor 和 reviewer 主裁判。
-- `.novel-studio/` 已在 `.gitignore`，API key 与本地模型偏好不会进入 GitHub。
+- 代码层支持角色级 provider / fallback / reasoning effort；本机 `.scriptorium/config.json` 使用 DeepSeek 作为 editor 和 reviewer 主裁判。
+- `.scriptorium/` 已在 `.gitignore`，API key 与本地模型偏好不会进入 GitHub。
 - DeepSeek 官方兼容模式中 `reasoning_effort=max` 是最高档；本机审核使用该档位。
 - 本轮实测 `--check` 可识别 DeepSeek editor / reviewer，并在第一章复审日志里看到真实 provider 命中。
 
@@ -153,9 +153,9 @@ flowchart TD
 
 ```bash
 go test ./...
-go build -o /tmp/novel-studio ./cmd/novel-studio
+go build -o /tmp/scriptorium ./cmd/scriptorium
 python3 scripts/validate_skill_context.py
-go run ./cmd/novel-studio --dir data/runs/她的第二算法 --pipeline --stages review --restart --from 1 --to 1
+go run ./cmd/scriptorium --dir data/runs/她的第二算法 --pipeline --stages review --restart --from 1 --to 1
 ```
 
 本轮第一章复审已经通过，代码级验证结果以本 PR / commit 的终端记录为准。

@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	editrules "github.com/chenhongyang/novel-studio/internal/editor/rules"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	editrules "github.com/prantosmss/Scriptorium/internal/editor/rules"
 	"github.com/voocel/agentcore"
 	"github.com/voocel/agentcore/llm"
 )

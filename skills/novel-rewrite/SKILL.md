@@ -1,6 +1,6 @@
 ---
 name: novel-rewrite
-description: "通过 novel-studio pipeline 的 rewrite 阶段按评审反馈逐章 Writer 重写，会改动章节原文。触发：「按评审改写」「重写这几章」「根据意见润色正文」，在 novel-review 之后据反馈落地修改时使用。"
+description: "通过 Scriptorium pipeline 的 rewrite 阶段按评审反馈逐章 Writer 重写，会改动章节原文。触发：「按评审改写」「重写这几章」「根据意见润色正文」，在 novel-review 之后据反馈落地修改时使用。"
 ---
 # novel-rewrite：pipeline rewrite 阶段重写
 
@@ -20,13 +20,13 @@ Writer 同时会使用 `writing_techniques_digest`：把 `data/reference-library
 ```bash
 # 先进入项目目录，再按反馈重写
 cd ./output/novel
-novel-studio --pipeline --stages rewrite
+scriptorium --pipeline --stages rewrite
 
 # 只重写第 3–8 章
-novel-studio --pipeline --stages rewrite --from 3 --to 8
+scriptorium --pipeline --stages rewrite --from 3 --to 8
 
 # 用 coordinator 角色而非默认 writer
-novel-studio --pipeline --stages rewrite --role coordinator
+scriptorium --pipeline --stages rewrite --role coordinator
 ```
 
 ## 参数

@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // ApplyProjectAllOutlineObligations exposes the same deterministic host-outline

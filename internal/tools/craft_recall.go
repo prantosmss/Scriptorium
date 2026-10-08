@@ -8,10 +8,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/rag"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore/schema"
 )
 
@@ -115,7 +115,7 @@ func (t *CraftRecallTool) Execute(_ context.Context, args json.RawMessage) (json
 	}
 	state, err := t.store.RAG.LoadIndexStateReadOnly()
 	if err != nil || state == nil || len(state.Chunks) == 0 {
-		return nil, fmt.Errorf("RAG 索引不存在或为空；先运行 novel-studio --build-rag --add-source <writing-techniques 路径>: %w", errs.ErrToolPrecondition)
+		return nil, fmt.Errorf("RAG 索引不存在或为空；先运行 scriptorium --build-rag --add-source <writing-techniques 路径>: %w", errs.ErrToolPrecondition)
 	}
 	chunks, filtered := t.filterCrossProjectCraftChunks(state.Chunks)
 	result := t.craftCatalogFor(state, chunks).Recall(rag.CraftDesignField(a.Field), a.Topic, a.Limit)

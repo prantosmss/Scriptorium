@@ -8,9 +8,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	storepkg "github.com/chenhongyang/novel-studio/internal/store"
-	toolspkg "github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	storepkg "github.com/prantosmss/Scriptorium/internal/store"
+	toolspkg "github.com/prantosmss/Scriptorium/internal/tools"
 )
 
 // chapterPlanReadyForDraft 判断某章的写前计划是否已就绪、可直接交 drafter 渲染。

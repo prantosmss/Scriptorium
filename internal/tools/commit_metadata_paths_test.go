@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // TestCommitChapterNormalPathWritesAllMetadata 实证 normal commit（非 rewrite 路径）

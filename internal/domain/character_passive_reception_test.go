@@ -5,8 +5,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/testutil"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/testutil"
 )
 
 func TestPassiveReceptionUpdatesOnlyDeliveredOwnerKnowledge(t *testing.T) {

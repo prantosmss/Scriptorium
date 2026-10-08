@@ -9,12 +9,12 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/assets"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/modelinput"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/assets"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/modelinput"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 	"github.com/voocel/agentcore"
 )
 

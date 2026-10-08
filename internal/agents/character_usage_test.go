@@ -7,8 +7,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/models"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/models"
 	"github.com/voocel/agentcore"
 )
 

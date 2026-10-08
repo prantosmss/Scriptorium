@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/modelinput"
+	"github.com/prantosmss/Scriptorium/internal/modelinput"
 	"github.com/voocel/agentcore"
 )
 

@@ -1,10 +1,10 @@
 ---
 name: novel-douban-write
-description: "用 novel-studio 生成豆瓣阅读原创长篇小说的专项入口。适用于 15W-30W 字原创长篇，默认把豆瓣写作契约写入 prompt，并串联 review/rewrite/export；触发：「豆瓣长篇」「按豆瓣要求写」「生成豆瓣阅读原创小说」。"
+description: "用 Scriptorium 生成豆瓣阅读原创长篇小说的专项入口。适用于 15W-30W 字原创长篇，默认把豆瓣写作契约写入 prompt，并串联 review/rewrite/export；触发：「豆瓣长篇」「按豆瓣要求写」「生成豆瓣阅读原创小说」。"
 ---
 # novel-douban-write：豆瓣原创长篇专项入口
 
-用 `novel-studio` 生成一部面向豆瓣阅读的 15W-30W 字原创长篇。该入口是命令层工作流；具体写作标准见 embedded skill `story-douban-long-write`。
+用 `scriptorium` 生成一部面向豆瓣阅读的 15W-30W 字原创长篇。该入口是命令层工作流；具体写作标准见 embedded skill `story-douban-long-write`。
 
 ## 前置条件
 
@@ -36,8 +36,8 @@ description: "用 novel-studio 生成豆瓣阅读原创长篇小说的专项入�
 ## 执行
 
 ```bash
-novel-studio --check
-novel-studio --pipeline --prompt-file ./豆瓣长篇需求.md --stages write,review,rewrite,deliver
+scriptorium --check
+scriptorium --pipeline --prompt-file ./豆瓣长篇需求.md --stages write,review,rewrite,deliver
 ```
 
 不要拆成旧的 headless / review / rewrite 直达入口。命令层虽保留兼容别名，但豆瓣专项必须

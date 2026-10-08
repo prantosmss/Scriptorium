@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// Language helpers for the interface switch (`novel-studio lang`, dashboard
+// Language helpers for the interface switch (`scriptorium lang`, dashboard
 // toggle). The config file is JSONC: it carries // comments and hand-written
 // notes the user cares about, and SaveConfig re-marshals the whole document
 // (comments and unknown keys would be destroyed). A language change is a

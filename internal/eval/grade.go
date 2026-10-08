@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/diag"
-	"github.com/chenhongyang/novel-studio/internal/rag"
-	"github.com/chenhongyang/novel-studio/internal/stylestat"
+	"github.com/prantosmss/Scriptorium/internal/diag"
+	"github.com/prantosmss/Scriptorium/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/stylestat"
 )
 
 // Outcome 是单个 case 的门禁结论。

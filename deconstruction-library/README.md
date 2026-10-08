@@ -18,7 +18,7 @@
 ## 接线方式
 
 ```jsonc
-// ~/.novel-studio/config.json 或 ./.novel-studio/config.json
+// ~/.scriptorium/config.json 或 ./.scriptorium/config.json
 "rag": {
   "craft_library":     "deconstruction-library/writing-techniques",
   "benchmark_library": "deconstruction-library/novel_all"

@@ -5,9 +5,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/agents"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/agents"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func TestScopedUsageKeepsFailureInLiveWALAndResumesBudget(t *testing.T) {

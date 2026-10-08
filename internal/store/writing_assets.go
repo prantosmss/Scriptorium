@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // WritingAssetStore 管理本书长期写法资产。

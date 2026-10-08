@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func CharacterReadiness(t *testing.T, final bool) (domain.CharacterReadinessContext, domain.CharacterActivationSession, domain.CharacterActivationCycle, domain.CharacterReadinessReviewInput) {

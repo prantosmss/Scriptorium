@@ -26,7 +26,7 @@ func agentPromptCacheKey(role string, identity ...string) string {
 		_, _ = hash.Write([]byte(part))
 	}
 	digest := hash.Sum(nil)
-	return "novel-studio:" + role + ":" + hex.EncodeToString(digest[:8])
+	return "scriptorium:" + role + ":" + hex.EncodeToString(digest[:8])
 }
 
 func sanitizePromptCacheRole(role string) string {

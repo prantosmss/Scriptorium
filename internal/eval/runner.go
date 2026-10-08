@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/assets"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/entry/startup"
-	"github.com/chenhongyang/novel-studio/internal/host"
-	"github.com/chenhongyang/novel-studio/internal/logger"
+	"github.com/prantosmss/Scriptorium/assets"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/entry/startup"
+	"github.com/prantosmss/Scriptorium/internal/host"
+	"github.com/prantosmss/Scriptorium/internal/logger"
 )
 
 // RunOptions 控制单次 case 运行。

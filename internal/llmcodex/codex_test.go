@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
 	"github.com/voocel/agentcore"
 )
 
@@ -19,8 +19,8 @@ func fakeCLIWithEmptyMCP(script string) string {
 }
 
 func TestDetectCodexBinaryHonorsExplicitPipelineOverride(t *testing.T) {
-	const want = "/opt/novel-studio/codex-cli"
-	t.Setenv("NOVEL_STUDIO_CODEX_BINARY", "  "+want+"  ")
+	const want = "/opt/scriptorium/codex-cli"
+	t.Setenv("SCRIPTORIUM_CODEX_BINARY", "  "+want+"  ")
 	if got := detectCodexBinary(); got != want {
 		t.Fatalf("detectCodexBinary()=%q want explicit override %q", got, want)
 	}
@@ -326,7 +326,7 @@ func TestDirectRenderPromptUsesTypedPacketContractNotDecoyText(t *testing.T) {
 
 func TestOrdinaryDraftGenerateKeepsPlaceholderThenProseCalls(t *testing.T) {
 	dir := t.TempDir()
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", filepath.Join(dir, "prose-cache"))
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", filepath.Join(dir, "prose-cache"))
 	script := filepath.Join(dir, "fake-codex")
 	countPath := filepath.Join(dir, "count")
 	t.Setenv("CODEX_ORDINARY_COUNT", countPath)
@@ -856,7 +856,7 @@ func TestBuildProsePromptDropsLiveExternalAdviceAfterPlanFreeze(t *testing.T) {
 }
 
 func TestProseCacheRoundTripIsBoundToPromptModelAndEffort(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", t.TempDir())
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", t.TempDir())
 	contract := proseWordContract{Min: 4, Max: 20}
 	prompt := "精确渲染包"
 	if _, hit := loadCachedProse(prompt, "gpt-5.6-sol", "ultra", contract); hit {
@@ -1059,12 +1059,12 @@ func TestBoundedCodexExecContextAddsHardDeadlineAndRespectsEarlierParent(t *test
 }
 
 func TestConfiguredCodexExecHardTimeoutSupportsBoundedOverride(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_CODEX_EXEC_HARD_TIMEOUT", "25m")
+	t.Setenv("SCRIPTORIUM_CODEX_EXEC_HARD_TIMEOUT", "25m")
 	if got := configuredCodexExecHardTimeout(); got != 25*time.Minute {
 		t.Fatalf("override = %s, want 25m", got)
 	}
 	for _, invalid := range []string{"bad", "30s", "2h"} {
-		t.Setenv("NOVEL_STUDIO_CODEX_EXEC_HARD_TIMEOUT", invalid)
+		t.Setenv("SCRIPTORIUM_CODEX_EXEC_HARD_TIMEOUT", invalid)
 		if got := configuredCodexExecHardTimeout(); got != defaultCodexExecHardTimeout {
 			t.Fatalf("invalid override %q = %s, want default %s", invalid, got, defaultCodexExecHardTimeout)
 		}

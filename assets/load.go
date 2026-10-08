@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 )
 
 //go:embed prompts/*.md
@@ -142,13 +142,13 @@ func LoadWithOverrides(style string, overrideDirs ...string) (Bundle, []PromptPr
 }
 
 // DefaultPromptOverrideDirs 返回默认覆盖链（优先级从低到高）：
-// ~/.novel-studio/prompts → ./.novel-studio/prompts。
+// ~/.scriptorium/prompts → ./.scriptorium/prompts。
 func DefaultPromptOverrideDirs() []string {
 	var dirs []string
 	if home, err := os.UserHomeDir(); err == nil {
-		dirs = append(dirs, filepath.Join(home, ".novel-studio", "prompts"))
+		dirs = append(dirs, filepath.Join(home, ".scriptorium", "prompts"))
 	}
-	dirs = append(dirs, filepath.Join(".novel-studio", "prompts"))
+	dirs = append(dirs, filepath.Join(".scriptorium", "prompts"))
 	return dirs
 }
 

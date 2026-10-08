@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""novel-studio 创作进度看板（零依赖，stdlib only）。
+"""Scriptorium 创作进度看板（零依赖，stdlib only）。
 
 数据源统一为仓库根目录 data/runs/ 下的书目工程：每个 <runs>/<书名>/ 内含
 output/novel/{meta,chapters,reviews,summaries,logs}。本服务只读、不写任何数据。
 
-由 `novel-studio service start` 拉起：python3 server.py --host H --port P。
+由 `scriptorium service start` 拉起：python3 server.py --host H --port P。
 Go 侧健康检查依赖 /api/health 与 /api/novels 均返回 2xx。
 """
 from __future__ import annotations
@@ -26,7 +26,7 @@ from pathlib import Path
 from threading import Lock
 
 ROOT = Path(__file__).resolve().parents[2]
-RUNS_DIR = Path(os.environ.get("NOVEL_STUDIO_RUNS_DIR", ROOT / "data" / "runs"))
+RUNS_DIR = Path(os.environ.get("SCRIPTORIUM_RUNS_DIR", ROOT / "data" / "runs"))
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 SERVICE_SCRIPT = str(Path(__file__).resolve())
 
@@ -435,7 +435,7 @@ def scan_rag_processes() -> list[dict]:
         if "--build-rag" not in tokens:
             continue
         build_index = tokens.index("--build-rag")
-        if not any("novel-studio" in Path(token).name for token in tokens[:build_index]):
+        if not any("scriptorium" in Path(token).name for token in tokens[:build_index]):
             continue
         output_dir = normalize_rag_output_dir(cli_flag_value(tokens, "--dir"))
         if output_dir is None:
@@ -2798,7 +2798,7 @@ def broadcast_detail(book_id):
 #
 # The dashboard and the CLI share one setting: "language" in config.json. The
 # toggle in the page header POSTs here, this module patches the file the same
-# way `novel-studio lang` does (in place, so the user's // comments and unknown
+# way `scriptorium lang` does (in place, so the user's // comments and unknown
 # keys survive), and the next CLI run picks the value up.
 # ---------------------------------------------------------------------------
 
@@ -2813,10 +2813,10 @@ _BOM = "\ufeff"
 
 def settings_config_path() -> Path:
     """Same precedence as the CLI: project override, else the global config."""
-    project = Path.cwd() / ".novel-studio" / "config.json"
+    project = Path.cwd() / ".scriptorium" / "config.json"
     if project.is_file():
         return project
-    return Path.home() / ".novel-studio" / "config.json"
+    return Path.home() / ".scriptorium" / "config.json"
 
 
 def _strip_json_comments(text: str) -> str:
@@ -2887,7 +2887,7 @@ def write_settings_language(language: str) -> dict:
     the config does not exist yet (first run has to go through the CLI)."""
     path = settings_config_path()
     if not path.is_file():
-        return {"error": "no config file", "hint": "run novel-studio once to create it",
+        return {"error": "no config file", "hint": "run scriptorium once to create it",
                 "path": str(path)}
     try:
         text = _read_config_text(path)
@@ -2921,7 +2921,7 @@ def write_settings_language(language: str) -> dict:
 
 
 class Handler(BaseHTTPRequestHandler):
-    server_version = "novel-studio-dashboard/3.0"
+    server_version = "scriptorium-dashboard/3.0"
 
     def log_message(self, fmt, *args):  # 静默访问日志
         pass
@@ -3023,7 +3023,7 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
-    ap = argparse.ArgumentParser(description="novel-studio progress dashboard")
+    ap = argparse.ArgumentParser(description="scriptorium progress dashboard")
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8765)
     args = ap.parse_args()

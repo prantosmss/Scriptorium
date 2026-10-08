@@ -1,6 +1,6 @@
 # AI-Novel-Writing-Assistant 生产链路蒸馏
 
-本资料把 AI-Novel-Writing-Assistant 中对 `novel-studio` 有复用价值的生产规则沉淀为一份长期 reference。它不是正文口吻模板，而是规划、生成、审稿和修复时共用的链路边界。
+本资料把 AI-Novel-Writing-Assistant 中对 `scriptorium` 有复用价值的生产规则沉淀为一份长期 reference。它不是正文口吻模板，而是规划、生成、审稿和修复时共用的链路边界。
 
 ## 1. 职责边界
 

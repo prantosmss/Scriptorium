@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 )
 
 func TestTerminalAskUserSingleSelect(t *testing.T) {

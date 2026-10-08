@@ -18,8 +18,8 @@ COPY . .
 
 RUN GOOS=$TARGETOS GOARCH=$TARGETARCH \
     go build -trimpath -ldflags="-s -w" \
-    -o /out/novel-studio \
-    ./cmd/novel-studio
+    -o /out/scriptorium \
+    ./cmd/scriptorium
 
 FROM alpine:3.24.1
 
@@ -30,10 +30,10 @@ RUN apk add --no-cache \
 
 WORKDIR /workspace
 
-ENV NOVEL_STUDIO_RUNS_DIR=/workspace/data/runs
+ENV SCRIPTORIUM_RUNS_DIR=/workspace/data/runs
 
-COPY --from=builder /out/novel-studio /usr/local/bin/novel-studio
+COPY --from=builder /out/scriptorium /usr/local/bin/scriptorium
 
 EXPOSE 8765
 
-ENTRYPOINT ["novel-studio"]
+ENTRYPOINT ["scriptorium"]

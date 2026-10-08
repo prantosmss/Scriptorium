@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 )
 
 func TestInitialSelfIntentProducerPreservesHistoricalSchemaAndInventories(t *testing.T) {

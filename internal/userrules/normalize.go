@@ -16,7 +16,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/rules"
 	"github.com/voocel/agentcore"
 	"github.com/voocel/agentcore/llm"
 )

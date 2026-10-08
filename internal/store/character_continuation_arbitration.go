@@ -6,7 +6,7 @@ import (
 	"os"
 	"sort"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // A source-aware view is constructed from the real store, never JSON. Original

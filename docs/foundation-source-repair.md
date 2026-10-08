@@ -37,7 +37,7 @@ compass 修复只允许 `/non_negotiables` 和 `/author_contracts`。用 `requir
 先在保存原 Prompt 的前提下修复人物源，例如：
 
 ```sh
-novel-studio --config config.json --dir RUN --pipeline \
+scriptorium --config config.json --dir RUN --pipeline \
   --rebase-all-chapters --stages architect --refresh-architect \
   --architect-target characters --architect-repair-file repair-characters.json \
   --prompt-file prompt.md
@@ -48,7 +48,7 @@ novel-studio --config config.json --dir RUN --pipeline \
 两项源修复验证通过后，显式重建受影响的阶段：
 
 ```sh
-novel-studio --config config.json --dir RUN --pipeline \
+scriptorium --config config.json --dir RUN --pipeline \
   --stages outline-all,zero-init,preplan,rehearse-arc --prompt-file prompt.md
 ```
 

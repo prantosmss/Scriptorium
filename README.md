@@ -1,19 +1,19 @@
 <div align="center">
 
-<img src="docs/assets/novel-studio-hero.jpg" alt="novel-studio：打开的书本上方展开角色关系与故事时间线" width="100%">
+<img src="docs/assets/scriptorium-hero.jpg" alt="scriptorium：打开的书本上方展开角色关系与故事时间线" width="100%">
 
-# novel-studio
+# Scriptorium
 
 **开源、本地优先、可恢复的 AI 长篇小说创作引擎。**
 
 先推演世界与角色，再封存章节计划，最后把主视角真正看见的因果写成正文。
 
-[![GitHub Stars](https://img.shields.io/github/stars/Xiaoyangy/novel-studio?style=flat&logo=github&color=E3B341)](https://github.com/Xiaoyangy/novel-studio)
-[![Release](https://img.shields.io/github/v/release/Xiaoyangy/novel-studio?logo=github)](https://github.com/Xiaoyangy/novel-studio/releases/latest)
-[![CI](https://github.com/Xiaoyangy/novel-studio/actions/workflows/ci.yml/badge.svg)](https://github.com/Xiaoyangy/novel-studio/actions/workflows/ci.yml)
+[![GitHub Stars](https://img.shields.io/github/stars/prantosmss/Scriptorium?style=flat&logo=github&color=E3B341)](https://github.com/prantosmss/Scriptorium)
+[![Release](https://img.shields.io/github/v/release/prantosmss/Scriptorium?logo=github)](https://github.com/prantosmss/Scriptorium/releases/latest)
+[![CI](https://github.com/prantosmss/Scriptorium/actions/workflows/ci.yml/badge.svg)](https://github.com/prantosmss/Scriptorium/actions/workflows/ci.yml)
 [![Go](https://img.shields.io/badge/Go-1.25.5-00ADD8?logo=go&logoColor=white)](go.mod)
 [![Platform](https://img.shields.io/badge/macOS%20%7C%20Linux%20%7C%20WSL2-supported-555)](#运行要求)
-[![License](https://img.shields.io/github/license/Xiaoyangy/novel-studio)](LICENSE)
+[![License](https://img.shields.io/github/license/prantosmss/Scriptorium)](LICENSE)
 
 [简体中文](README.md) · [English](README_EN.md)
 
@@ -23,13 +23,13 @@
 
 ---
 
-novel-studio 面向长篇小说、网文连载、短篇整书和故事工作室。它把大纲、人物、世界状态、RAG、正文审核与返工从易丢失的聊天上下文，转换成保存在本机、可验证、可恢复的生产流水线。
+Scriptorium 面向长篇小说、网文连载、短篇整书和故事工作室。它把大纲、人物、世界状态、RAG、正文审核与返工从易丢失的聊天上下文，转换成保存在本机、可验证、可恢复的生产流水线。
 
 它不是“续写上一段”的聊天壳，也不是所见即所得的桌面编辑器。新规划先冻结全书导航并完成整弧条件预演，再让重要角色在接下来至多 3 章的窗口内独立决策并裁决后果；窗口封存后，才逐章渲染、逐章审核。只有通过审核的正文和实际结果会进入正史。
 
 ## 核心能力
 
-| 问题 | novel-studio 的处理方式 |
+| 问题 | Scriptorium 的处理方式 |
 |---|---|
 | 角色为了剧情突然降智或提前知道秘密 | 当前弧的重要角色拥有稳定 Agent 身份、私有观察和结构化记忆；World Arbiter 只能裁决结果，不能替角色改意图 |
 | 大纲与正文逐渐脱节 | 全书章位先冻结，当前细推窗口再完成角色决定、跨章因果、POV 边界和承载力校验，生成不可变章节合同 |
@@ -42,14 +42,14 @@ novel-studio 面向长篇小说、网文连载、短篇整书和故事工作室�
 
 ## 运行看板
 
-![novel-studio 进度看板：章节、按弧规划、审核、RAG、模型用量与运行状态](docs/assets/dashboard-overview-20260720.jpg)
+![Scriptorium 进度看板：章节、按弧规划、审核、RAG、模型用量与运行状态](docs/assets/dashboard-overview-20260720.jpg)
 
 <details>
 <summary><strong>查看人物与离屏世界视图</strong></summary>
 
-![novel-studio 人物视图：角色档案、目标压力、知识边界、关系与成长轨迹](docs/assets/dashboard-characters-20260710.webp)
+![Scriptorium 人物视图：角色档案、目标压力、知识边界、关系与成长轨迹](docs/assets/dashboard-characters-20260710.webp)
 
-![novel-studio 离屏世界视图：角色独立行动、势力进度钟、社会情绪与信息传播](docs/assets/dashboard-offscreen-20260710.webp)
+![Scriptorium 离屏世界视图：角色独立行动、势力进度钟、社会情绪与信息传播](docs/assets/dashboard-offscreen-20260710.webp)
 
 </details>
 
@@ -70,7 +70,7 @@ novel-studio 面向长篇小说、网文连载、短篇整书和故事工作室�
 普通用户使用稳定 Release：
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/prantosmss/Scriptorium/main/scripts/install.sh | sh
 ```
 
 安装脚本会选择可写目录、校验 SHA-256，并在需要时打印 `PATH` 修复命令。
@@ -78,26 +78,26 @@ curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts
 需要当前 `main` 的最新能力时，从源码运行：
 
 ```bash
-git clone https://github.com/Xiaoyangy/novel-studio.git
-cd novel-studio
+git clone https://github.com/prantosmss/Scriptorium.git
+cd scriptorium
 ./scripts/run-local.sh doctor
 ```
 
-源码模式不需要预先构建；`scripts/run-local.sh` 始终运行当前 checkout。下文中的 `novel-studio` 可等价替换为 `./scripts/run-local.sh`。
+源码模式不需要预先构建；`scripts/run-local.sh` 始终运行当前 checkout。下文中的 `scriptorium` 可等价替换为 `./scripts/run-local.sh`。
 
 ### 2. 诊断并配置模型
 
 ```bash
-novel-studio doctor
-novel-studio
-novel-studio --check
+scriptorium doctor
+scriptorium
+scriptorium --check
 ```
 
 - `doctor` 不调用模型、不推进小说状态，只检查系统、目录、配置、Dashboard 和可选 RAG 依赖。
-- 第一次直接运行 `novel-studio` 会进入配置向导。
+- 第一次直接运行 `scriptorium` 会进入配置向导。
 - `--check` 会发起最小真实模型请求，用来验证 provider、model 与 fallback 路由。
 
-全局配置位于 `~/.novel-studio/config.json`；项目级 `./.novel-studio/config.json` 会覆盖它。完整字段见 [config.example.jsonc](config.example.jsonc)。生产环境建议把 `roles.reviewer` 独立路由到 DeepSeek；`--draft-ai-judge` 会严格要求有效 Reviewer 确实使用 DeepSeek。
+全局配置位于 `~/.scriptorium/config.json`；项目级 `./.scriptorium/config.json` 会覆盖它。完整字段见 [config.example.jsonc](config.example.jsonc)。生产环境建议把 `roles.reviewer` 独立路由到 DeepSeek；`--draft-ai-judge` 会严格要求有效 Reviewer 确实使用 DeepSeek。
 
 ### 3. 创建一本书
 
@@ -106,21 +106,21 @@ novel-studio --check
 只准备世界、人物、全书导航和初始状态，使用 `--init-only`。完成后命令会退出，不进入整弧角色推演，也不会生成正文：
 
 ```bash
-novel-studio --pipeline --new-novel --init-only \
+scriptorium --pipeline --new-novel --init-only \
   --prompt "写一部 12 章完结的双女主都市悬疑短篇；每章 2000—2500 字"
 ```
 
 如果希望初始化后继续进入规划与写作，省略 `--init-only`：
 
 ```bash
-novel-studio --pipeline --new-novel \
+scriptorium --pipeline --new-novel \
   --prompt "写一部 12 章完结的双女主都市悬疑短篇；每章 2000—2500 字；人物边界和结局回收先在章纲中冻结"
 ```
 
 长期项目更适合把完整创作合同放进文件；下面的命令只完成初始化：
 
 ```bash
-novel-studio --pipeline --new-novel --init-only --prompt-file prompt.md
+scriptorium --pipeline --new-novel --init-only --prompt-file prompt.md
 ```
 
 新项目默认写入 `data/runs/<书名>`。初始化后默认走 `preplan → rehearse-arc → project-all → seal → promote → render`：先整弧条件预演，再细推并封存接下来至多 3 章（弧尾不足 3 章时取剩余章节）。一次 pipeline 调用仍最多完成下一章的渲染与验收，需重复同一命令继续。
@@ -131,13 +131,13 @@ novel-studio --pipeline --new-novel --init-only --prompt-file prompt.md
 
 ```bash
 # 从落盘证据继续下一步
-novel-studio --pipeline --dir data/runs/<书名>
+scriptorium --pipeline --dir data/runs/<书名>
 
 # 打开只读进度看板
-novel-studio service open
+scriptorium service open
 
 # 生成诊断报告，不推进生产状态
-novel-studio --diag --dir data/runs/<书名>
+scriptorium --diag --dir data/runs/<书名>
 ```
 
 重复同一条 pipeline 命令即可逐弧、逐章继续。不要为同一本书并发启动两条 pipeline，也不要手改 `progress.json`、候选目录、事务目录或运行时回执。
@@ -145,7 +145,7 @@ novel-studio --diag --dir data/runs/<书名>
 满足短篇全文终审范围的项目，在末章和终弧回执齐全后显式交付：
 
 ```bash
-novel-studio --pipeline --dir data/runs/<书名> --stages finalize,deliver
+scriptorium --pipeline --dir data/runs/<书名> --stages finalize,deliver
 ```
 
 成功后会生成 `output/novel/正文.md`、全文终审和出版包。长篇当前以完整的章级验收链为终态，不会把它冒充成 exact-book 全文终审。
@@ -215,7 +215,7 @@ Architect 不再只产出一组设定文字。新项目的世界底座由三份�
 
 ```bash
 # pipeline 会自动执行；也可以对已落盘 foundation 单独复核
-novel-studio --architect-check --dir data/runs/<书名>/output/novel
+scriptorium --architect-check --dir data/runs/<书名>/output/novel
 ```
 
 ## 角色 Agent 决策
@@ -271,16 +271,16 @@ Drafter 只读取已授权的最小输入
 
 ```bash
 # 构建或刷新单本书索引
-novel-studio --build-rag --dir data/runs/<书名>/output/novel
+scriptorium --build-rag --dir data/runs/<书名>/output/novel
 
 # 修复并验证 embedding、本地向量与 Qdrant 一致性
-novel-studio --rag-ready --dir data/runs/<书名>/output/novel
+scriptorium --rag-ready --dir data/runs/<书名>/output/novel
 
 # 只读审计全部正式、投影、候选和归档快照
-novel-studio rag audit --root data/runs
+scriptorium rag audit --root data/runs
 
 # 先备份，再修复正式索引并物理去重相同历史快照
-novel-studio rag maintain --root data/runs --apply
+scriptorium rag maintain --root data/runs --apply
 ```
 
 每次当前弧推演都会冻结独立的 `rag_snapshot_root`。Drafter 看不到 raw hits，也不会在 render 阶段临时连接 live Qdrant。详细创建、检索、防串库、维护与全量数据复审见 [RAG 全生命周期审计](docs/design-audits/rag-full-lifecycle-audit-20260905.md)。
@@ -312,7 +312,7 @@ novel-studio rag maintain --root data/runs --apply
 
 ## 模型与部署
 
-novel-studio 支持按角色选择 provider、model、reasoning effort 和 fallback。当前适配器覆盖 OpenAI、Anthropic、Gemini、OpenRouter、DeepSeek、Qwen、GLM、Grok、MiniMax、Mimo、Ollama、Bedrock、OpenAI-compatible 代理与本机 Codex CLI；适配器存在不代表每个模型版本都完成了全部生产角色验证。
+Scriptorium 支持按角色选择 provider、model、reasoning effort 和 fallback。当前适配器覆盖 OpenAI、Anthropic、Gemini、OpenRouter、DeepSeek、Qwen、GLM、Grok、MiniMax、Mimo、Ollama、Bedrock、OpenAI-compatible 代理与本机 Codex CLI；适配器存在不代表每个模型版本都完成了全部生产角色验证。
 
 | 配置键 | 作用 |
 |---|---|
@@ -331,15 +331,15 @@ Docker 快速入口：
 
 ```bash
 mkdir -p config workspace
-docker compose run --rm novel-studio
-docker compose run --rm novel-studio doctor --dir /workspace
-docker compose run --rm novel-studio --check
+docker compose run --rm scriptorium
+docker compose run --rm scriptorium doctor --dir /workspace
+docker compose run --rm scriptorium --check
 ```
 
 要从容器启动 Dashboard：
 
 ```bash
-docker compose run --rm --service-ports novel-studio service start --host 0.0.0.0
+docker compose run --rm --service-ports scriptorium service start --host 0.0.0.0
 ```
 
 随后打开 [http://127.0.0.1:8765/](http://127.0.0.1:8765/)。Compose 内启用 Qdrant 时，`rag.qdrant.url` 应使用 `http://qdrant:6333`。
@@ -350,25 +350,25 @@ docker compose run --rm --service-ports novel-studio service start --host 0.0.0.
 
 | 命令 | 用途 |
 |---|---|
-| `novel-studio doctor [--dir <RUN>]` | 不调用模型，检查环境并给出修复建议 |
-| `novel-studio --check` | 验证 provider、model 和 fallback 连通性 |
-| `novel-studio --pipeline --new-novel --init-only --prompt "..."` | 当前 main：仅初始化后退出；v0.3.0 将 `--init-only` 换为 `--stages architect,outline-all,zero-init` |
-| `novel-studio --pipeline --new-novel --prompt "..."` | 创建书目并启动完整流程 |
-| `novel-studio --pipeline --dir <RUN>` | 从可信证据恢复下一步 |
-| `novel-studio --pipeline --dir <RUN> --stages preplan,rehearse-arc,project-all,seal` | 在新规划边界完成整弧条件预演与接下来至多 3 章的细推封存，不写正文 |
-| `novel-studio --pipeline --dir <RUN> --stages promote,render` | 渲染并审核下一份 sealed chapter bundle |
-| `novel-studio --pipeline --dir <RUN> --stages finalize,deliver` | 为符合范围的短篇执行全文终审和交付 |
-| `novel-studio --architect-check --dir <RUN>/output/novel` | 生成并验证世界自洽证明，不进入正文 |
-| `novel-studio --build-rag --dir <RUN>/output/novel` | 构建项目 RAG 索引 |
-| `novel-studio --rag-ready --dir <RUN>/output/novel` | 验证并恢复 RAG 与 Qdrant |
-| `novel-studio rag audit --root data/runs` | 只读审计全部 RAG 快照 |
-| `novel-studio rag maintain --root data/runs --apply` | 备份、修复并去重正式索引 |
-| `novel-studio service open` | 启动或打开 Dashboard |
-| `novel-studio --diag --dir <RUN>` | 生成诊断报告，不推进小说状态 |
-| `novel-studio --version` | 查看版本 |
-| `novel-studio update [version]` | 更新 Release 安装 |
+| `scriptorium doctor [--dir <RUN>]` | 不调用模型，检查环境并给出修复建议 |
+| `scriptorium --check` | 验证 provider、model 和 fallback 连通性 |
+| `scriptorium --pipeline --new-novel --init-only --prompt "..."` | 当前 main：仅初始化后退出；v0.3.0 将 `--init-only` 换为 `--stages architect,outline-all,zero-init` |
+| `scriptorium --pipeline --new-novel --prompt "..."` | 创建书目并启动完整流程 |
+| `scriptorium --pipeline --dir <RUN>` | 从可信证据恢复下一步 |
+| `scriptorium --pipeline --dir <RUN> --stages preplan,rehearse-arc,project-all,seal` | 在新规划边界完成整弧条件预演与接下来至多 3 章的细推封存，不写正文 |
+| `scriptorium --pipeline --dir <RUN> --stages promote,render` | 渲染并审核下一份 sealed chapter bundle |
+| `scriptorium --pipeline --dir <RUN> --stages finalize,deliver` | 为符合范围的短篇执行全文终审和交付 |
+| `scriptorium --architect-check --dir <RUN>/output/novel` | 生成并验证世界自洽证明，不进入正文 |
+| `scriptorium --build-rag --dir <RUN>/output/novel` | 构建项目 RAG 索引 |
+| `scriptorium --rag-ready --dir <RUN>/output/novel` | 验证并恢复 RAG 与 Qdrant |
+| `scriptorium rag audit --root data/runs` | 只读审计全部 RAG 快照 |
+| `scriptorium rag maintain --root data/runs --apply` | 备份、修复并去重正式索引 |
+| `scriptorium service open` | 启动或打开 Dashboard |
+| `scriptorium --diag --dir <RUN>` | 生成诊断报告，不推进小说状态 |
+| `scriptorium --version` | 查看版本 |
+| `scriptorium update [version]` | 更新 Release 安装 |
 
-使用 `novel-studio --pipeline --help`、`novel-studio service --help` 和 `novel-studio rag --help` 查看完整选项。高级 rebase、outline repair、successor generation 和慢章诊断集中在 [生产与运维参考](README-TECHNICAL.md)。
+使用 `scriptorium --pipeline --help`、`scriptorium service --help` 和 `scriptorium rag --help` 查看完整选项。高级 rebase、outline repair、successor generation 和慢章诊断集中在 [生产与运维参考](README-TECHNICAL.md)。
 
 ## 项目数据
 
@@ -403,16 +403,16 @@ data/runs/<书名>/
 
 | 现象 | 建议 |
 |---|---|
-| `novel-studio: command not found` | 执行安装脚本最后打印的 `export PATH=...`，或直接使用安装后的绝对路径 |
-| 不确定本机缺什么 | 先运行 `novel-studio doctor`；它不会调用模型 |
-| Provider 配置通过但模型不可用 | 运行 `novel-studio --check`，核对 provider key、model、base URL、额度和角色 fallback |
+| `scriptorium: command not found` | 执行安装脚本最后打印的 `export PATH=...`，或直接使用安装后的绝对路径 |
+| 不确定本机缺什么 | 先运行 `scriptorium doctor`；它不会调用模型 |
+| Provider 配置通过但模型不可用 | 运行 `scriptorium --check`，核对 provider key、model、base URL、额度和角色 fallback |
 | Release 没有 README 中的新能力 | 先用 `--version` 核对版本；README 描述当前 `main`，未发布的功能需用 `./scripts/run-local.sh` 运行源码。v0.3.0 不支持 `--init-only`，改用 `--stages architect,outline-all,zero-init` |
 | Pipeline 中断或看似卡住 | 再次执行完全相同的 pipeline 命令；用 `service open` 或 `--diag` 查看 checkpoint，禁止手改回执 |
 | RAG 没有命中或 Qdrant 不一致 | 依次执行 `--build-rag`、`--rag-ready`，需要全盘核对时先运行只读 `rag audit` |
-| Dashboard 打不开 | 运行 `novel-studio service status`；需要前台日志时使用 `service start` |
+| Dashboard 打不开 | 运行 `scriptorium service status`；需要前台日志时使用 `service start` |
 | 同一本书提示执行锁 | 确认没有另一条 pipeline 正在运行；异常退出后按诊断建议恢复，不要删除锁文件 |
 
-若问题仍然存在，请提交 [GitHub Issue](https://github.com/Xiaoyangy/novel-studio/issues)，附上版本、平台、执行命令和 `--diag` 的脱敏结果，不要上传 API key 或未授权正文。
+若问题仍然存在，请提交 [GitHub Issue](https://github.com/prantosmss/Scriptorium/issues)，附上版本、平台、执行命令和 `--diag` 的脱敏结果，不要上传 API key 或未授权正文。
 
 ## 适用范围
 
@@ -451,7 +451,7 @@ data/runs/<书名>/
 go test -count=1 ./...
 go test -race ./internal/agents ./internal/agents/ctxpack ./internal/tools ./internal/store ./services/dashboard
 go vet ./...
-go build -o /tmp/novel-studio ./cmd/novel-studio
+go build -o /tmp/scriptorium ./cmd/scriptorium
 
 python3 scripts/validate_skill_context.py
 python3 -m unittest discover -s quality/audit/scripts -p 'test_*.py' -v
@@ -460,7 +460,7 @@ python3 -m unittest services.dashboard.test_server -v
 git diff --check
 ```
 
-涉及 pipeline、存储合同或恢复路径的改动必须附带回归测试。欢迎提交 [Issue](https://github.com/Xiaoyangy/novel-studio/issues) 或 Pull Request。
+涉及 pipeline、存储合同或恢复路径的改动必须附带回归测试。欢迎提交 [Issue](https://github.com/prantosmss/Scriptorium/issues) 或 Pull Request。
 
 ## License
 
@@ -468,6 +468,6 @@ git diff --check
 
 <div align="center">
 
-如果这个项目对你有帮助，欢迎 [⭐ Star](https://github.com/Xiaoyangy/novel-studio) · [提交 Issue](https://github.com/Xiaoyangy/novel-studio/issues) · 分享你的使用经验。
+如果这个项目对你有帮助，欢迎 [⭐ Star](https://github.com/prantosmss/Scriptorium) · [提交 Issue](https://github.com/prantosmss/Scriptorium/issues) · 分享你的使用经验。
 
 </div>

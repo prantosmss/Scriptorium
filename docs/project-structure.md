@@ -1,6 +1,6 @@
 # 项目结构
 
-`novel-studio` 按运行时、服务、数据、审核、写作指导和历史研究资料分层。历史文件已实际迁入规范目录，不保留软链。
+`scriptorium` 按运行时、服务、数据、审核、写作指导和历史研究资料分层。历史文件已实际迁入规范目录，不保留软链。
 
 ## 顶层分区
 
@@ -39,4 +39,4 @@
 
 - 通用运行时参考只在 `assets/references/` 维护。
 - 题材、流程和历史 prompt 只在对应 `skills/*/references/` 维护。
-- `novel-studio skills export --to <dir>` 从 `skills/` 单一源目录导出 skill 包。
+- `scriptorium skills export --to <dir>` 从 `skills/` 单一源目录导出 skill 包。

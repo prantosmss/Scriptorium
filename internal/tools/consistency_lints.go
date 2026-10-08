@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // Task 074：commit 前确定性对账器（ConStory-Checker 证据锚定 + FACTTRACK 有效期语义）。

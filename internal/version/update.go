@@ -69,7 +69,7 @@ func Update(ctx context.Context, opts UpdateOptions) (*UpdateResult, error) {
 		return nil, err
 	}
 
-	tmp, err := os.MkdirTemp("", "novel-studio-update-*")
+	tmp, err := os.MkdirTemp("", "scriptorium-update-*")
 	if err != nil {
 		return nil, fmt.Errorf("create temp dir: %w", err)
 	}

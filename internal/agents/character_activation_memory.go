@@ -3,7 +3,7 @@ package agents
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Cycle memory is derived from a validated closed cycle and kept inside its

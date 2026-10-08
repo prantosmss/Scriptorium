@@ -1,4 +1,4 @@
-// Package i18n holds the interface language switch for novel-studio.
+// Package i18n holds the interface language switch for scriptorium.
 //
 // Design rules:
 //

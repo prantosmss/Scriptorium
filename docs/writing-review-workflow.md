@@ -1,6 +1,6 @@
 # 写作审核一体化执行方案
 
-本文档定义 `novel-studio` 后续创作任务的默认工作流：用户给题材、大纲、人物设定或直接说“继续开始创作”时，系统如何启动看板、恢复进度、写作、审核、返工和交付。
+本文档定义 `scriptorium` 后续创作任务的默认工作流：用户给题材、大纲、人物设定或直接说“继续开始创作”时，系统如何启动看板、恢复进度、写作、审核、返工和交付。
 
 ## 审核证据契约
 
@@ -77,9 +77,9 @@ flowchart TD
 HTML 看板由 CLI 内嵌的 `services/dashboard/` 资源提供（统一读取 `data/runs/`），入口命令是：
 
 ```bash
-go run ./cmd/novel-studio service status
-go run ./cmd/novel-studio service start
-go run ./cmd/novel-studio service open
+go run ./cmd/scriptorium service status
+go run ./cmd/scriptorium service start
+go run ./cmd/scriptorium service open
 ```
 
 默认地址：
@@ -88,7 +88,7 @@ go run ./cmd/novel-studio service open
 http://127.0.0.1:8765/
 ```
 
-首页是统一项目看板，扫描 `$NOVEL_STUDIO_RUNS_DIR`；未设置时默认扫描当前 workspace 的 `data/runs/`。pipeline 自动启动看板时会把它绑定到当前书目所在的 runs 根目录。页面动态刷新 `progress.json`、`pipeline.json`、章节、草稿、审核、AI 审核、摘要、日志、导出文件和 meta 下的资料。
+首页是统一项目看板，扫描 `$SCRIPTORIUM_RUNS_DIR`；未设置时默认扫描当前 workspace 的 `data/runs/`。pipeline 自动启动看板时会把它绑定到当前书目所在的 runs 根目录。页面动态刷新 `progress.json`、`pipeline.json`、章节、草稿、审核、AI 审核、摘要、日志、导出文件和 meta 下的资料。
 
 启动规则：
 
@@ -102,10 +102,10 @@ http://127.0.0.1:8765/
 后台启动由 `service open` 自动处理。如需前台查看日志：
 
 ```bash
-novel-studio service start --host 127.0.0.1 --port 8765
+scriptorium service start --host 127.0.0.1 --port 8765
 ```
 
-注意：看板服务只负责展示、项目状态、章节/审核文件读写和本地指标；它不是写作调度器。写作恢复和章级推进仍由 `novel-studio` CLI、Store 和 checkpoint 决定。
+注意：看板服务只负责展示、项目状态、章节/审核文件读写和本地指标；它不是写作调度器。写作恢复和章级推进仍由 `scriptorium` CLI、Store 和 checkpoint 决定。
 
 ## 事实源
 
@@ -133,7 +133,7 @@ novel-studio service start --host 127.0.0.1 --port 8765
 | `meta/rag/retrieval_trace.jsonl` | `novel_context` 每次召回的 query、strategy、命中来源、分数和 reason |
 | Qdrant collection | 本机向量库，pipeline 启动时确保可用；只做召回加速，不是唯一事实源 |
 
-短篇/批量项目以看板服务的 `DATA_ROOT` 为事实源；默认是 `data/generated-output/short_story_service/projects/`，也可能被 `NOVEL_STUDIO_OUTPUT_ROOT` 或 `NOVEL_STUDIO_SHORT_STORY_DATA` 覆盖。具体路径以 `/api/stages` 返回的 `output_root` 和 `project.json` 中的 `book_dir` 为准。短篇章节同样必须生成 `reviews/NN_ai_gate.json` 与统一审核报告 `reviews/NN.md`，看板质量门禁优先读取这些机械审核事实。
+短篇/批量项目以看板服务的 `DATA_ROOT` 为事实源；默认是 `data/generated-output/short_story_service/projects/`，也可能被 `SCRIPTORIUM_OUTPUT_ROOT` 或 `SCRIPTORIUM_SHORT_STORY_DATA` 覆盖。具体路径以 `/api/stages` 返回的 `output_root` 和 `project.json` 中的 `book_dir` 为准。短篇章节同样必须生成 `reviews/NN_ai_gate.json` 与统一审核报告 `reviews/NN.md`，看板质量门禁优先读取这些机械审核事实。
 
 设计阶段统一事实源见 [`design-stage-workflow.md`](design-stage-workflow.md)。短篇不再只用 `故事圣经.md` 承载设计，必须同时生成与长篇同名的结构化文件；短篇的差异是 `layered_outline` 压缩为 1 卷 1 弧、时间线短链闭合、伏笔篇内回收，而不是减少交付物。
 
@@ -142,13 +142,13 @@ novel-studio service start --host 127.0.0.1 --port 8765
 新书默认走可恢复流水线：
 
 ```bash
-go run ./cmd/novel-studio --pipeline --prompt-file run-prompts/<book>.md
+go run ./cmd/scriptorium --pipeline --prompt-file run-prompts/<book>.md
 ```
 
 已有进度时，不传新 prompt，按 Store 断点恢复：
 
 ```bash
-go run ./cmd/novel-studio --pipeline
+go run ./cmd/scriptorium --pipeline
 ```
 
 长篇新协议的默认阶段：
@@ -231,8 +231,8 @@ python3 quality/audit/scripts/typo_scan.py <章节或正文路径>
 文学评审入口：
 
 ```bash
-go run ./cmd/novel-studio --pipeline --stages review --from 1 --to 5
-go run ./cmd/novel-studio --pipeline --stages rewrite --from 1 --to 5
+go run ./cmd/scriptorium --pipeline --stages review --from 1 --to 5
+go run ./cmd/scriptorium --pipeline --stages rewrite --from 1 --to 5
 ```
 
 ## 返工优先级
@@ -267,7 +267,7 @@ go run ./cmd/novel-studio --pipeline --stages rewrite --from 1 --to 5
 诊断命令：
 
 ```bash
-go run ./cmd/novel-studio --diag
+go run ./cmd/scriptorium --diag
 ```
 
 ## 多任务并行

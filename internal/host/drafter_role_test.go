@@ -3,8 +3,8 @@ package host
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/agents"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/agents"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
 	"github.com/voocel/agentcore"
 )
 

@@ -3,7 +3,7 @@ package bootstrap
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/llmcodex"
+	"github.com/prantosmss/Scriptorium/internal/llmcodex"
 	"github.com/voocel/agentcore"
 )
 

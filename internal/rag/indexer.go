@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Embedder 负责把 chunk 文本转成向量。

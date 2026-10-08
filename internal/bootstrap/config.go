@@ -7,10 +7,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/models"
-	"github.com/chenhongyang/novel-studio/internal/utils"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/models"
+	"github.com/prantosmss/Scriptorium/internal/utils"
 	"github.com/voocel/agentcore/llm"
 )
 
@@ -154,7 +154,7 @@ type Config struct {
 
 	// Language 界面语言：en / zh。留空 = 英文（默认）。
 	// 只影响 CLI 输出与看板文案，不影响发给模型的 prompt。
-	// 由 novel-studio lang [en|zh] 与看板右上角开关写入。
+	// 由 scriptorium lang [en|zh] 与看板右上角开关写入。
 	Language string `json:"language,omitempty"`
 
 	// Provider 凭证库
@@ -302,8 +302,8 @@ type RAGQdrantConfig struct {
 	AutoStart      bool   `json:"auto_start,omitempty"`      // 默认 true：pipeline 启动时拉起本机容器
 	BinaryPath     string `json:"binary_path,omitempty"`     // 可选：优先用本机 qdrant 二进制启动
 	DockerImage    string `json:"docker_image,omitempty"`    // 默认 qdrant/qdrant:latest
-	ContainerName  string `json:"container_name,omitempty"`  // 默认 novel-studio-qdrant
-	StorageDir     string `json:"storage_dir,omitempty"`     // 默认 ~/.novel-studio/qdrant
+	ContainerName  string `json:"container_name,omitempty"`  // 默认 scriptorium-qdrant
+	StorageDir     string `json:"storage_dir,omitempty"`     // 默认 ~/.scriptorium/qdrant
 	TimeoutSeconds int    `json:"timeout_seconds,omitempty"` // 默认 30
 }
 
@@ -352,7 +352,7 @@ func (c *Config) ValidateBase() error {
 	// 默认 provider 必须有凭证
 	pc, ok := c.Providers[c.Provider]
 	if !ok {
-		return fmt.Errorf("provider %q 未在 providers 中配置凭证；若在 ./.novel-studio/config.json 里覆盖了 provider，需同时声明 providers.%s（含 api_key/base_url），不能只改顶层 provider: %w", c.Provider, c.Provider, errs.ErrConfig)
+		return fmt.Errorf("provider %q 未在 providers 中配置凭证；若在 ./.scriptorium/config.json 里覆盖了 provider，需同时声明 providers.%s（含 api_key/base_url），不能只改顶层 provider: %w", c.Provider, c.Provider, errs.ErrConfig)
 	}
 	if pc.RequiresAPIKey(c.Provider) && pc.EffectiveAPIKey() == "" {
 		return fmt.Errorf("provider %q has no usable api_key (set api_key or api_key_env): %w", c.Provider, errs.ErrConfig)
@@ -585,7 +585,7 @@ func (c *Config) fillRAGQdrantDefaults() {
 		c.RAG.Qdrant.DockerImage = "qdrant/qdrant:latest"
 	}
 	if c.RAG.Qdrant.ContainerName == "" {
-		c.RAG.Qdrant.ContainerName = "novel-studio-qdrant"
+		c.RAG.Qdrant.ContainerName = "scriptorium-qdrant"
 	}
 	if c.RAG.Qdrant.TimeoutSeconds <= 0 {
 		c.RAG.Qdrant.TimeoutSeconds = 30

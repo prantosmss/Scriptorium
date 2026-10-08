@@ -3,7 +3,7 @@ package testutil
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // A complete single-cycle chapter for consumer/seal tests. Execution and

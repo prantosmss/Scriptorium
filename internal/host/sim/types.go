@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore"
 )
 

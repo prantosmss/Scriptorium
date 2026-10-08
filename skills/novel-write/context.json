@@ -12,7 +12,7 @@
     ".skill-context/novel-write.md"
   ],
   "output_contract": [
-    "通过 novel-studio CLI 子命令读取或写入 output/novel/。"
+    "通过 scriptorium CLI 子命令读取或写入 output/novel/。"
   ],
   "compaction_resume": [
     "压缩或恢复后先读本文件夹的 CONTEXT.md，再读执行目录中的 .skill-context/novel-write.md（若存在）。",

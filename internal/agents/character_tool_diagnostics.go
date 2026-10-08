@@ -8,8 +8,8 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore"
 )
 
@@ -20,7 +20,7 @@ type characterToolDiagnosticScopeKey struct{}
 // and cannot raise a generation's limit. It avoids spending six more calls
 // merely to obtain the first private validation error after a failed run.
 func characterArbiterDiagnosticTurnLimit(tool string, limit int) int {
-	if tool == "resolve_chapter_world" && limit > 1 && os.Getenv("NOVEL_STUDIO_ARBITER_SINGLE_TURN") == "1" {
+	if tool == "resolve_chapter_world" && limit > 1 && os.Getenv("SCRIPTORIUM_ARBITER_SINGLE_TURN") == "1" {
 		slog.Info("arbiter diagnostic single-turn cap enabled", "module", "character_tool_diagnostics")
 		return 1
 	}

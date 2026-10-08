@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func checkpointChapterInstruction(t *testing.T, st *store.Store, chapter int, instruction string, persistText bool) string {

@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const arcRehearsalReviewDeltaPolicy = "arc-rehearsal-review-delta.v1"

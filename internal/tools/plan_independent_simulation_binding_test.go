@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func independentPlanningFixture(t *testing.T, characters ...string) (*store.Store, *domain.ChapterWorldSimulation, string) {
@@ -160,7 +160,7 @@ func TestIndependentMissingPlanStampNeedsReplanAndPreservesAudit(t *testing.T) {
 }
 
 func TestIndependentPlanningActualReadonlyBindingAudit(t *testing.T) {
-	dir := os.Getenv("NOVEL_STUDIO_INDEPENDENT_PLAN_AUDIT_DIR")
+	dir := os.Getenv("SCRIPTORIUM_INDEPENDENT_PLAN_AUDIT_DIR")
 	if dir == "" {
 		t.Skip("set an explicit stopped workspace for read-only audit")
 	}

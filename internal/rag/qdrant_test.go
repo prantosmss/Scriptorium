@@ -10,7 +10,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestQdrantClientWritesAndSearchesChunks(t *testing.T) {
@@ -341,11 +341,11 @@ func TestQdrantClientVerifyPointSetScrollsAndChecksHashes(t *testing.T) {
 }
 
 func TestCollectionNameIsStableAndSafe(t *testing.T) {
-	got := CollectionName("Novel Studio", "/tmp/她的第二算法/output/novel")
-	if got != CollectionName("Novel Studio", "/tmp/她的第二算法/output/novel") {
+	got := CollectionName("Scriptorium", "/tmp/她的第二算法/output/novel")
+	if got != CollectionName("Scriptorium", "/tmp/她的第二算法/output/novel") {
 		t.Fatalf("collection name should be stable")
 	}
-	if !strings.HasPrefix(got, "novel_studio_") {
+	if !strings.HasPrefix(got, "scriptorium_") {
 		t.Fatalf("unexpected collection prefix: %s", got)
 	}
 }

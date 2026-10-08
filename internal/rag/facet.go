@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // 设计库（craft/benchmark）内容级细粒度标签。目录分类太粗（如"素材与描写词汇"里混着

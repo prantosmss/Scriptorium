@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"sort"
 
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // ── 诊断阈值 ─────────────────────────────────────────────

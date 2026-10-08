@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // InvalidPendingRewrites 检测返工队列里混入未完成章节。
@@ -167,7 +167,7 @@ func PipelineEvidenceDrift(snap *Snapshot) []Finding {
 				Target:     "meta/pipeline.json",
 				Title:      fmt.Sprintf("流水线已完成阶段缺少证据: %s", stage),
 				Evidence:   fmt.Sprintf("completed 包含 %s，但 evidence.%s 不存在", stage, stage),
-				Suggestion: "重跑同一条 novel-studio --pipeline 命令；pipeline 会重新校验并补齐阶段证据。",
+				Suggestion: "重跑同一条 scriptorium --pipeline 命令；pipeline 会重新校验并补齐阶段证据。",
 			})
 			continue
 		}
@@ -186,7 +186,7 @@ func PipelineEvidenceDrift(snap *Snapshot) []Finding {
 			Title:      fmt.Sprintf("流水线已完成阶段证据失效: %s", stage),
 			Evidence: fmt.Sprintf("stage=%s status=%s missing=[%s] missing_artifacts=[%s] missing_checkpoints=[%s]",
 				stage, evidence.Status, strings.Join(evidence.Missing, ", "), strings.Join(artifactMissing, ", "), strings.Join(checkpointMissing, ", ")),
-			Suggestion: "重跑同一条 novel-studio --pipeline 命令；pipeline 会清掉该阶段完成标记并重跑。若是手动修复，请补齐产物/checkpoint 后再运行 diag。",
+			Suggestion: "重跑同一条 scriptorium --pipeline 命令；pipeline 会清掉该阶段完成标记并重跑。若是手动修复，请补齐产物/checkpoint 后再运行 diag。",
 		})
 	}
 
@@ -212,7 +212,7 @@ func PipelineEvidenceDrift(snap *Snapshot) []Finding {
 			Target:     "meta/pipeline.json",
 			Title:      fmt.Sprintf("流水线阶段等待重跑: %s", stage),
 			Evidence:   fmt.Sprintf("stage=%s status=%s message=%q", stage, evidence.Status, evidence.Message),
-			Suggestion: "继续运行 novel-studio --pipeline；该阶段未在 completed 中，会从这里重新执行。",
+			Suggestion: "继续运行 scriptorium --pipeline；该阶段未在 completed 中，会从这里重新执行。",
 		})
 	}
 	return findings

@@ -99,7 +99,7 @@ printf '%s' '最终可见正文。' > "$out"
 }
 
 func TestGenerateAggregatesControlProseAndRepairUsage(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
 	t.Setenv("CODEX_USAGE_COUNT", filepath.Join(t.TempDir(), "count"))
 	model := usageFakeCLI(t, `
 n=0
@@ -136,7 +136,7 @@ fi
 }
 
 func TestGenerateLabelsMixedLegacyFallback(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
 	t.Setenv("CODEX_USAGE_COUNT", filepath.Join(t.TempDir(), "count"))
 	model := usageFakeCLI(t, `
 if [ ! -f "$CODEX_USAGE_COUNT" ]; then
@@ -162,7 +162,7 @@ fi
 }
 
 func TestLocalProseCacheHitDoesNotCreateEstimatedUsage(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
 	model := New(filepath.Join(t.TempDir(), "never-execute"), "gpt-6-astra", "high")
 	messages := usageMessages("写第一章")
 	if err := saveCachedProse(buildProsePrompt(messages), model.model, "high", "第一章 缓存正文。她走进院子，看见窗边的人。"); err != nil {
@@ -184,7 +184,7 @@ func TestLocalProseCacheHitDoesNotCreateEstimatedUsage(t *testing.T) {
 }
 
 func TestGenerateWithCachedProseAccountsOnlyControlCall(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
 	model := usageFakeCLI(t, `
 printf '%s\n' '{"type":"turn.completed","usage":{"input_tokens":100,"cached_input_tokens":60,"output_tokens":10}}'
 printf '%s' '{"action":"tool_call","tool_name":"draft_chapter","arguments_json":"{\"chapter\":1,\"mode\":\"write\",\"content\":\"占位\"}","text":null}' > "$out"
@@ -315,7 +315,7 @@ func TestCodexDiagnosticTailIsBounded(t *testing.T) {
 }
 
 func TestGenerateUsageErrorPreservesFailedProseAndControlUsage(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
+	t.Setenv("SCRIPTORIUM_PROSE_CACHE_DIR", filepath.Join(t.TempDir(), "cache"))
 	t.Setenv("CODEX_USAGE_COUNT", filepath.Join(t.TempDir(), "count"))
 	model := usageFakeCLI(t, `
 if [ ! -f "$CODEX_USAGE_COUNT" ]; then

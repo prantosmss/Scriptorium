@@ -160,7 +160,7 @@
     lastSnapshot = snapshot; lastSuccess = Date.now();
     const v = buildView(snapshot), markup = renderSnapshot(snapshot), usage = dict(snapshot.usage);
     text('book-title', snapshot.title || '未命名小说');
-    document.title = `${snapshot.title || 'Novel Studio'} · 创作直播间`;
+    document.title = `${snapshot.title || 'Scriptorium'} · 创作直播间`;
     text('session-status', STATES[snapshot.status] || STATES.unknown);
     text('stage-description', `${stageLabel(snapshot.stage)} · ${v.isRunning ? '角色决策与世界后果，正在成为章节。' : '当前未运行，显示已保存的真实进展。'}`);
     text('position-label', v.isRunning ? '当前推进' : '最后工作位置');

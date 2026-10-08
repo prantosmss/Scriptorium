@@ -7,9 +7,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func validateProjectContaminationFree(s *store.Store, label string, payload any) error {

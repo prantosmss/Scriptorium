@@ -18,7 +18,7 @@
 
 ### 报 issue：脱敏诊断导出
 
-每次 `/diag` / `novel-studio --diag` 都会先在终端打印本地 Findings，再额外写出
+每次 `/diag` / `scriptorium --diag` 都会先在终端打印本地 Findings，再额外写出
 `output/{novel}/meta/diag-export.md`——一份**已脱敏**的诊断（小说正文 / prompt / 思考已移除，仅保留行为骨架：工具名、错误串、重复次数、phase/flow、卡住的 step、日志错误分类、上下文重写策略统计）。本地 Findings 可含剧情/伏笔/流程细节，自己排查时看终端；遇到死循环 / 中断类问题，把 `diag-export.md` 贴到 GitHub issue 即可，维护者据此定位，无需用户的 `output/` 数据。
 
 ---

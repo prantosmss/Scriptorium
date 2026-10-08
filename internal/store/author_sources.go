@@ -11,7 +11,7 @@ import (
 	"reflect"
 	"syscall"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const AuthorSourcesPath = "meta/author_sources.json"

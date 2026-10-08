@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>novel-studio · 开发者视角 · 工程全景</title>
+<title>Scriptorium · 开发者视角 · 工程全景</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
 <style>
@@ -304,7 +304,7 @@
       <div class="brand-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
       </div>
-      novel-studio · 工程全景
+      Scriptorium · 工程全景
     </div>
     <div class="topnav-links">
       <a href="#sec-stack">技术栈</a>
@@ -325,7 +325,7 @@
 <header class="hero">
   <div class="wrap hero-inner">
     <div class="eyebrow"><span class="dot"></span>ENGINEERING OVERVIEW · DEVELOPER VIEW · Go 1.25.5</div>
-    <h1>novel-studio 工程能力<em>全景</em></h1>
+    <h1>Scriptorium 工程能力<em>全景</em></h1>
     <p class="hero-sub">
       上一张图讲了「这个工具能写什么小说」。这一张讲「这个工程本身是怎么搭起来的」——技术栈、24 个 internal 子包、40 个 Agent 工具、Phase 状态机、存储契约、RAG 子系统实现、构建发布矩阵、关键设计决策与已知缺陷。
     </p>
@@ -373,7 +373,7 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--primary)"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           go.mod · 直接依赖
         </div>
-        <pre><span class="c-key">module</span> github.com/chenhongyang/novel-studio
+        <pre><span class="c-key">module</span> github.com/prantosmss/Scriptorium
 
 <span class="c-key">go</span> <span class="c-num">1.25</span>.5
 
@@ -413,7 +413,7 @@ golang.org/x/image <span class="c-num">v0.43</span>.0</pre>
       <pre><span class="c-key">goos</span>:    linux, darwin, windows
 <span class="c-key">goarch</span>:  amd64, arm64
 <span class="c-key">formats</span>: tar.gz (linux/darwin) · zip (windows)
-<span class="c-key">archive</span>: novel-studio_{version}_{OS}_{ARCH}</pre>
+<span class="c-key">archive</span>: scriptorium_{version}_{OS}_{ARCH}</pre>
     </div>
   </div>
 </section>
@@ -430,7 +430,7 @@ golang.org/x/image <span class="c-num">v0.43</span>.0</pre>
     <div class="mermaid-wrap" style="margin-bottom: 32px;">
       <div class="mermaid">
 flowchart TB
-    L1["<b>CLI 入口层</b><br/>cmd/novel-studio/<br/>main.go · pipeline_cmd · zero_init_cmd · ..."]
+    L1["<b>CLI 入口层</b><br/>cmd/scriptorium/<br/>main.go · pipeline_cmd · zero_init_cmd · ..."]
     L2["<b>编排层</b><br/>internal/host/<br/>flow · imp · sim · observer · reminder"]
     L3["<b>Agent 调度层</b><br/>internal/agents/<br/>build.go · context_manager · ctxpack"]
     L4["<b>工具实现层</b><br/>internal/tools/<br/>40 tools (save_foundation · commit_chapter · plan_chapter · ...)"]
@@ -468,7 +468,7 @@ flowchart TB
       <div class="layer">
         <div class="layer-num">L1 · CLI</div>
         <div class="layer-name">命令入口</div>
-        <div class="layer-en">cmd/novel-studio/</div>
+        <div class="layer-en">cmd/scriptorium/</div>
         <div class="layer-desc">单二进制入口；main.go 解析顶层 flag 后路由到各子命令。</div>
         <div class="pkgs">
           <span class="p">main.go</span>
@@ -888,7 +888,7 @@ flowchart LR
       <div class="cluster">
         <div class="cluster-head">
           <div class="cluster-title">Provider 配置范式</div>
-          <span class="tag primary">~/.novel-studio/config.json</span>
+          <span class="tag primary">~/.scriptorium/config.json</span>
         </div>
         <pre>{
   <span class="c-key">"provider"</span>: <span class="c-str">"minimax"</span>,
@@ -1007,11 +1007,11 @@ flowchart LR
           浏览器看板
         </div>
         <div class="card-desc" style="margin-top: 8px;">
-          <code>novel-studio service start</code> 起本地 HTTP，<code>service open</code> 打开看板。可视化进度 / 章节 / 评审。
+          <code>scriptorium service start</code> 起本地 HTTP，<code>service open</code> 打开看板。可视化进度 / 章节 / 评审。
         </div>
-        <pre><span class="c-fn">novel-studio</span> service start
-<span class="c-fn">novel-studio</span> service open
-<span class="c-fn">novel-studio</span> service status
+        <pre><span class="c-fn">scriptorium</span> service start
+<span class="c-fn">scriptorium</span> service open
+<span class="c-fn">scriptorium</span> service status
 <span class="c-cmt"># 健康端点</span>
 curl http://localhost:&lt;port&gt;/api/health</pre>
       </div>
@@ -1055,8 +1055,8 @@ curl http://localhost:&lt;port&gt;/api/health</pre>
         </div>
         <pre><span class="c-cmt"># 工程根目录</span>
 <span class="c-key">go</span> build -ldflags <span class="c-str">"-s -w"</span> \
-  -o novel-studio \
-  ./cmd/novel-studio
+  -o scriptorium \
+  ./cmd/scriptorium
 
 <span class="c-cmt"># 当前二进制 20.9 MB (darwin arm64)</span></pre>
       </div>
@@ -1070,12 +1070,12 @@ curl http://localhost:&lt;port&gt;/api/health</pre>
 goreleaser release <span class="c-key">--clean</span>
 
 <span class="c-cmt"># 输出：</span>
-novel-studio_{ver}_Linux_x86_64.tar.gz
-novel-studio_{ver}_Linux_arm64.tar.gz
-novel-studio_{ver}_Darwin_x86_64.tar.gz
-novel-studio_{ver}_Darwin_arm64.tar.gz
-novel-studio_{ver}_Windows_x86_64.zip
-novel-studio_{ver}_Windows_arm64.zip</pre>
+scriptorium_{ver}_Linux_x86_64.tar.gz
+scriptorium_{ver}_Linux_arm64.tar.gz
+scriptorium_{ver}_Darwin_x86_64.tar.gz
+scriptorium_{ver}_Darwin_arm64.tar.gz
+scriptorium_{ver}_Windows_x86_64.zip
+scriptorium_{ver}_Windows_arm64.zip</pre>
       </div>
 
       <div class="card">
@@ -1097,8 +1097,8 @@ curl http://127.0.0.1:6333/collections</pre>
           自更新
         </div>
         <pre><span class="c-cmt"># CLI 内置自更新</span>
-<span class="c-fn">novel-studio</span> update              <span class="c-cmt"># 升到 latest</span>
-<span class="c-fn">novel-studio</span> update <span class="c-num">v1.2</span>.3       <span class="c-cmt"># 升到指定版本</span></pre>
+<span class="c-fn">scriptorium</span> update              <span class="c-cmt"># 升到 latest</span>
+<span class="c-fn">scriptorium</span> update <span class="c-num">v1.2</span>.3       <span class="c-cmt"># 升到指定版本</span></pre>
       </div>
     </div>
 
@@ -1112,7 +1112,7 @@ git push origin v1.2.3
   <span class="c-key">└─&gt;</span> goreleaser 自动跑 6 平台构建
       <span class="c-key">└─&gt;</span> 生成 tar.gz / zip + sha256 checksums
           <span class="c-key">└─&gt;</span> 推到 GitHub Releases
-              <span class="c-key">└─&gt;</span> novel-studio update 命令可拉取
+              <span class="c-key">└─&gt;</span> scriptorium update 命令可拉取
 
 <span class="c-cmt">// .goreleaser.yml · commitizen 风格 changelog</span>
 changelog:
@@ -1227,7 +1227,7 @@ changelog:
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap">
-    <div class="meta">novel-studio · ENGINEERING OVERVIEW · Go 1.25.5 · 24 packages · 40 tools · 6 platforms</div>
+    <div class="meta">Scriptorium · ENGINEERING OVERVIEW · Go 1.25.5 · 24 packages · 40 tools · 6 platforms</div>
     <div style="margin-top:8px;">事实来源：<code>go.mod</code> · <code>.goreleaser.yml</code> · <code>internal/**</code> · <code>commit_chapter.go</code> · <code>save_foundation.go</code> · <code>zero_init_cmd.go</code></div>
   </div>
 </footer>

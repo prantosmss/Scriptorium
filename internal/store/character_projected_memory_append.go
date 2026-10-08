@@ -3,7 +3,7 @@ package store
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Cross-instance locking prevents two independent receipts from losing one

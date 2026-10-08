@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/utils"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/utils"
 )
 
 type scannedSource struct {

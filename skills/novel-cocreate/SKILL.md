@@ -17,10 +17,10 @@ description: "共创规划：与 AI 多轮对话澄清需求，逐轮累积出�
 
 ```bash
 # 给个初始想法开始（也可不带，进入后再输入）
-novel-studio --cocreate "我想写一个赛博朋克背景、主角是义体黑客的悬疑长篇"
+scriptorium --cocreate "我想写一个赛博朋克背景、主角是义体黑客的悬疑长篇"
 
 # 定稿后立即进入创作
-novel-studio --cocreate "..." --start
+scriptorium --cocreate "..." --start
 ```
 
 ## 对话中的命令
@@ -35,5 +35,5 @@ novel-studio --cocreate "..." --start
 ## 产物与衔接
 
 - 创作指令草稿：`output/novel/meta/cocreate-prompt.txt`
-- 不带 `--start` 时，可稍后用 `novel-studio --pipeline --prompt-file output/novel/meta/cocreate-prompt.txt` 创作
-- 也可作为 `--pipeline` 的首阶段：`novel-studio --pipeline --stages cocreate,write,review,rewrite,deliver`
+- 不带 `--start` 时，可稍后用 `scriptorium --pipeline --prompt-file output/novel/meta/cocreate-prompt.txt` 创作
+- 也可作为 `--pipeline` 的首阶段：`scriptorium --pipeline --stages cocreate,write,review,rewrite,deliver`

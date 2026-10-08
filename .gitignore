@@ -28,9 +28,9 @@ go.work.sum
 # env file
 .env
 
-# 项目级配置 dotdir（镜像 ~/.novel-studio/）：config.json 含密钥，rules/ 为本地写作偏好
-# 真正的配置文件都在 .novel-studio/，仓库根部的空 config/ 目录不入库
-.novel-studio/
+# 项目级配置 dotdir（镜像 ~/.scriptorium/）：config.json 含密钥，rules/ 为本地写作偏好
+# 真正的配置文件都在 .scriptorium/，仓库根部的空 config/ 目录不入库
+.scriptorium/
 config/
 
 # Editor/IDE
@@ -53,7 +53,7 @@ logs/
 # GoReleaser artifacts
 dist/
 release-notes.md
-/novel-studio
+/scriptorium
 
 tasks
 refer/

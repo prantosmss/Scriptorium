@@ -3,7 +3,7 @@ package startup
 import (
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/host"
+	"github.com/prantosmss/Scriptorium/internal/host"
 )
 
 // CoCreateSession 承载共创模式的非 UI 状态。

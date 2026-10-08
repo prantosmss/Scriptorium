@@ -1,6 +1,6 @@
 # 上下文管理说明
 
-本文档说明 `novel-studio` 当前的上下文管理体系，包括：
+本文档说明 `scriptorium` 当前的上下文管理体系，包括：
 
 - 为什么要做上下文管理
 - 上下文从哪里来
@@ -589,7 +589,7 @@ Writer 与默认代码助手不同的地方：
 - `kept`
 - `duration_ms`
 
-`novel-studio --diag` 会从日志尾部聚合这些结构字段，写入脱敏 `diag-export.md`
+`scriptorium --diag` 会从日志尾部聚合这些结构字段，写入脱敏 `diag-export.md`
 的运行时信号；若 `reason=circuit_breaker`，本地 Findings 会报告
 `ContextCompactionCircuitBreaker`。上层 UI 主要通过 `Snapshot()` 暴露上下文健康度和恢复标签。
 

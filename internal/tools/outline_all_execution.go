@@ -8,9 +8,9 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func outlineAllExecutionModeActive(st *store.Store) (bool, error) {

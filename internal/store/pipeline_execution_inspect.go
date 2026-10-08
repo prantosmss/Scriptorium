@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // InspectPipelineExecution validates the current lease without creating a

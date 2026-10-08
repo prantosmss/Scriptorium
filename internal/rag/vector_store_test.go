@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestSearchVectorStoreSkipsDimensionDriftAndNonFiniteVectors(t *testing.T) {

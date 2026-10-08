@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // ResourceLedgerStore 管理已入账资源与待确认提案。

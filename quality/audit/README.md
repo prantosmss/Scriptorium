@@ -39,12 +39,12 @@ python3 quality/audit/scripts/register_external_detection.py \
 
 注册平台结果按 `(detector, mode, body_sha256)` 独立保存，另一平台的低分不会改写原始高分记录。用户报告的当前精确 SHA 分值达到 `4%` 时触发一次整章返工；下一次正常 write / rewrite 会自动把它合入 `pending_rewrites`，不要求用户另跑 review、逐章复测或重复提醒。正文换成新 SHA 后，该事件只保留为历史证据，不创建逐 identity 复测义务。新稿通过本地门禁、当前 SHA 的 DeepSeek 和 hard consistency 后即可 commit / deliver，平台缺失保持 `not_sampled / unknown`，不会进入 `rejudge_pending` 或 named freeze；平台低分也不能替代自动证据。DeepSeek blocking 分支要求返回完整证据与修改建议，建议缺失不会写入有效缓存。`codex-local-aigc-v4` 新增叙事动力检查，覆盖对白传送带、动作开场标签同构、POV 内在体验薄、流程语汇和情绪范围过平。
 
-`scripts/` 和 `references/` 是审核能力的唯一源目录。`skills/review/SKILL.md` 只保留 agent 流程说明；`novel-studio skills export --to <dir>` 会在导出产物里按需装配这些脚本和参考资料。
+`scripts/` 和 `references/` 是审核能力的唯一源目录。`skills/review/SKILL.md` 只保留 agent 流程说明；`scriptorium skills export --to <dir>` 会在导出产物里按需装配这些脚本和参考资料。
 
 ## 服务集成
 
 进度看板（`services/dashboard/`）为只读服务，不再导入审核脚本；本目录脚本直接命令行调用。环境变量覆盖：
 
-- `NOVEL_STUDIO_AUDIT_SCRIPTS`
-- `NOVEL_STUDIO_OUTPUT_ROOT`
-- `NOVEL_STUDIO_SHORT_STORY_DATA`
+- `SCRIPTORIUM_AUDIT_SCRIPTS`
+- `SCRIPTORIUM_OUTPUT_ROOT`
+- `SCRIPTORIUM_SHORT_STORY_DATA`

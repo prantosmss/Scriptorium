@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const characterSelfModelViewPolicyV2 = "bounded-self-history.recent8-allunfinished-placementproofs32-bytes16384.v1"

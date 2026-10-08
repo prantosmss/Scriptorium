@@ -3,8 +3,8 @@ package tools
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func saveTestProjectContaminationTerms(t *testing.T, st *store.Store, terms ...string) {

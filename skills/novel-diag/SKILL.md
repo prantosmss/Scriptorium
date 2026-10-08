@@ -16,7 +16,7 @@ description: "诊断当前项目的 output 产物，从流程/质量/规划/上�
 ## 执行
 
 ```bash
-novel-studio --diag
+scriptorium --diag
 ```
 
 ## 诊断维度

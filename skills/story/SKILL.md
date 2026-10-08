@@ -6,13 +6,13 @@ description: "网络小说工具箱主入口。根据用户需求自动路由到
 
 你是网文工具箱的路由入口。用户的请求模糊时由你分发到具体 skill。
 
-## novel-studio 适配优先级
+## Scriptorium 适配优先级
 
-当前仓库内存在 `cmd/novel-studio` 时，原生写作请求必须路由到 novel-studio pipeline：
+当前仓库内存在 `cmd/scriptorium` 时，原生写作请求必须路由到 Scriptorium pipeline：
 
 - 长篇 / 短篇 / 续写 / 重写 / 评审 / 完稿导出：必须路由到 `novel-pipeline`、`novel-write`、`novel-review`、`novel-rewrite` 或专项 `novel-douban-write`。
-- 即使用户显式点名 `story-long-write`、`story-short-write` 或用“继续生成正文”等自然语言描述，也必须把这些 skill 当作方法论和 prompt 增强参考，最终执行 `novel-studio --pipeline`。
-- 禁止直接生成、续写或改写正文；不要绕过 `novel-studio --pipeline` 直接手写章节文件。
+- 即使用户显式点名 `story-long-write`、`story-short-write` 或用“继续生成正文”等自然语言描述，也必须把这些 skill 当作方法论和 prompt 增强参考，最终执行 `scriptorium --pipeline`。
+- 禁止直接生成、续写或改写正文；不要绕过 `scriptorium --pipeline` 直接手写章节文件。
 - 拆文、去 AI 味、审查等非写作执行能力仍按下表路由。
 
 ## 路由表

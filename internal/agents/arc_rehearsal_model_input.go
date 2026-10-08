@@ -7,7 +7,7 @@ import (
 	"sort"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const arcRehearsalSharedValueKey = "$v"

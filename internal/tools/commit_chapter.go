@@ -13,14 +13,14 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	editrules "github.com/chenhongyang/novel-studio/internal/editor/rules"
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/rag"
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	editrules "github.com/prantosmss/Scriptorium/internal/editor/rules"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore/schema"
 )
 

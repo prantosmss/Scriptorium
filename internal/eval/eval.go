@@ -9,11 +9,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/assets"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/assets"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
 )
 
-// Command 是 `novel-studio eval` 子命令入口，返回进程退出码：
+// Command 是 `scriptorium eval` 子命令入口，返回进程退出码：
 // 0=PASS/WARN，1=有 case FAIL，2=用法/配置错误。
 //
 // 清晰流程：加载配置 → 加载 case → 按 single/A-B 编排运行 → 采集 → 评分 → 聚合 → 报告。

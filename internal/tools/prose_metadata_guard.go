@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	qualityrules "github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	qualityrules "github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 // validateFictionProseMetadataFree is the shared write/delivery guard for

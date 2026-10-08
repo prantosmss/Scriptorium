@@ -1,5 +1,5 @@
 // Package dashboard embeds the zero-dependency Python dashboard so release
-// binaries can run `novel-studio service open` without a source checkout.
+// binaries can run `scriptorium service open` without a source checkout.
 package dashboard
 
 import (

@@ -8,7 +8,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // RAGStore 保存 RAG 索引状态与召回 trace。

@@ -5,7 +5,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // BM25 关键词检索：与向量召回互补的精确词法通道。

@@ -33,4 +33,4 @@
 
 Apple M1 Pro 上该单次对照耗时减少约64.4%，累计分配减少约66.4%。评估输入、原裁决回执、最终 session 及三个持久文件保持相同。这是评估阶段的本地处理数据，不包含模型等待，不是单章或全书加速比例，也不是20分钟交付达标证明。
 
-基准为 `BenchmarkCharacterReadinessTransactionReplay`，显式沿用 `NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT/GENERATION/CHAPTER` 选择证据，必须使用 `-run '^$' -benchtime=1x`。无显式来源时跳过；所有试验写入限于测试临时副本。
+基准为 `BenchmarkCharacterReadinessTransactionReplay`，显式沿用 `SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT/GENERATION/CHAPTER` 选择证据，必须使用 `-run '^$' -benchtime=1x`。无显式来源时跳过；所有试验写入限于测试临时副本。

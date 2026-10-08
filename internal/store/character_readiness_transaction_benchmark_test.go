@@ -7,7 +7,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Opt-in end-to-end host readiness measurement over a real completed prefix.
@@ -15,12 +15,12 @@ import (
 // the original book is never written. The real last verdict is replayed as data,
 // not presented as a newly produced or newly accepted chapter.
 func BenchmarkCharacterReadinessTransactionReplay(b *testing.B) {
-	source := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT")
+	source := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT")
 	if source == "" {
 		b.Skip("set the explicit real-book audit source for a one-shot comparison")
 	}
-	generation := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_GENERATION")
-	chapter, err := strconv.Atoi(os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_CHAPTER"))
+	generation := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_GENERATION")
+	chapter, err := strconv.Atoi(os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_CHAPTER"))
 	if err != nil || chapter < 1 {
 		b.Fatal("positive audit chapter required")
 	}

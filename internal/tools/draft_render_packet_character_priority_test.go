@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestRenderRequiredOutcomesDoesNotSampleHardBeatsByCharacterVisibility(t *testing.T) {

@@ -3,7 +3,7 @@ package tools
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Pointers distinguish an explicitly submitted zero (the story's opening)

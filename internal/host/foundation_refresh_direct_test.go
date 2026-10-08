@@ -12,13 +12,13 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/assets"
-	"github.com/chenhongyang/novel-studio/internal/agents"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/host/flow"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/tools"
+	"github.com/prantosmss/Scriptorium/assets"
+	"github.com/prantosmss/Scriptorium/internal/agents"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/host/flow"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/tools"
 	"github.com/voocel/agentcore"
 )
 

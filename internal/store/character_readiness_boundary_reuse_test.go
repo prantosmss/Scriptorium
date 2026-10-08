@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func readinessBoundaryReuseFixture(t *testing.T, count int) (*Store, string, domain.VerifiedCharacterActivationPrefix, []domain.CharacterReadinessReviewAudit) {
@@ -167,8 +167,8 @@ func TestVerifiedReadinessBoundaryReuseConcurrentRetries(t *testing.T) {
 // comparison. No timing threshold is asserted; both paths validate the same
 // frozen proof and audit. Fixture construction is outside the measured loop.
 func TestVerifiedReadinessBoundaryReuseWorkComparison(t *testing.T) {
-	if os.Getenv("NOVEL_STUDIO_READINESS_BENCHMARK") != "1" {
-		t.Skip("set NOVEL_STUDIO_READINESS_BENCHMARK=1 to run the isolated before/after microbenchmark")
+	if os.Getenv("SCRIPTORIUM_READINESS_BENCHMARK") != "1" {
+		t.Skip("set SCRIPTORIUM_READINESS_BENCHMARK=1 to run the isolated before/after microbenchmark")
 	}
 	st, root, prefix, audits := readinessBoundaryReuseFixture(t, 3)
 	verifiedStoreMust(t, st.SaveVerifiedCharacterReadinessReviewAudit(audits[2]))

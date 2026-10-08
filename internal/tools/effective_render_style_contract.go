@@ -13,9 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/aigc"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/stylestat"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/stylestat"
 )
 
 const (

@@ -1,6 +1,6 @@
 # refer 写作技巧审核摘要
 
-来源: `/Users/chenhongyang/Desktop/book/novel-studio/data/reference-library/writing-craft`。核心工程全文见 `assets/references/refer-writing-techniques-digest.md`, 已逐篇压缩 19 篇文章。
+来源: `/path/to/Scriptorium/data/reference-library/writing-craft`。核心工程全文见 `assets/references/refer-writing-techniques-digest.md`, 已逐篇压缩 19 篇文章。
 
 ## 已处理文章
 

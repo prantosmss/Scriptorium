@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/errs"
 	"github.com/voocel/agentcore/schema"
 )
 

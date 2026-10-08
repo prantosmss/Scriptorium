@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // SummaryStore 管理章节、弧、卷摘要。

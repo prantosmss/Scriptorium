@@ -3,7 +3,7 @@ package host
 import (
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/utils"
+	"github.com/prantosmss/Scriptorium/internal/utils"
 	"github.com/voocel/agentcore"
 )
 

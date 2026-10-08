@@ -20,7 +20,7 @@ func TestAgentPromptCacheKeyIsStableOpaqueAndConversationScoped(t *testing.T) {
 	if strings.Contains(first, secretPath) || strings.Contains(first, "项目甲") {
 		t.Fatalf("cache key leaked raw project identity: %q", first)
 	}
-	if !strings.HasPrefix(first, "novel-studio:world-arbiter:") {
+	if !strings.HasPrefix(first, "scriptorium:world-arbiter:") {
 		t.Fatalf("cache key role was not normalized: %q", first)
 	}
 	if len(first) > 64 {

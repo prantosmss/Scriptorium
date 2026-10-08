@@ -1,7 +1,7 @@
 # 鬼城产出中断根因分析（2026-07-07）
 
 ## 结论一句话
-产出反复中断的根因不是 novel-studio 代码缺陷，而是**当前唯一可用的 LLM（MiniMax-M3）在两个维度触到能力天花板**：①对 ~130K 上下文的流式请求反复卡流（stream idle）；②无法可靠产出完整、结构正确的 ~50 字段 `causal_simulation` 章节计划。今晚已把工程侧所有可修的点修完，把失败模式从"归零死循环"改善到"累积到 32-51/~50 字段、卡在收口"，但最后一步受限于模型能力，非代码可解。
+产出反复中断的根因不是 Scriptorium 代码缺陷，而是**当前唯一可用的 LLM（MiniMax-M3）在两个维度触到能力天花板**：①对 ~130K 上下文的流式请求反复卡流（stream idle）；②无法可靠产出完整、结构正确的 ~50 字段 `causal_simulation` 章节计划。今晚已把工程侧所有可修的点修完，把失败模式从"归零死循环"改善到"累积到 32-51/~50 字段、卡在收口"，但最后一步受限于模型能力，非代码可解。
 
 ## 现象时间线（鬼城第 1 章）
 - planner 上下文涨到 143K 附近 → MiniMax **stream idle timeout**，7/7 重试全挂 → subagent 硬失败。
@@ -38,11 +38,11 @@ planner 的 novel_context 注入被方法论前置的大工件主导：
 2. **降低计划的硬性复杂度以适配 MiniMax**：把 MiniMax 反复搞不定的少数字段（对话蓝图深层子字段、collected_source 等）从 finalize 硬阻塞降为 warning，保留其余 ~45 个字段的丰富度。属质量取舍，需用户拍板。
 
 ## 订阅接入的技术现实（供决策）
-- novel-studio 经 litellm 走 **HTTP completion + function-calling**。
+- Scriptorium 经 litellm 走 **HTTP completion + function-calling**。
 - Codex 订阅：`auth_mode=chatgpt`（OAuth）。`codex exec-server` 是 **ws/stdio** 协议、`codex exec` 是**带自有工具的 agent**（非 completion API）——都不能直接插进 litellm；要用需较大改造（把 writer/architect 从"LLM 调我方工具"改成"codex exec 按 output-schema 生成结构化计划、我方解析"）。
 - Claude 订阅：`claude -p` 同理是 agent。
 - 既有桥：cc-switch 的本地代理（:15721）把订阅桥接成 anthropic 式 HTTP，但当前未监听且此前报 base_url 配置问题。
-- 落地建议：短期启用/修好 cc-switch 代理把 gpt-5.6-sol 暴露成 HTTP 给 novel-studio 用；长期在 novel-studio 里加"codex-exec 结构化生成"provider 作为原生订阅支持。
+- 落地建议：短期启用/修好 cc-switch 代理把 gpt-5.6-sol 暴露成 HTTP 给 Scriptorium 用；长期在 Scriptorium 里加"codex-exec 结构化生成"provider 作为原生订阅支持。
 
 ## 补充：provider 可用性实测（决策关键）
 - **OpenAI**：config 里 api_key 是占位符 `REPLACE_..._KEY`，无有效 key。

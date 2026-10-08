@@ -591,7 +591,7 @@ class DashboardDataTest(unittest.TestCase):
 
     def test_scan_rag_processes_matches_explicit_run_dir(self):
         command = (
-            f"60141 08:05 /tmp/novel-studio-ragfix --build-rag "
+            f"60141 08:05 /tmp/scriptorium-ragfix --build-rag "
             f"--dir {self.run} --probe-chapter 1\n"
         )
         completed = mock.Mock(stdout=command)

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func storeOutlineAllReceiptForTest(t *testing.T) domain.OutlineAllExecutionReceipt {

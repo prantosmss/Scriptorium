@@ -190,7 +190,7 @@ Stage 6 内容写完后，**不**立刻 append `6` 到 `stages_completed[]`。�
 ### 7.4 通过
 
 7.1 + 7.2 + 7.3 全通过 → 清空 `_meta.json.last_stage_in_progress`，append `6` 到
-`stages_completed[]`，提示用户「拆解完成，可把拆文结果写入需求文件后调用 `novel-studio --pipeline --prompt-file <需求文件>` 写下一篇」。
+`stages_completed[]`，提示用户「拆解完成，可把拆文结果写入需求文件后调用 `scriptorium --pipeline --prompt-file <需求文件>` 写下一篇」。
 
 ---
 
@@ -214,7 +214,7 @@ Stage 6 内容写完后，**不**立刻 append `6` 到 `stages_completed[]`。�
 
 | 时机 | 跳转到 | 命令 |
 |---|---|---|
-| 准备开写 | novel-pipeline / novel-write（story-short-write 只作方法参考，同时注入 拆文报告.md + 情节节点.md + 写作手法.md + 原文/ + _meta.json 摘要） | `novel-studio --pipeline --prompt-file <需求文件>` |
+| 准备开写 | novel-pipeline / novel-write（story-short-write 只作方法参考，同时注入 拆文报告.md + 情节节点.md + 写作手法.md + 原文/ + _meta.json 摘要） | `scriptorium --pipeline --prompt-file <需求文件>` |
 
 ---
 

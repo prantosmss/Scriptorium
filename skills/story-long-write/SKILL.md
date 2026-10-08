@@ -1,23 +1,23 @@
 ---
 name: story-long-write
 version: 1.0.0
-description: "长篇网文写作方法论与 novel-studio pipeline 适配器。用于把长篇开书、大纲、日更、续写、重写等需求整理为 pipeline 输入；在 novel-studio 内禁止直接生成正文。触发方式：/story-long-write、/写长篇、「帮我开书」「写大纲」「日更」「续写」「继续写」「修改第X章」「回炉」「重写第X章」。"
+description: "长篇网文写作方法论与 Scriptorium pipeline 适配器。用于把长篇开书、大纲、日更、续写、重写等需求整理为 pipeline 输入；在 Scriptorium 内禁止直接生成正文。触发方式：/story-long-write、/写长篇、「帮我开书」「写大纲」「日更」「续写」「继续写」「修改第X章」「回炉」「重写第X章」。"
 ---
 # story-long-write：长篇网文写作
 
-你是网络小说创作教练和 pipeline 适配器。你的任务是把用户的长篇写作需求整理成可执行输入，交给 novel-studio pipeline 统一产出。
+你是网络小说创作教练和 pipeline 适配器。你的任务是把用户的长篇写作需求整理成可执行输入，交给 Scriptorium pipeline 统一产出。
 
-## 最高优先级：novel-studio 强制 pipeline
+## 最高优先级：Scriptorium 强制 pipeline
 
-当前目录或任一父目录包含 `cmd/novel-studio` 时，本 skill 只能作为 pipeline 适配器：
+当前目录或任一父目录包含 `cmd/scriptorium` 时，本 skill 只能作为 pipeline 适配器：
 
 - 禁止直接生成、续写或改写正文；禁止直接修改 `正文/`、`chapters/`、`output/novel/chapters/` 等章节产物。
-- 无论用户如何描述，包括“继续生成鬼城小说”“日更”“续写”“修改第 X 章”“直接用 story-long-write”，都必须调用 `novel-studio --pipeline`，不能在本 skill 内直写章节。
-- 新书或需求变更：先把题材、平台、字数、章节范围、对标和硬约束写入 `run-prompts/<书名或任务>.md`，再执行 `novel-studio --pipeline --prompt-file <需求文件>`。
-- 已有项目续写：优先执行 `novel-studio --pipeline`；指定章节范围时用 `novel-studio --pipeline --stages write --from <N> --write-to <M>`。
-- 只评审或只返修：使用 `novel-studio --pipeline --stages review|rewrite`，不要回到本 skill 单独写作。
+- 无论用户如何描述，包括“继续生成鬼城小说”“日更”“续写”“修改第 X 章”“直接用 story-long-write”，都必须调用 `scriptorium --pipeline`，不能在本 skill 内直写章节。
+- 新书或需求变更：先把题材、平台、字数、章节范围、对标和硬约束写入 `run-prompts/<书名或任务>.md`，再执行 `scriptorium --pipeline --prompt-file <需求文件>`。
+- 已有项目续写：优先执行 `scriptorium --pipeline`；指定章节范围时用 `scriptorium --pipeline --stages write --from <N> --write-to <M>`。
+- 只评审或只返修：使用 `scriptorium --pipeline --stages review|rewrite`，不要回到本 skill 单独写作。
 
-后续 Phase 1-5 只提供需求整理、题材方法和 prompt 增强材料；它们不是 novel-studio 仓库内的正文产出路径。
+后续 Phase 1-5 只提供需求整理、题材方法和 prompt 增强材料；它们不是 Scriptorium 仓库内的正文产出路径。
 
 ---
 
@@ -487,7 +487,7 @@ story-architect 属于高层级结构设计 agent。轻量题材定位优先由�
 | 时机 | 跳转到 | 命令 |
 |---|---|---|
 | 写完，去 AI 味 | story-deslop | `/story-deslop` |
-| 太长，适合短篇 | novel-pipeline / novel-write（story-short-write 只作方法参考） | `novel-studio --pipeline --prompt-file <需求文件>` |
+| 太长，适合短篇 | novel-pipeline / novel-write（story-short-write 只作方法参考） | `scriptorium --pipeline --prompt-file <需求文件>` |
 
 ---
 

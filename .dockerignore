@@ -7,7 +7,7 @@ go.work
 go.work.sum
 .DS_Store
 .env
-.novel-studio
+.scriptorium
 config
 workspace
 dist
@@ -19,7 +19,7 @@ deconstruction-library
 deconstruction-library.zip
 models/embedding/*.gguf
 debug.test*
-novel-studio
+scriptorium
 __pycache__
 *.pyc
 coverage.*

@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"slices"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore/schema"
 	agentcoretools "github.com/voocel/agentcore/tools"
 )
@@ -304,7 +304,7 @@ func (t *EditChapterTool) loadEditBase(chapter int) (prior, base string, err err
 }
 
 func prepareChapterEditCandidate(ctx context.Context, chapter int, base string, args json.RawMessage) (string, json.RawMessage, error) {
-	tmpDir, err := os.MkdirTemp("", "novel-studio-edit-preview-*")
+	tmpDir, err := os.MkdirTemp("", "scriptorium-edit-preview-*")
 	if err != nil {
 		return "", nil, err
 	}

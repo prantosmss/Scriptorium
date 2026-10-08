@@ -12,8 +12,8 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore"
 )
 
@@ -24,7 +24,7 @@ func diagnosticTestResponse(id, args string) agentcore.Message {
 }
 
 func TestArbiterSingleTurnDiagnosticStopsWithoutChangingInputOrUsage(t *testing.T) {
-	t.Setenv("NOVEL_STUDIO_ARBITER_SINGLE_TURN", "1")
+	t.Setenv("SCRIPTORIUM_ARBITER_SINGLE_TURN", "1")
 	if characterArbiterDiagnosticTurnLimit("submit_character_decision", 6) != 6 || characterArbiterDiagnosticTurnLimit("resolve_chapter_world", 1) != 1 {
 		t.Fatal("diagnostic cap changed another role or raised a bound")
 	}

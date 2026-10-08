@@ -44,10 +44,10 @@ func TestEnsureRulesDirAt(t *testing.T) {
 	}
 }
 
-// TestDefaultProjectRulesDir 锁死项目级规则目录镜像全局：./.novel-studio/rules/。
+// TestDefaultProjectRulesDir 锁死项目级规则目录镜像全局：./.scriptorium/rules/。
 func TestDefaultProjectRulesDir(t *testing.T) {
 	proj := filepath.Join("/tmp", "demo-book")
-	want := filepath.Join(proj, ".novel-studio", "rules")
+	want := filepath.Join(proj, ".scriptorium", "rules")
 	if got := DefaultProjectRulesDir(proj); got != want {
 		t.Errorf("DefaultProjectRulesDir=%q, want %q", got, want)
 	}
@@ -56,12 +56,12 @@ func TestDefaultProjectRulesDir(t *testing.T) {
 	}
 }
 
-// TestDefaultOptions_ScansProjectRulesFromDotNovelStudio 端到端验证：
-// DefaultOptions 把 cwd 下的 ./.novel-studio/rules/ 接进 SourceProject 来源。
-func TestDefaultOptions_ScansProjectRulesFromDotNovelStudio(t *testing.T) {
+// TestDefaultOptions_ScansProjectRulesFromDotScriptorium 端到端验证：
+// DefaultOptions 把 cwd 下的 ./.scriptorium/rules/ 接进 SourceProject 来源。
+func TestDefaultOptions_ScansProjectRulesFromDotScriptorium(t *testing.T) {
 	proj := t.TempDir()
 	t.Chdir(proj)
-	rulesDir := filepath.Join(proj, ".novel-studio", "rules")
+	rulesDir := filepath.Join(proj, ".scriptorium", "rules")
 	if err := os.MkdirAll(rulesDir, 0o755); err != nil {
 		t.Fatal(err)
 	}
@@ -77,7 +77,7 @@ func TestDefaultOptions_ScansProjectRulesFromDotNovelStudio(t *testing.T) {
 		}
 	}
 	if got == nil {
-		t.Fatalf("应从 ./.novel-studio/rules/ 扫到项目规则来源，得到 %+v", srcs)
+		t.Fatalf("应从 ./.scriptorium/rules/ 扫到项目规则来源，得到 %+v", srcs)
 	}
 	if !strings.Contains(got.Text, "本书偏好") {
 		t.Errorf("项目规则原文应被原样返回，得到 %q", got.Text)

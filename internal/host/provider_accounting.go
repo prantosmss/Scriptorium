@@ -9,8 +9,8 @@ import (
 	"os"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/internal/agents"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/agents"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore"
 )
 

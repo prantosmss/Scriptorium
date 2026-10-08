@@ -3,7 +3,7 @@ package store
 import (
 	"os"
 
-	"github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 // UserRulesStore 管理本书归一化后的用户规则快照（meta/user_rules.json）。

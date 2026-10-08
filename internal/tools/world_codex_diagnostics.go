@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Called only after the real strict decoder rejected an unknown field. This

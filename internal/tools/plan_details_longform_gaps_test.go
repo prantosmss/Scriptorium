@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 func TestPlanDetailsLongformGapPrecedesFinalize(t *testing.T) {

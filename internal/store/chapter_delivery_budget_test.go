@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/stylestat"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/stylestat"
 )
 
 func chapterDeliveryTestNow() time.Time { return time.Date(2026, 9, 13, 1, 0, 0, 0, time.UTC) }

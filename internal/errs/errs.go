@@ -1,4 +1,4 @@
-// Package errs provides application-level error sentinels for novel-studio.
+// Package errs provides application-level error sentinels for scriptorium.
 // Callers wrap errors with fmt.Errorf("...: %w", errs.ErrXxx) and use
 // errors.Is to detect categories.
 //

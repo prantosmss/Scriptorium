@@ -44,13 +44,13 @@ RAG 的创建、增量沉淀、混合检索、Qdrant 恢复和历史快照已经
 
 ```bash
 # 不修改任何数据，扫描正式与历史快照
-go run ./cmd/novel-studio rag audit --root data/runs
+go run ./cmd/scriptorium rag audit --root data/runs
 
 # 修正式目录并对完全相同的大快照做物理去重
-go run ./cmd/novel-studio rag maintain --root data/runs --apply
+go run ./cmd/scriptorium rag maintain --root data/runs --apply
 
 # 单本书恢复/验证 Qdrant，不启动写作
-go run ./cmd/novel-studio --rag-ready --dir data/runs/<书名>/output/novel
+go run ./cmd/scriptorium --rag-ready --dir data/runs/<书名>/output/novel
 ```
 
 `maintain` 会先为即将改变的正式数据创建带 SHA-256 manifest 的备份，然后处理 schema、chunk hash 清单、内容去重、禁入事实、孤儿/缺失/重复向量、向量维度与数值、payload 和粘连 JSON 对象流。它不会修订 archive、candidate 或废弃 generation；这些目录的问题只进入报告。

@@ -33,14 +33,14 @@ func TestCommandChannelEnvAndStdin(t *testing.T) {
 	jsonFile := filepath.Join(dir, "stdin.json")
 
 	n := New(`echo "$NOTIFY_KIND|$NOTIFY_LEVEL|$NOTIFY_TITLE|$NOTIFY_BODY" > `+envFile+` && cat > `+jsonFile, nil)
-	nt := Notification{Kind: "budget", Level: "warn", Title: "novel-studio: 预算", Body: "已花费 $8.00"}
+	nt := Notification{Kind: "budget", Level: "warn", Title: "scriptorium: 预算", Body: "已花费 $8.00"}
 	n.deliver(nt) // 同步调用以便断言
 
 	env, err := os.ReadFile(envFile)
 	if err != nil {
 		t.Fatalf("command 未执行: %v", err)
 	}
-	if got := strings.TrimSpace(string(env)); got != "budget|warn|novel-studio: 预算|已花费 $8.00" {
+	if got := strings.TrimSpace(string(env)); got != "budget|warn|scriptorium: 预算|已花费 $8.00" {
 		t.Errorf("环境变量传递不符: %q", got)
 	}
 

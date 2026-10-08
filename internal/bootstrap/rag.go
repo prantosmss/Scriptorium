@@ -8,7 +8,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/rag"
 )
 
 func NewRAGEmbedder(cfg Config) (rag.Embedder, bool, error) {
@@ -147,7 +147,7 @@ func ResolveRAGQdrantConfig(cfg Config) (RAGQdrantConfig, bool) {
 		qc.DockerImage = "qdrant/qdrant:latest"
 	}
 	if qc.ContainerName == "" {
-		qc.ContainerName = "novel-studio-qdrant"
+		qc.ContainerName = "scriptorium-qdrant"
 	}
 	if qc.TimeoutSeconds <= 0 {
 		qc.TimeoutSeconds = 30
@@ -163,7 +163,7 @@ func ragCollectionName(outputDir string) string {
 	if abs, err := filepath.Abs(outputDir); err == nil {
 		outputDir = abs
 	}
-	return rag.CollectionName("novel_studio", filepath.Clean(outputDir))
+	return rag.CollectionName("scriptorium", filepath.Clean(outputDir))
 }
 
 func resolveQdrantAPIKey(qc RAGQdrantConfig) string {

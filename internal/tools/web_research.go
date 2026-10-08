@@ -15,8 +15,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/store"
 	"github.com/voocel/agentcore/schema"
 )
 
@@ -261,7 +261,7 @@ func (t *WebResearchTool) get(ctx context.Context, target string) (string, error
 	if err != nil {
 		return "", err
 	}
-	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) novel-studio-research/1.0")
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) scriptorium-research/1.0")
 	req.Header.Set("Accept-Language", "zh-CN,zh;q=0.9,en;q=0.6")
 	resp, err := t.client.Do(req)
 	if err != nil {

@@ -6,8 +6,8 @@ import (
 	"slices"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func loadCharacterPhysicalPreState(st *store.Store, chapter int, projected domain.ProjectedPlanningContextV2) (domain.WorldPhysicalStateV2, error) {

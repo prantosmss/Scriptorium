@@ -6,7 +6,7 @@ import (
 	"sort"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // AIVoiceStore 管理反 AI 腔指标、红旗和采样记录。

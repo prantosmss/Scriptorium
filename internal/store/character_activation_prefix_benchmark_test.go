@@ -9,22 +9,22 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Opt-in performance evidence, not a weaker validation path. Use -run '^$'
 // -bench '^BenchmarkCharacterActivationVerifiedPrefixReadOnly$' -benchtime=1x.
 // CPU/alloc profiles must be directed outside the book by the calling command.
 func BenchmarkCharacterActivationVerifiedPrefixReadOnly(b *testing.B) {
-	output := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT")
+	output := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT")
 	if output == "" {
-		b.Skip("set NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT for one real read-only prefix measurement")
+		b.Skip("set SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT for one real read-only prefix measurement")
 	}
 	if b.N != 1 {
 		b.Fatal("real evidence benchmark requires -benchtime=1x; no repeated history scan")
 	}
-	generation := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_GENERATION")
-	chapter, err := strconv.Atoi(os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_CHAPTER"))
+	generation := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_GENERATION")
+	chapter, err := strconv.Atoi(os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_CHAPTER"))
 	if err != nil || chapter < 1 {
 		b.Fatal("set a positive explicit audit chapter")
 	}

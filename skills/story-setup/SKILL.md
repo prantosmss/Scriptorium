@@ -422,4 +422,4 @@ hooks 注册合并按 command 字段去重：
 
 | 时机 | 跳转到 | 命令 |
 |---|---|---|
-| 部署完成，开始写作 | novel-pipeline / novel-write（story-long-write / story-short-write 只作方法参考） | `novel-studio --pipeline --prompt-file <需求文件>` |
+| 部署完成，开始写作 | novel-pipeline / novel-write（story-long-write / story-short-write 只作方法参考） | `scriptorium --pipeline --prompt-file <需求文件>` |

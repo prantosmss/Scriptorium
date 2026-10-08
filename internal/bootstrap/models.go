@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
-	"github.com/chenhongyang/novel-studio/internal/llmcodex"
+	"github.com/prantosmss/Scriptorium/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/llmcodex"
 	"github.com/voocel/agentcore"
 	"github.com/voocel/agentcore/llm"
 )

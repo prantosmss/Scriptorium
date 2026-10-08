@@ -1,6 +1,6 @@
 # 数据沉淀与推进机制
 
-这份文档把 `novel-studio` 的数据写入、RAG 召回、断点恢复和章级推进口径收拢到一处。目标是回答三个问题：
+这份文档把 `scriptorium` 的数据写入、RAG 召回、断点恢复和章级推进口径收拢到一处。目标是回答三个问题：
 
 - 哪些文件是事实源，哪些只是检索加速或诊断证据。
 - 一章从规划、草稿、提交、审核到返工，如何推动状态机前进。
@@ -72,7 +72,7 @@ flowchart TD
 
 ### 3.1 写前推演硬门禁
 
-所有正文写作都必须通过 `novel-studio --pipeline` 进入 `plan_chapter -> draft_chapter -> check_consistency -> commit_chapter`。`plan_chapter` 不再接受旧式“目标/冲突/钩子”裸计划；缺少完整 `causal_simulation` 时直接拒绝进入正文。
+所有正文写作都必须通过 `scriptorium --pipeline` 进入 `plan_chapter -> draft_chapter -> check_consistency -> commit_chapter`。`plan_chapter` 不再接受旧式“目标/冲突/钩子”裸计划；缺少完整 `causal_simulation` 时直接拒绝进入正文。
 
 `causal_simulation` 至少要证明这些输入已经被消化：
 
@@ -111,7 +111,7 @@ flowchart TD
 ### 4.1 启动和检查
 
 - `Host.New` 和 `--pipeline` 启动都会调用 `bootstrap.EnsureRAGQdrant`。
-- embedding 启用时，默认使用本机 Qdrant：`http://127.0.0.1:6333`，容器名 `novel-studio-qdrant`。
+- embedding 启用时，默认使用本机 Qdrant：`http://127.0.0.1:6333`，容器名 `scriptorium-qdrant`。
 - `docker-compose.yml` 也提供 `qdrant` 服务，适合显式 `docker compose up`。
 - `pipelineWrite` 与交付阶段在执行前调用 `ensurePipelineRAGReady`：先迁移/校验 schema、回填已生成章节摘要并处理 `pending_upserts.json`；已有本地向量可复用时，滚动读取 Qdrant 全部 points，逐项核对 `chunk_id` 与内容 hash。完全一致则复用，否则从本地向量重放，不重新 embedding。
 - 如果 embedding 未启用，系统仍使用本地关键词 RAG，不强制启动向量链路。
@@ -210,7 +210,7 @@ Pipeline 只负责阶段编排。章内下一步仍由 `progress.json`、checkpo
 如果 `progress`、checkpoint 和文件系统不一致，先跑：
 
 ```bash
-go run ./cmd/novel-studio --diag
+go run ./cmd/scriptorium --diag
 ```
 
 不要手工编辑章节状态后直接续写。
@@ -229,11 +229,11 @@ go run ./cmd/novel-studio --diag
 常用核对命令：
 
 ```bash
-go run ./cmd/novel-studio --build-rag --with-embeddings --probe-chapter 1
-go run ./cmd/novel-studio rag audit --root data/runs
-go run ./cmd/novel-studio rag maintain --root data/runs --apply
-go run ./cmd/novel-studio --diag
-go run ./cmd/novel-studio --refresh-progress
+go run ./cmd/scriptorium --build-rag --with-embeddings --probe-chapter 1
+go run ./cmd/scriptorium rag audit --root data/runs
+go run ./cmd/scriptorium rag maintain --root data/runs --apply
+go run ./cmd/scriptorium --diag
+go run ./cmd/scriptorium --refresh-progress
 curl -s http://127.0.0.1:6333/collections
 ```
 
@@ -246,7 +246,7 @@ curl -s http://127.0.0.1:6333/collections
 | Writer 忘前文 | `meta/rag/retrieval_trace.jsonl`、`meta/chapter_progress.md`、`summaries/` | 判断是召回弱、台账没刷新，还是摘要缺失 |
 | Qdrant 没命中 | `meta/rag/vector_store.md`、Qdrant `/collections/{collection}` | 先确认 embedding 是否启用和 collection 是否匹配 |
 | 审核通过但没解锁下一章 | `reviews/NN.md`、`meta/last_review.json`、`pending_rewrites` | verdict 或返工队列可能没清 |
-| 状态互相矛盾 | `go run ./cmd/novel-studio --diag` | 诊断会报告 progress/checkpoint/pipeline 漂移 |
+| 状态互相矛盾 | `go run ./cmd/scriptorium --diag` | 诊断会报告 progress/checkpoint/pipeline 漂移 |
 
 ## 9. 维护边界
 

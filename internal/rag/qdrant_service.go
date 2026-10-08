@@ -32,7 +32,7 @@ func EnsureLocalQdrant(ctx context.Context, cfg QdrantServiceConfig) error {
 	client, err := NewQdrantClient(QdrantClientConfig{
 		URL:        cfg.URL,
 		APIKey:     cfg.APIKey,
-		Collection: "novel_studio_healthcheck",
+		Collection: "scriptorium_healthcheck",
 		Timeout:    2 * time.Second,
 	})
 	if err != nil {
@@ -113,16 +113,16 @@ func defaultQdrantServiceConfig(cfg QdrantServiceConfig) QdrantServiceConfig {
 		cfg.DockerImage = "qdrant/qdrant:latest"
 	}
 	if cfg.ContainerName == "" {
-		cfg.ContainerName = "novel-studio-qdrant"
+		cfg.ContainerName = "scriptorium-qdrant"
 	}
 	if cfg.Timeout <= 0 {
 		cfg.Timeout = 30 * time.Second
 	}
 	if cfg.StorageDir == "" {
 		if home, err := os.UserHomeDir(); err == nil && home != "" {
-			cfg.StorageDir = filepath.Join(home, ".novel-studio", "qdrant")
+			cfg.StorageDir = filepath.Join(home, ".scriptorium", "qdrant")
 		} else {
-			cfg.StorageDir = filepath.Join(".novel-studio", "qdrant")
+			cfg.StorageDir = filepath.Join(".scriptorium", "qdrant")
 		}
 	}
 	cfg.AutoStart = true

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // CharacterActivationV3Inputs constructs actual public-domain inputs, not a

@@ -83,7 +83,7 @@ idea
 ## 验证
 
 - `go test -count=1 ./...`
-- `go test -race -count=1 ./internal/writer/sampler ./cmd/novel-studio ./internal/tools ./internal/host/flow`
+- `go test -race -count=1 ./internal/writer/sampler ./cmd/scriptorium ./internal/tools ./internal/host/flow`
 - `git diff --check`
 
 验证期间没有启动 live pipeline，也没有主动写入小说章节、plan 或 review 产物。

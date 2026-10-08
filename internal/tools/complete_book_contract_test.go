@@ -9,8 +9,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func frozenCompleteBookContract(t *testing.T, st *store.Store, chapters, words int) domain.OutlineAllExecutionReceipt {

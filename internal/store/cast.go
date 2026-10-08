@@ -5,7 +5,7 @@ import (
 	"slices"
 	"sort"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // CastStore 管理配角名册（meta/cast_ledger.json）。

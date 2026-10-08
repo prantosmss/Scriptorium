@@ -1,4 +1,4 @@
-# novel-studio 运行时架构
+# Scriptorium 运行时架构
 
 > 让 LLM 在一次 Run 里把一本小说写完，Host 只做启动 / 恢复 / 路由 / 观察，决策权尽量留给模型。
 

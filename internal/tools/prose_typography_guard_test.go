@@ -4,7 +4,7 @@ import (
 	"strings"
 	"testing"
 
-	qualityrules "github.com/chenhongyang/novel-studio/internal/rules"
+	qualityrules "github.com/prantosmss/Scriptorium/internal/rules"
 )
 
 func TestValidateFictionProseTypography(t *testing.T) {

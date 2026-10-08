@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func (s *Store) LoadCharacterActivationChapterEvidence(generation string, chapter int) (*domain.CharacterActivationChapterEvidence, error) {

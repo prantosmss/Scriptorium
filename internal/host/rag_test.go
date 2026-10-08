@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
 )
 
 func TestEnsureHostRAGSkipsServiceWhenLiveRAGDisabled(t *testing.T) {

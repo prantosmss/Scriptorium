@@ -8,11 +8,11 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/utils"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/utils"
 )
 
-// exampleConfig 是引导后写入 ~/.novel-studio/config.example.jsonc 的带注释模板。
+// exampleConfig 是引导后写入 ~/.scriptorium/config.example.jsonc 的带注释模板。
 // 嵌入文件必须与仓库根目录 config.example.jsonc 保持一致，测试会防止漂移。
 //
 //go:embed config.example.jsonc

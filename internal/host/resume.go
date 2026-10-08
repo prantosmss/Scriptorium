@@ -5,8 +5,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	storepkg "github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	storepkg "github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // buildResumePrompt 基于事实生成 Resume 用的简短 prompt 与 UI 标签。

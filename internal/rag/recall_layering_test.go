@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // loadGhostcityIndex 读取鬼城真实索引；不存在时跳过（CI 环境无此文件）。

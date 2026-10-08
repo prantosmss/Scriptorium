@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func workBatchFixture(t *testing.T, limited bool) (domain.CharacterActivationCycle, []domain.CharacterWorkContinuationLedgerV1, domain.CharacterActivationInputSet, domain.CharacterDecisionProposal) {

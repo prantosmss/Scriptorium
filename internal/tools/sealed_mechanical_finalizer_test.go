@@ -5,9 +5,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func TestFinalizeSealedDraftMechanicallyCommitsExactApprovedBody(t *testing.T) {

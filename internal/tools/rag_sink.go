@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/rag"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func upsertRAGChunks(ctx context.Context, st *store.Store, embedder rag.Embedder, vectorWriter rag.VectorWriter, chunks []domain.RAGChunk, cfg domain.RAGIndexConfig) error {

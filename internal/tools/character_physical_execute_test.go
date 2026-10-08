@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func newPhysicalArbitratedStoreForTest(t *testing.T, characters ...string) (*store.Store, domain.CharacterDecisionProposal, *domain.ChapterWorldSimulation) {

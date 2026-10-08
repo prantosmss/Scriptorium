@@ -3,7 +3,7 @@ package store
 import (
 	"os"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // UsageStore 持久化 token / cost 累计用量到 meta/usage.json。

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/errs"
 )
 
 func TestWorldToolIntentFeedbackRejectsWithoutWritingAndPreservesReceipt(t *testing.T) {

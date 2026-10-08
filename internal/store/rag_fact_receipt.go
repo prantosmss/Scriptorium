@@ -7,7 +7,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 var ragFactReceiptProcessMu sync.Mutex

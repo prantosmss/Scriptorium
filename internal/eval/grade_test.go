@@ -6,10 +6,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/diag"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/stylestat"
+	"github.com/prantosmss/Scriptorium/internal/diag"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/stylestat"
 )
 
 // writerSmokeCase 是一个典型的 writer 第一章 smoke case，用于门禁测试。
@@ -254,7 +254,7 @@ func TestGradeRAGContractsPassAndFail(t *testing.T) {
 	col.RAG = RAGCollection{
 		IndexState: &domain.RAGIndexState{
 			Config: domain.RAGIndexConfig{
-				Collection:        "novel_studio_test",
+				Collection:        "scriptorium_test",
 				VectorStore:       "qdrant",
 				EmbeddingProvider: "local",
 				EmbeddingModel:    "local-hash-384",

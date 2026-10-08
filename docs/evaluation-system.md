@@ -1,4 +1,4 @@
-# novel-studio 评测体系
+# Scriptorium 评测体系
 
 > 评测不是新造一套检查脚本，而是把项目**已有的事实诊断器（`diag`）、全书文体统计器（`stylestat`）、七维原生评审（`ReviewEntry`）当作评测器**，套一层离线批量 harness。一份事实定义，两处不再漂移。
 
@@ -364,7 +364,7 @@ internal/eval/
   grade.go       Finding→门禁映射 + baseline/variant delta + stylestat/RAG gate 决策
   report.go      report.json + report.md
 
-cmd/novel-studio  eval 子命令入口
+cmd/scriptorium  eval 子命令入口
 
 evals/
   cases/         smoke/ workflow/ quality/ longform/ recovery/ steering/ harness/
@@ -377,16 +377,16 @@ evals/
 
 ```bash
 # 多 case 批量（CI 默认只跑 smoke、不开 judge）
-novel-studio eval --cases evals/cases/smoke \
+scriptorium eval --cases evals/cases/smoke \
   --variant evals/variants/writer-anti-ai-tone \
   --out workspace/evals/writer-anti-ai-tone --ci
 
 # Harness：只检查已有项目产物、台账、RAG 与 Qdrant 向量沉淀，不触发写作
-novel-studio eval inspect --cases evals/cases/harness \
+scriptorium eval inspect --cases evals/cases/harness \
   --out workspace/evals/harness-local
 
 # Harness：临时覆盖 case 里的 artifact_dir，检查指定 output/novel
-novel-studio eval inspect --cases evals/cases/harness/ghostcity_rag_progression.json \
+scriptorium eval inspect --cases evals/cases/harness/ghostcity_rag_progression.json \
   --dir data/runs/鬼城/output/novel
 ```
 
@@ -405,7 +405,7 @@ Harness case 可在 `expect` 中声明工程契约：
 
 ```bash
 # 重大 prompt 改动：A/B + repeat 降随机性
-novel-studio eval --cases evals/cases/quality \
+scriptorium eval --cases evals/cases/quality \
   --variant evals/variants/writer-anti-ai-tone \
   --repeat 3 --ci
 ```

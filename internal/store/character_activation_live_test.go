@@ -10,13 +10,13 @@ import (
 // initializes a Store, recovers a cursor, collects evidence, or calls a model.
 // In-flight chapters are checked only through their committed cycle boundary.
 func TestCharacterActivationLiveEvidenceReadOnly(t *testing.T) {
-	output := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT")
+	output := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT")
 	if output == "" {
-		t.Skip("set NOVEL_STUDIO_ACTIVATION_AUDIT_OUTPUT to audit real immutable cycles")
+		t.Skip("set SCRIPTORIUM_ACTIVATION_AUDIT_OUTPUT to audit real immutable cycles")
 	}
-	generation := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_GENERATION")
+	generation := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_GENERATION")
 	chapter := 1
-	if raw := os.Getenv("NOVEL_STUDIO_ACTIVATION_AUDIT_CHAPTER"); raw != "" {
+	if raw := os.Getenv("SCRIPTORIUM_ACTIVATION_AUDIT_CHAPTER"); raw != "" {
 		var err error
 		chapter, err = strconv.Atoi(raw)
 		if err != nil || chapter < 1 {

@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // GhostCharacter 检测 core/important 角色长期未出现。

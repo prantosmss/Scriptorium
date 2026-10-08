@@ -8,61 +8,61 @@ package i18n
 // check.*, service.*, lang.*.
 var catalogEN = map[string]string{
 	// ---- top-level usage (printTopUsage) ----
-	"usage.title": "novel-studio — AI long-form fiction engine",
+	"usage.title": "Scriptorium — AI long-form fiction engine",
 
 	"usage.firstRun": `First run:
-  1. novel-studio doctor       # check the local environment and get fix suggestions
-  2. novel-studio              # create the config (first time only)
-  3. novel-studio --check      # make one tiny real model request`,
+  1. scriptorium doctor       # check the local environment and get fix suggestions
+  2. scriptorium              # create the config (first time only)
+  3. scriptorium --check      # make one tiny real model request`,
 
 	"usage.usage": `Usage:
-  novel-studio --pipeline --prompt <text>     # resumable pipeline: design -> arc rehearsal -> per-chapter render + review
-  novel-studio --pipeline --prompt-file p.md  # read the prompt from a file, then enter the pipeline
-  novel-studio --cocreate                     # multi-turn clarification, finalise the writing brief
-  novel-studio --headless --prompt <text>     # legacy alias: converted to --pipeline internally`,
+  scriptorium --pipeline --prompt <text>     # resumable pipeline: design -> arc rehearsal -> per-chapter render + review
+  scriptorium --pipeline --prompt-file p.md  # read the prompt from a file, then enter the pipeline
+  scriptorium --cocreate                     # multi-turn clarification, finalise the writing brief
+  scriptorium --headless --prompt <text>     # legacy alias: converted to --pipeline internally`,
 
 	"usage.features": `Feature subcommands (no TTY; CI / remote friendly):
-  novel-studio --check                        # LLM connectivity check (verify it works before writing)
-  novel-studio --pipeline --stages review     # per-chapter Editor review (does not edit the text)
-  novel-studio --draft-ai-judge --chapter N   # independent DeepSeek raw-prose pre-review of the current draft
-  novel-studio --pipeline --stages rewrite    # per-chapter Writer rewrite driven by review notes
-  novel-studio --diag                         # diagnose the current project artefacts
-  novel-studio --writing-assets list          # list / toggle / combine / bind / trial writing assets
-  novel-studio --writing-assets seed-defaults # seed this book's baseline writing assets
-  novel-studio --refresh-progress [--dir d]   # backfill chapter progress / character changes / next-chapter plan ledger
-  novel-studio --build-rag [--dir d]          # build this book's RAG index and probe recall
-  novel-studio --rag-ready [--dir d]          # repair / verify RAG only, do not start writing
-  novel-studio rag audit [--root data/runs]   # audit every main index and historical RAG snapshot
-  novel-studio rag maintain --apply           # back up, compact the main index, merge duplicate snapshots
-  novel-studio --architect-check [--dir d]    # check the Architect foundation (required before zero-init)
-  novel-studio --zero-init [--dir d]          # character / relationship / resource rehearsal assets before chapter 1
-  novel-studio eval inspect --cases evals/cases/harness # inspect existing project artefacts with the harness
-  novel-studio --simulate [--no-diag]         # analyse the simulate/ corpus into imitation profiles
-  novel-studio --import-sim <profile.json>    # import a previously generated profile (writes diag by default)
-  novel-studio --steer "<instruction>"        # queue an intervention, applied on the next start`,
+  scriptorium --check                        # LLM connectivity check (verify it works before writing)
+  scriptorium --pipeline --stages review     # per-chapter Editor review (does not edit the text)
+  scriptorium --draft-ai-judge --chapter N   # independent DeepSeek raw-prose pre-review of the current draft
+  scriptorium --pipeline --stages rewrite    # per-chapter Writer rewrite driven by review notes
+  scriptorium --diag                         # diagnose the current project artefacts
+  scriptorium --writing-assets list          # list / toggle / combine / bind / trial writing assets
+  scriptorium --writing-assets seed-defaults # seed this book's baseline writing assets
+  scriptorium --refresh-progress [--dir d]   # backfill chapter progress / character changes / next-chapter plan ledger
+  scriptorium --build-rag [--dir d]          # build this book's RAG index and probe recall
+  scriptorium --rag-ready [--dir d]          # repair / verify RAG only, do not start writing
+  scriptorium rag audit [--root data/runs]   # audit every main index and historical RAG snapshot
+  scriptorium rag maintain --apply           # back up, compact the main index, merge duplicate snapshots
+  scriptorium --architect-check [--dir d]    # check the Architect foundation (required before zero-init)
+  scriptorium --zero-init [--dir d]          # character / relationship / resource rehearsal assets before chapter 1
+  scriptorium eval inspect --cases evals/cases/harness # inspect existing project artefacts with the harness
+  scriptorium --simulate [--no-diag]         # analyse the simulate/ corpus into imitation profiles
+  scriptorium --import-sim <profile.json>    # import a previously generated profile (writes diag by default)
+  scriptorium --steer "<instruction>"        # queue an intervention, applied on the next start`,
 
 	"usage.other": `Other:
-  novel-studio doctor                         # local environment / config / dashboard pre-flight (no model calls)
-  novel-studio service start                  # start the browser progress dashboard (novel output/novel + short-story service)
-  novel-studio service open                   # open the project progress dashboard manually
-  novel-studio service status                 # check the dashboard service /api/health
-  novel-studio skills list                    # list built-in skills
-  novel-studio skills export --to <dir>       # export skills into a project directory
-  novel-studio lang [en|zh]                   # show or change the interface language
-  novel-studio --version                      # print version information
-  novel-studio update [version]               # self-update
-  novel-studio --config <path>                # start with a specific config file
-  novel-studio --dir <project>                # project root (OutputDir base) — no need to cd`,
+  scriptorium doctor                         # local environment / config / dashboard pre-flight (no model calls)
+  scriptorium service start                  # start the browser progress dashboard (novel output/novel + short-story service)
+  scriptorium service open                   # open the project progress dashboard manually
+  scriptorium service status                 # check the dashboard service /api/health
+  scriptorium skills list                    # list built-in skills
+  scriptorium skills export --to <dir>       # export skills into a project directory
+  scriptorium lang [en|zh]                   # show or change the interface language
+  scriptorium --version                      # print version information
+  scriptorium update [version]               # self-update
+  scriptorium --config <path>                # start with a specific config file
+  scriptorium --dir <project>                # project root (OutputDir base) — no need to cd`,
 
 	"usage.subUsage": `Per-command options:
-  novel-studio service --help
-  novel-studio --pipeline --help
-  novel-studio --review-existing --help      # legacy alias
-  novel-studio --rewrite-existing --help     # legacy alias
-  novel-studio skills --help`,
+  scriptorium service --help
+  scriptorium --pipeline --help
+  scriptorium --review-existing --help      # legacy alias
+  scriptorium --rewrite-existing --help     # legacy alias
+  scriptorium skills --help`,
 
 	"usage.tips": `Tips:
-  · config is read from ~/.novel-studio/config.json (a project-level ./.novel-studio/config.json overrides it)
+  · config is read from ~/.scriptorium/config.json (a project-level ./.scriptorium/config.json overrides it)
   · the first run starts the setup wizard: pick a provider / paste the key / set the base URL / set the model
   · chapters are written to output/novel/chapters/*.md (OutputDir can be changed in the config)`,
 
@@ -79,7 +79,7 @@ var catalogEN = map[string]string{
 	"flag.updateCombo":     "update cannot be combined with other startup flags",
 
 	// ---- fatal errors (die) ----
-	"die.headlessNoSetup":  "error: first-run setup is not supported in headless mode; run `novel-studio` once in an interactive terminal, or write the config file by hand",
+	"die.headlessNoSetup":  "error: first-run setup is not supported in headless mode; run `scriptorium` once in an interactive terminal, or write the config file by hand",
 	"die.directPrompt":     "error: passing a story request directly on the command line is not supported; use --pipeline --prompt <text> or the matching subcommand",
 	"die.promptNeedsPipeline": "error: --prompt/--prompt-file requires --pipeline",
 	"die.loggedAt":         "(full error written to %s)",
@@ -87,23 +87,23 @@ var catalogEN = map[string]string{
 	"load.promptRead":      "reading the prompt failed: %w",
 
 	// ---- self update ----
-	"update.upToDate":   "novel-studio is already at the latest version %s",
-	"update.updated":    "novel-studio updated to %s",
+	"update.upToDate":   "scriptorium is already at the latest version %s",
+	"update.updated":    "scriptorium updated to %s",
 	"update.installPath": "installed at: %s",
 
 	// ---- doctor ----
 	"doctor.fix":         "  fix: %s",
-	"doctor.resultReady": "\nResult: local pre-flight requirements are ready. Next run `novel-studio --check` to verify the real model connection.",
+	"doctor.resultReady": "\nResult: local pre-flight requirements are ready. Next run `scriptorium --check` to verify the real model connection.",
 	"doctor.resultIssues": "\nResult: items must be fixed; follow the suggestions above and run doctor again.",
 
 	// ---- --check ----
-	"check.usage": "Usage: novel-studio --check [--timeout 30s] [--provider <name> --model <model>]\n\nSends the smallest possible real request to every configured model to prove the\npath works before writing starts.\n\n  --provider/--model are optional (default: the config's default model), and\n  require each other.\n\nOptions:\n",
+	"check.usage": "Usage: scriptorium --check [--timeout 30s] [--provider <name> --model <model>]\n\nSends the smallest possible real request to every configured model to prove the\npath works before writing starts.\n\n  --provider/--model are optional (default: the config's default model), and\n  require each other.\n\nOptions:\n",
 	"check.timeout":       "per-model timeout for the test request",
 	"check.provider":      "provider to test (a key under providers), requires --model",
 	"check.model":         "model to test alongside --provider",
 	"check.unknownArgs":   "--check does not take arguments: %v",
 	"check.pairRequired":  "--provider and --model must be given together",
-	"check.noConfig":      "no config yet; run `novel-studio` once to create it, or write the config by hand",
+	"check.noConfig":      "no config yet; run `scriptorium` once to create it, or write the config by hand",
 	"check.loadConfig":    "loading config: %w",
 	"check.unknownProvider": "unknown provider %q in the config",
 	"check.buildModel":    "building the model failed (fails before any network call): %w",
@@ -123,7 +123,7 @@ var catalogEN = map[string]string{
 	// ---- service ----
 	"service.staleReusable": "[dashboard] old service could not be reused (writing continues): %v\n",
 	"service.startFailed":   "[dashboard] failed to start (writing continues): %v\n",
-	"service.pythonNeeded":  "Python 3.9+ is required for the dashboard; install Python 3 or run `novel-studio doctor` for fix suggestions",
+	"service.pythonNeeded":  "Python 3.9+ is required for the dashboard; install Python 3 or run `scriptorium doctor` for fix suggestions",
 	"service.pythonProbe":   "probing the Python interpreter failed (%s): %w",
 	"service.pythonOld":     "Python 3.9+ is required, found %d.%d (%s)",
 
@@ -131,11 +131,11 @@ var catalogEN = map[string]string{
 	"lang.header":     "Interface language",
 	"lang.current":    "current: %s",
 	"lang.available":  "available: %s",
-	"lang.hint":       "change with: novel-studio lang en|zh",
+	"lang.hint":       "change with: scriptorium lang en|zh",
 	"lang.changed":    "interface language set to %s (%s) — written to %s",
 	"lang.unchanged":  "interface language is already %s",
 	"lang.unknownLang": "unknown language %q — use one of: %s",
-	"lang.usage":      "Usage:\n  novel-studio lang          # show the current language\n  novel-studio lang en|zh    # switch the language (saved in the config)\n",
-	"lang.noConfig":   "no config file found; run `novel-studio` once to create it, then switch the language",
+	"lang.usage":      "Usage:\n  scriptorium lang          # show the current language\n  scriptorium lang en|zh    # switch the language (saved in the config)\n",
+	"lang.noConfig":   "no config file found; run `scriptorium` once to create it, then switch the language",
 	"lang.writeFailed": "writing the config failed: %v",
 }

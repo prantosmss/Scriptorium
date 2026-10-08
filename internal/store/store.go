@@ -5,7 +5,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // Store 是状态管理的组合根，持有所有子存储。

@@ -1,19 +1,19 @@
 #!/bin/sh
-# novel-studio 一键安装脚本
+# scriptorium 一键安装脚本
 #
-#   curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts/install.sh | sh
-#   curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts/install.sh | sh -s -- v1.2.3
+#   curl -fsSL https://raw.githubusercontent.com/prantosmss/Scriptorium/main/scripts/install.sh | sh
+#   curl -fsSL https://raw.githubusercontent.com/prantosmss/Scriptorium/main/scripts/install.sh | sh -s -- v1.2.3
 #
-# 自定义安装目录： curl -fsSL ... | NOVEL_STUDIO_INSTALL_DIR="$HOME/.local/bin" sh
-# 指定版本：NOVEL_STUDIO_VERSION=v1.2.3 curl -fsSL ... | sh
+# 自定义安装目录： curl -fsSL ... | SCRIPTORIUM_INSTALL_DIR="$HOME/.local/bin" sh
+# 指定版本：SCRIPTORIUM_VERSION=v1.2.3 curl -fsSL ... | sh
 set -e
 
-REPO="Xiaoyangy/novel-studio"
-BIN="novel-studio"
-VERSION="${NOVEL_STUDIO_VERSION:-${1:-latest}}"
+REPO="prantosmss/Scriptorium"
+BIN="scriptorium"
+VERSION="${SCRIPTORIUM_VERSION:-${1:-latest}}"
 
-if [ -n "${NOVEL_STUDIO_INSTALL_DIR:-}" ]; then
-	DEST="$NOVEL_STUDIO_INSTALL_DIR"
+if [ -n "${SCRIPTORIUM_INSTALL_DIR:-}" ]; then
+	DEST="$SCRIPTORIUM_INSTALL_DIR"
 elif command -v "$BIN" >/dev/null 2>&1 && [ -w "$(dirname "$(command -v "$BIN")")" ]; then
 	DEST=$(dirname "$(command -v "$BIN")")
 elif [ -d /usr/local/bin ] && [ -w /usr/local/bin ]; then
@@ -50,7 +50,7 @@ else
 	echo "查询版本 $TAG..."
 fi
 
-RELEASE=$(curl -fsSL -H "Accept: application/vnd.github+json" -H "User-Agent: novel-studio-installer" "$API")
+RELEASE=$(curl -fsSL -H "Accept: application/vnd.github+json" -H "User-Agent: scriptorium-installer" "$API")
 TAG=$(printf '%s\n' "$RELEASE" | sed -n 's/.*"tag_name":"\([^"]*\)".*/\1/p' | head -1)
 URL=$(printf '%s\n' "$RELEASE" \
 	| tr '{' '\n' \
@@ -100,7 +100,7 @@ if [ -w "$DEST" ]; then
 	mv "$TMP/$BIN" "$DEST/$BIN"
 else
 	echo "安装目录不可写：$DEST" >&2
-	echo "请改用用户目录：curl -fsSL https://raw.githubusercontent.com/$REPO/main/scripts/install.sh | NOVEL_STUDIO_INSTALL_DIR=\"$HOME/.local/bin\" sh" >&2
+	echo "请改用用户目录：curl -fsSL https://raw.githubusercontent.com/$REPO/main/scripts/install.sh | SCRIPTORIUM_INSTALL_DIR=\"$HOME/.local/bin\" sh" >&2
 	exit 1
 fi
 chmod +x "$DEST/$BIN"
@@ -112,14 +112,14 @@ echo "✓ 安装完成：$DEST/$BIN"
 [ -n "$TAG" ] && echo "版本：$TAG"
 "$DEST/$BIN" --version
 if command -v "$BIN" >/dev/null 2>&1; then
-	if "$DEST/$BIN" --help 2>/dev/null | grep -q "novel-studio doctor"; then
+	if "$DEST/$BIN" --help 2>/dev/null | grep -q "scriptorium doctor"; then
 		echo "下一步：$BIN doctor"
 	fi
 	echo "然后运行：$BIN"
 else
 	echo "提示：$DEST 不在 PATH 中。当前终端先运行："
 	echo "  export PATH=\"$DEST:\$PATH\""
-	if "$DEST/$BIN" --help 2>/dev/null | grep -q "novel-studio doctor"; then
+	if "$DEST/$BIN" --help 2>/dev/null | grep -q "scriptorium doctor"; then
 		echo "然后运行：$BIN doctor"
 	else
 		echo "然后运行：$BIN"

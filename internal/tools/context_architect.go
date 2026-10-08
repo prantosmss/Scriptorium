@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // 本文件承载 Coordinator/Architect 规划路径的上下文组装（从 novel_context_builders.go 拆出）。

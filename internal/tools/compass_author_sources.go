@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 const authorCompassHint = "\n本书启用 author-sources.v1。update_compass必须提交author_contracts={policy:\"author-sources.v1\",sources_digest:<宿主给出的来源摘要>,refs:[{source_id:<真实作者来源ID>,paragraph:<从0开始的完整非空段序号>}]}。refs只选作者明确的不可协商创作要求，可为空；Host按完整原段物化non_negotiables，可省略该旧数组，若提供必须逐项逐字相等。不能截半句丢否定、改数字范围、改写或自称‘用户原话’，不能引用本轮执行/修复说明、模型方案或foundation自己。旧的已验证条目不能删除。ending_direction是可调整的软方向，不因写入此字段就升级为用户硬合同。来源取自meta/author_sources.json，不修改该文件。"

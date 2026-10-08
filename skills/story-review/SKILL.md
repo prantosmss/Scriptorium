@@ -457,7 +457,7 @@ Rubric Source: file | embedded fallback
 
 | 时机 | 跳转到 | 命令 |
 |---|---|---|
-| 要修改查出的问题 | novel-pipeline / novel-rewrite（story-long-write / story-short-write 只作方法参考） | `novel-studio --pipeline --stages rewrite` |
+| 要修改查出的问题 | novel-pipeline / novel-rewrite（story-long-write / story-short-write 只作方法参考） | `scriptorium --pipeline --stages rewrite` |
 | 发现 AI 味需清理 | story-deslop | `/story-deslop` |
 | 需要重新拆解对标书 | 拆解在工程外完成 | 把拆解成品放入 `deconstruction-library/{书名}/` 后重试（短篇可用 `/story-short-analyze`） |
 

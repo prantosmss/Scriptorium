@@ -11,12 +11,12 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	editrules "github.com/chenhongyang/novel-studio/internal/editor/rules"
-	"github.com/chenhongyang/novel-studio/internal/rag"
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/stylestat"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	editrules "github.com/prantosmss/Scriptorium/internal/editor/rules"
+	"github.com/prantosmss/Scriptorium/internal/rag"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/stylestat"
 	"github.com/voocel/agentcore/schema"
 )
 

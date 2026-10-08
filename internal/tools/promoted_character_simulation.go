@@ -3,8 +3,8 @@ package tools
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // A promoted live plan intentionally has no projected character sidecars.

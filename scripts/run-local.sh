@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# novel-studio 本地一键运行脚本
+# scriptorium 本地一键运行脚本
 # 用法：
 #   ./scripts/run-local.sh                                  # 首次配置或打印帮助
 #   ./scripts/run-local.sh doctor                           # 本地前置检查
@@ -10,7 +10,7 @@
 #   ./scripts/run-local.sh rewrite [--from N --to M]
 #   ./scripts/run-local.sh help
 #
-# 设计：保留 cwd 在 novel-studio 项目根，保证 output/、./.novel-studio/、go.mod 等相对路径都对。
+# 设计：保留 cwd 在 scriptorium 项目根，保证 output/、./.scriptorium/、go.mod 等相对路径都对。
 
 set -euo pipefail
 
@@ -19,8 +19,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
 # 用 go run 跑，永远跟源码同步，不需要预编译二进制。
-# PATH 里的 novel-studio 是旧 release 二进制，可能跟当前源码不同步。
-BIN=(go run ./cmd/novel-studio)
+# PATH 里的 scriptorium 是旧 release 二进制，可能跟当前源码不同步。
+BIN=(go run ./cmd/scriptorium)
 
 if [ "$#" -eq 0 ]; then
     exec "${BIN[@]}"

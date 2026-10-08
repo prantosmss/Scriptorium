@@ -6,7 +6,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // craft 检索通道：写作手法库服务两类场景。

@@ -1,6 +1,6 @@
 # Skills Context Protocol
 
-This directory is the single source for exported novel-studio skills. Every
+This directory is the single source for exported scriptorium skills. Every
 skill must be readable after conversation compaction without relying on hidden
 chat history.
 
@@ -17,12 +17,12 @@ When a skill is selected:
 7. If the task is already running, read `.skill-context/<skill>.md` from the
    execution directory before continuing.
 
-The same plan can be inspected with `novel-studio skills context <skill>`,
-`novel-studio skills context <skill> --json`, or
-`novel-studio skills context --all --json`; this is the preferred quick check
+The same plan can be inspected with `scriptorium skills context <skill>`,
+`scriptorium skills context <skill> --json`, or
+`scriptorium skills context --all --json`; this is the preferred quick check
 before resuming after compaction or exporting skills into another agent runtime.
 When the executing runtime needs a self-contained recovery packet instead of a
-path list, run `novel-studio skills context <skill> --content` to materialize
+path list, run `scriptorium skills context <skill> --content` to materialize
 the protocol, entrypoint, manifest, and required files. Add
 `--include-conditional` only when the current task genuinely needs the
 task-gated references or scripts. Add `--state-dir <execution-dir>` to include

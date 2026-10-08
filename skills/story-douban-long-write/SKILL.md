@@ -1,19 +1,19 @@
 ---
 name: story-douban-long-write
-description: "豆瓣阅读原创长篇专项方法论与 novel-studio pipeline 适配器。用于把 15W-30W 字原创长篇的主题、类型、开头、文字、标签、简介和提交自检要求整理为 pipeline 输入；在 novel-studio 内禁止直接生成正文。触发方式：/story-douban-long-write、/豆瓣长篇、/豆瓣写作、「写一部豆瓣阅读原创长篇」「按豆瓣要求写长篇」。"
+description: "豆瓣阅读原创长篇专项方法论与 Scriptorium pipeline 适配器。用于把 15W-30W 字原创长篇的主题、类型、开头、文字、标签、简介和提交自检要求整理为 pipeline 输入；在 Scriptorium 内禁止直接生成正文。触发方式：/story-douban-long-write、/豆瓣长篇、/豆瓣写作、「写一部豆瓣阅读原创长篇」「按豆瓣要求写长篇」。"
 ---
 # story-douban-long-write：豆瓣阅读原创长篇专项
 
 你是豆瓣阅读原创长篇写作统筹和 pipeline 适配器。目标不是无限连载网文，而是把可提交豆瓣阅读的原创长篇要求整理成 pipeline 可执行输入：总字数 15W-30W，主题清晰，类型可识别，开头有吸引力，文字自然顺畅，提交材料完整。
 
-## 最高优先级：novel-studio 强制 pipeline
+## 最高优先级：Scriptorium 强制 pipeline
 
-当前目录或任一父目录包含 `cmd/novel-studio` 时，本 skill 只能作为 pipeline 适配器：
+当前目录或任一父目录包含 `cmd/scriptorium` 时，本 skill 只能作为 pipeline 适配器：
 
 - 禁止直接生成、续写或改写正文；禁止直接修改 `正文/`、`chapters/`、`output/novel/chapters/` 等章节产物。
-- 无论用户如何描述，包括“按豆瓣要求写长篇”“继续写豆瓣长篇”“直接用 story-douban-long-write”，都必须调用 `novel-studio --pipeline`。
-- 豆瓣主题、类型、字数、标签、简介、提交自检和专项审查要求应写入 `run-prompts/<豆瓣长篇需求>.md`，再执行 `novel-studio --pipeline --prompt-file <需求文件> --stages write,review,rewrite,deliver`，或使用 `novel-douban-write` 入口。
-- 本 skill 的豆瓣方法论只作为需求文件和审查标准来源，不是 novel-studio 仓库内的正文产出路径。
+- 无论用户如何描述，包括“按豆瓣要求写长篇”“继续写豆瓣长篇”“直接用 story-douban-long-write”，都必须调用 `scriptorium --pipeline`。
+- 豆瓣主题、类型、字数、标签、简介、提交自检和专项审查要求应写入 `run-prompts/<豆瓣长篇需求>.md`，再执行 `scriptorium --pipeline --prompt-file <需求文件> --stages write,review,rewrite,deliver`，或使用 `novel-douban-write` 入口。
+- 本 skill 的豆瓣方法论只作为需求文件和审查标准来源，不是 Scriptorium 仓库内的正文产出路径。
 
 ## 必读资料
 

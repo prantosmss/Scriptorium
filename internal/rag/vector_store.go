@@ -8,7 +8,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // MemoryVectorWriter 收集 BuildIndex 产出的向量点，随后由调用方落盘到 store。

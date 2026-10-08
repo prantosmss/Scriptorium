@@ -3,14 +3,14 @@
 
 <div align="center">
 
-# novel-studio
+# Scriptorium
 
 **单世界全角色推演驱动的 AI 小说生产工程**
 
 先让世界与角色作出有理由的决定，再把主角看得见的因果渲染成正文。
 
-[![Release](https://img.shields.io/github/v/release/Xiaoyangy/novel-studio)](https://github.com/Xiaoyangy/novel-studio/releases/latest)
-[![License](https://img.shields.io/github/license/Xiaoyangy/novel-studio)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/prantosmss/Scriptorium)](https://github.com/prantosmss/Scriptorium/releases/latest)
+[![License](https://img.shields.io/github/license/prantosmss/Scriptorium)](LICENSE)
 [![Go](https://img.shields.io/badge/Go-1.25.5-00ADD8?logo=go&logoColor=white)](go.mod)
 [![Platform](https://img.shields.io/badge/macOS%20%7C%20Linux%20%7C%20WSL2-supported-555)](#安装)
 
@@ -20,7 +20,7 @@
 
 ---
 
-novel-studio 是一个开源、自托管、local-first 的 AI 小说生产系统，支持 2—3 万字短篇生产，并以百万字级连载、长篇网文和整书工程化创作为架构目标。
+Scriptorium 是一个开源、自托管、local-first 的 AI 小说生产系统，支持 2—3 万字短篇生产，并以百万字级连载、长篇网文和整书工程化创作为架构目标。
 
 它不是“把上一段继续写长”的文本生成器。系统会先维护同一个世界中的角色状态、知识边界、资源、关系与独立决策，再将蝴蝶效应投影为主视角章节计划。正文、审核、返工、提交和 RAG 都绑定落盘事实与精确正文 SHA。
 
@@ -32,7 +32,7 @@ novel-studio 是一个开源、自托管、local-first 的 AI 小说生产系统
 
 ## 核心能力
 
-| 能力 | novel-studio 如何处理 |
+| 能力 | Scriptorium 如何处理 |
 |---|---|
 | 单世界全角色推演 | 每个角色依据自己的目标、压力、知识、关系和资源作决定；离屏角色不会围着主角静止等待 |
 | 主视角投影 | 完整世界决定留在模拟层，正文只接收主角可见事实、必要结果与人物声口 |
@@ -140,7 +140,7 @@ projected state delta。
 确需优先完成交付时，人工可明确授权当前 generation 超时继续：
 
 ```bash
-novel-studio --pipeline --dir <RUN> \
+scriptorium --pipeline --dir <RUN> \
   --stages project-all,seal,promote,render \
   --delivery-overrun-reason "已人工确认继续产出，保留原始时限和超时记录"
 ```
@@ -199,14 +199,14 @@ novel-studio --pipeline --dir <RUN> \
 
 ```bash
 # 方式 A：当前 main
-git clone https://github.com/Xiaoyangy/novel-studio.git
-cd novel-studio
+git clone https://github.com/prantosmss/Scriptorium.git
+cd scriptorium
 ./scripts/run-local.sh doctor
 ```
 
 ```bash
 # 方式 B：稳定 Release（含内嵌看板）
-curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/prantosmss/Scriptorium/main/scripts/install.sh | sh
 ```
 
 当前原生支持 macOS 与 Linux。Windows 原生构建尚未支持所需的跨进程文件锁；Windows 用户请在 WSL2 中按 Linux 方式运行，不要使用旧版原生 ZIP。
@@ -214,12 +214,12 @@ curl -fsSL https://raw.githubusercontent.com/Xiaoyangy/novel-studio/main/scripts
 ### 首次配置
 
 ```bash
-novel-studio doctor
-novel-studio
-novel-studio --check
+scriptorium doctor
+scriptorium
+scriptorium --check
 ```
 
-配置默认读取 `~/.novel-studio/config.json`；项目目录中的 `./.novel-studio/config.json` 可覆盖全局配置。完整示例见 [config.example.jsonc](config.example.jsonc)。
+配置默认读取 `~/.scriptorium/config.json`；项目目录中的 `./.scriptorium/config.json` 可覆盖全局配置。完整示例见 [config.example.jsonc](config.example.jsonc)。
 
 生产配置建议把独立裸正文 `reviewer` 路由到 DeepSeek；Editor、Drafter 与其他角色仍可使用不同 provider。普通 review 对非 DeepSeek 路由只记录配置警告，不会仅因 provider 身份阻断；审核结论和其他门禁仍正常决定验收。独立 `--draft-ai-judge` 命令则要求有效 reviewer 的 provider 与 model 均为 DeepSeek。
 
@@ -227,11 +227,11 @@ novel-studio --check
 
 ```bash
 # 短篇示例：把总字数、章数、双主角和题材边界写进同一份创作契约
-novel-studio --pipeline --new-novel \
+scriptorium --pipeline --new-novel \
   --prompt "写一部 2—3 万字、12 章完结的双女主都市悬疑短篇；每章 2000—2500 中文字，人物边界和结局回收必须在章纲中冻结"
 
 # 长期项目建议把完整创作契约放进文件
-novel-studio --pipeline --new-novel --prompt-file prompt.md
+scriptorium --pipeline --new-novel --prompt-file prompt.md
 ```
 
 新书首次调用进入默认写作阶段：
@@ -260,11 +260,11 @@ zero-init
 ### 恢复现有项目
 
 ```bash
-novel-studio --pipeline \
+scriptorium --pipeline \
   --dir data/runs/<书名>
 
 # 只有项目确实维护了稳定创作契约文件时才显式传入
-novel-studio --pipeline \
+scriptorium --pipeline \
   --dir data/runs/<书名> \
   --prompt-file /实际存在的路径/prompt.md
 ```
@@ -274,7 +274,7 @@ novel-studio --pipeline \
 短篇末章和 terminal arc completion receipt 都已落盘后，显式执行全文终审与交付：
 
 ```bash
-novel-studio --pipeline \
+scriptorium --pipeline \
   --dir data/runs/<书名> \
   --stages finalize,deliver
 ```
@@ -283,14 +283,14 @@ novel-studio --pipeline \
 
 ## 效果预览
 
-![novel-studio 进度看板总览：pipeline、章节审核、RAG、模型用量和运行队列](docs/assets/dashboard-overview-20260720.jpg)
+![Scriptorium 进度看板总览：pipeline、章节审核、RAG、模型用量和运行队列](docs/assets/dashboard-overview-20260720.jpg)
 
 <details>
 <summary><strong>展开人物与离屏世界视图</strong></summary>
 
-![novel-studio 人物视图：角色档案、目标压力、知识边界和关系契约](docs/assets/dashboard-characters-20260710.webp)
+![Scriptorium 人物视图：角色档案、目标压力、知识边界和关系契约](docs/assets/dashboard-characters-20260710.webp)
 
-![novel-studio 离屏世界视图：角色独立行动、势力进度钟与信息传播](docs/assets/dashboard-offscreen-20260710.webp)
+![Scriptorium 离屏世界视图：角色独立行动、势力进度钟与信息传播](docs/assets/dashboard-offscreen-20260710.webp)
 
 </details>
 
@@ -377,11 +377,11 @@ PROJECT='data/runs/你的书名'
 
 # 1. 首次 fresh 建立当前弧，完成正式推演、承载力校验与封存；不写正文
 #    若本命令中断，恢复时删除 --restart
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --stages preplan,project-all,seal --restart
 
 # 2. 封存后每次只提升、渲染并审核当前弧的下一章；不用填章号
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --stages preplan,project-all,seal,promote,render
 ```
 
@@ -390,7 +390,7 @@ novel-studio --pipeline --dir "$PROJECT" \
 也可以从一开始使用完整阶段列表。执行顺序仍保证当前弧 `project-all` 全部完成、承载力通过且 `seal` 成功后，才会写该弧第一章候选正文：
 
 ```bash
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --stages preplan,project-all,seal,promote,render --restart
 ```
 
@@ -399,7 +399,7 @@ novel-studio --pipeline --dir "$PROJECT" \
 若当前未验收 promotion 的 plan 必须改变，显式从当前已验收正史重建当前弧的 successor generation；不得原地修改 sealed bundle：
 
 ```bash
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --stages preplan,project-all,seal,promote,render --restart
 ```
 
@@ -410,7 +410,7 @@ novel-studio --pipeline --dir "$PROJECT" \
 若项目已经写了第 1—N 章，而这些章节也必须重新纳入生产基线，使用受控全书 rebase。它先保留旧工程的逐字节归档，再把活动正史回到第 0 章，确认全书章纲后只推演和封存第一弧；后续仍遵循“渲染一弧、弧内逐章验收、再进下一弧”：
 
 ```bash
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --rebase-all-chapters \
   --stages architect,outline-all,zero-init,preplan,project-all,seal \
   --restart
@@ -461,13 +461,13 @@ outline-all 的合同回执区分两种证据模式：`payoff`（缺省）仍须
 推荐把 rebase/定向修复与后续派生分开运行：
 
 ```bash
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --rebase-all-chapters \
   --outline-repair-file "$PROJECT/repairs/v1a1-boundary.json" \
   --stages outline-all \
   --restart
 
-novel-studio --pipeline --dir "$PROJECT" \
+scriptorium --pipeline --dir "$PROJECT" \
   --stages zero-init,preplan,project-all,seal \
   --restart
 ```
@@ -563,7 +563,7 @@ find "$PROJECT/output/.pipeline-runtime" -type f \
 
 ## RAG 与长程记忆
 
-novel-studio 将召回内容分开治理，避免“资料越多，正文越乱”：
+Scriptorium 将召回内容分开治理，避免“资料越多，正文越乱”：
 
 | 通道 | 用途 |
 |---|---|
@@ -579,13 +579,13 @@ render 不启动 live RAG、embedding 或 Qdrant，不现场调用 `craft_recall
 
 ```bash
 # 构建或刷新当前项目索引
-novel-studio --build-rag --dir data/runs/<书名>/output/novel
+scriptorium --build-rag --dir data/runs/<书名>/output/novel
 
 # 修复 schema、回放 pending，并验证向量状态
-novel-studio --rag-ready --dir data/runs/<书名>/output/novel
+scriptorium --rag-ready --dir data/runs/<书名>/output/novel
 
 # 离线检查 RAG / embedding / vector store 工件
-novel-studio eval inspect --cases evals/cases/harness
+scriptorium eval inspect --cases evals/cases/harness
 ```
 
 项目事实召回会做来源归一、近重复折叠和多样性选择；返工技法召回会生成可审计 receipt。当前正文通路是：
@@ -609,10 +609,10 @@ render_packet v11.fact_anchors / craft_methods
 ## 进度看板
 
 ```bash
-novel-studio service start
-novel-studio service status
-novel-studio service open
-novel-studio service url
+scriptorium service start
+scriptorium service status
+scriptorium service open
+scriptorium service url
 ```
 
 默认地址：[http://127.0.0.1:8765/](http://127.0.0.1:8765/)
@@ -644,18 +644,18 @@ PID，并以较新的 pipeline/checkpoint 活动覆盖已恢复的历史失败�
 
 | 命令 | 用途 |
 |---|---|
-| `novel-studio --pipeline --dir data/runs/<书名>` | 运行或恢复默认写作阶段；一次只验收下一章，不包含 `finalize/deliver` |
-| `novel-studio --pipeline --stages preplan,project-all,seal` | 只完成当前弧全部章节的正式推演、承载力校验与封存，不写正文 |
-| `novel-studio --pipeline --stages preplan,project-all,seal,promote,render` | 复核当前弧 sealed chain，并渲染、单章审核下一章 |
-| `novel-studio --pipeline --stages finalize,deliver` | 仅对满足 global-review 合同的短篇，在逐章通过后执行全文终审，生成 `正文.md` 与出版包并完成交付校验 |
-| `novel-studio --pipeline --rebase-all-chapters --stages architect,outline-all,zero-init,preplan,project-all,seal --restart` | 完整归档已有正文，活动正史回到第 0 章，冻结全书章纲并只封存第一弧 |
-| `novel-studio --pipeline --rebase-all-chapters --outline-repair-file repair.json --stages outline-all --restart` | 在隔离候选中按 digest/CAS 定向修复弧目标与稀疏章节合同，再原子发布 fresh outline-all |
-| `novel-studio --pipeline --new-novel --prompt "..."` | 从新题材开始一本书 |
-| `novel-studio --check` | 检查 provider、model 和 fallback |
-| `novel-studio --diag` | 只读诊断当前项目 |
-| `novel-studio --steer "指令"` | 仅在 legacy/unsealed 项目中为下一次恢复排队；sealed 项目需把变更纳入稳定规则后显式建立当前弧 successor generation |
-| `novel-studio list` | 列出 `data/runs/` 下的书目 |
-| `novel-studio reader-metrics log ...` | 登记真实读者反馈 |
+| `scriptorium --pipeline --dir data/runs/<书名>` | 运行或恢复默认写作阶段；一次只验收下一章，不包含 `finalize/deliver` |
+| `scriptorium --pipeline --stages preplan,project-all,seal` | 只完成当前弧全部章节的正式推演、承载力校验与封存，不写正文 |
+| `scriptorium --pipeline --stages preplan,project-all,seal,promote,render` | 复核当前弧 sealed chain，并渲染、单章审核下一章 |
+| `scriptorium --pipeline --stages finalize,deliver` | 仅对满足 global-review 合同的短篇，在逐章通过后执行全文终审，生成 `正文.md` 与出版包并完成交付校验 |
+| `scriptorium --pipeline --rebase-all-chapters --stages architect,outline-all,zero-init,preplan,project-all,seal --restart` | 完整归档已有正文，活动正史回到第 0 章，冻结全书章纲并只封存第一弧 |
+| `scriptorium --pipeline --rebase-all-chapters --outline-repair-file repair.json --stages outline-all --restart` | 在隔离候选中按 digest/CAS 定向修复弧目标与稀疏章节合同，再原子发布 fresh outline-all |
+| `scriptorium --pipeline --new-novel --prompt "..."` | 从新题材开始一本书 |
+| `scriptorium --check` | 检查 provider、model 和 fallback |
+| `scriptorium --diag` | 只读诊断当前项目 |
+| `scriptorium --steer "指令"` | 仅在 legacy/unsealed 项目中为下一次恢复排队；sealed 项目需把变更纳入稳定规则后显式建立当前弧 successor generation |
+| `scriptorium list` | 列出 `data/runs/` 下的书目 |
+| `scriptorium reader-metrics log ...` | 登记真实读者反馈 |
 
 ### 窄范围维护
 
@@ -663,16 +663,16 @@ PID，并以较新的 pipeline/checkpoint 活动覆盖已恢复的历史失败�
 
 ```bash
 # 只重建第 N 章当前正文的 review 证据
-novel-studio --pipeline --dir data/runs/<书名> \
+scriptorium --pipeline --dir data/runs/<书名> \
   --stages review --restart --from <N> --to <N>
 
 # 首次明确授权：复用现有 plan，整章重新渲染
-novel-studio --pipeline --dir data/runs/<书名> \
+scriptorium --pipeline --dir data/runs/<书名> \
   --stages rewrite --restart --force-rerender \
   --from <N> --to <N> --max-rewrite-rounds 3
 
 # 已有 pending 时从队首原位恢复，不跳章
-novel-studio --pipeline --dir data/runs/<书名> \
+scriptorium --pipeline --dir data/runs/<书名> \
   --stages rewrite --from <队首N> --to <目标N>
 ```
 
@@ -681,10 +681,10 @@ novel-studio --pipeline --dir data/runs/<书名> \
 完整参数以本机二进制为准：
 
 ```bash
-novel-studio --help
-novel-studio --pipeline --help
-novel-studio service --help
-novel-studio skills --help
+scriptorium --help
+scriptorium --pipeline --help
+scriptorium service --help
+scriptorium skills --help
 ```
 
 ## 输出结构
@@ -768,7 +768,7 @@ data/runs/<书名>/
 
 ## 配置与模型
 
-novel-studio 支持 OpenAI、Anthropic、Gemini、OpenRouter、DeepSeek、Qwen、GLM、Grok、MiniMax、Mimo、Ollama、Bedrock、兼容代理，以及本机 Codex CLI。
+Scriptorium 支持 OpenAI、Anthropic、Gemini、OpenRouter、DeepSeek、Qwen、GLM、Grok、MiniMax、Mimo、Ollama、Bedrock、兼容代理，以及本机 Codex CLI。
 
 常用配置：
 
@@ -786,11 +786,11 @@ novel-studio 支持 OpenAI、Anthropic、Gemini、OpenRouter、DeepSeek、Qwen�
 
 ## Skills
 
-`skills/` 是可导出能力的唯一源目录。Skill 用于整理输入、写法与审核约束；任何能生成正文的任务最终都应回到 `novel-studio --pipeline`。
+`skills/` 是可导出能力的唯一源目录。Skill 用于整理输入、写法与审核约束；任何能生成正文的任务最终都应回到 `scriptorium --pipeline`。
 
 ```bash
-novel-studio skills list
-novel-studio skills export --to ./exported-skills
+scriptorium skills list
+scriptorium skills export --to ./exported-skills
 python3 scripts/validate_skill_context.py
 ```
 
@@ -803,10 +803,10 @@ go test -count=1 ./...
 go test -race -count=1 \
   ./internal/aigc ./internal/agents ./internal/host/flow \
   ./internal/llmcodex ./internal/store ./internal/domain ./internal/writer/sampler
-go test -race -count=1 ./cmd/novel-studio \
+go test -race -count=1 ./cmd/scriptorium \
   -run 'Test(EditorExactBodyCacheSingleflight|DeepSeekExactBodyCacheSingleflight|PipelineWatchdog|PipelineRenderDispatch|PipelineHostTurnDispatch|PipelineChapterRenderTransaction)'
 go vet ./...
-go build -o /tmp/novel-studio ./cmd/novel-studio
+go build -o /tmp/scriptorium ./cmd/scriptorium
 
 python3 scripts/validate_skill_context.py
 python3 -m unittest discover -s quality/audit/scripts -p 'test_*.py' -v
@@ -836,15 +836,15 @@ git diff --check
 ## Release
 
 ```bash
-novel-studio --version
-novel-studio update
-novel-studio update <version>
+scriptorium --version
+scriptorium update
+scriptorium update <version>
 ```
 
-长任务运行中不要替换二进制。等待当前 checkpoint 落盘并退出，升级后先执行 `novel-studio --check`，再从原项目目录恢复。
+长任务运行中不要替换二进制。等待当前 checkpoint 落盘并退出，升级后先执行 `scriptorium --check`，再从原项目目录恢复。
 
 ## License
 
 [Apache License 2.0](LICENSE)
 
-问题与建议请提交到 [GitHub Issues](https://github.com/Xiaoyangy/novel-studio/issues)。
+问题与建议请提交到 [GitHub Issues](https://github.com/prantosmss/Scriptorium/issues)。

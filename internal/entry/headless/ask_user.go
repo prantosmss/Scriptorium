@@ -8,8 +8,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/chenhongyang/novel-studio/internal/tools"
-	"github.com/chenhongyang/novel-studio/internal/utils"
+	"github.com/prantosmss/Scriptorium/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/utils"
 )
 
 type terminalAskUser struct {

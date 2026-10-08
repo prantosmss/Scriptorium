@@ -10,7 +10,7 @@ import (
 	"testing"
 )
 
-import "github.com/chenhongyang/novel-studio/internal/domain"
+import "github.com/prantosmss/Scriptorium/internal/domain"
 
 // These are two real three-chapter windows, with chapter 1's original hard
 // obligation carried across the boundary and actually consumed in chapter 5.

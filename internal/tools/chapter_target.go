@@ -1,6 +1,6 @@
 package tools
 
-import "github.com/chenhongyang/novel-studio/internal/store"
+import "github.com/prantosmss/Scriptorium/internal/store"
 
 // pendingRewriteTarget returns the only chapter that writing tools may advance
 // while a rewrite queue is active. The queue is ordered and must be drained

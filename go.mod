@@ -1,4 +1,4 @@
-module github.com/chenhongyang/novel-studio
+module github.com/prantosmss/Scriptorium
 
 go 1.25.5
 

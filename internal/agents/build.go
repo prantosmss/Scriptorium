@@ -10,17 +10,17 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/assets"
-	"github.com/chenhongyang/novel-studio/internal/agents/ctxpack"
-	"github.com/chenhongyang/novel-studio/internal/aigc"
-	"github.com/chenhongyang/novel-studio/internal/bootstrap"
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/host/reminder"
-	"github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
-	"github.com/chenhongyang/novel-studio/internal/tools"
-	"github.com/chenhongyang/novel-studio/internal/userrules"
-	writersampler "github.com/chenhongyang/novel-studio/internal/writer/sampler"
+	"github.com/prantosmss/Scriptorium/assets"
+	"github.com/prantosmss/Scriptorium/internal/agents/ctxpack"
+	"github.com/prantosmss/Scriptorium/internal/aigc"
+	"github.com/prantosmss/Scriptorium/internal/bootstrap"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/host/reminder"
+	"github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/tools"
+	"github.com/prantosmss/Scriptorium/internal/userrules"
+	writersampler "github.com/prantosmss/Scriptorium/internal/writer/sampler"
 	"github.com/voocel/agentcore"
 	corecontext "github.com/voocel/agentcore/context"
 	"github.com/voocel/agentcore/llm"
@@ -1177,14 +1177,14 @@ func normalizeSingleSubagentArgs(args json.RawMessage) (json.RawMessage, error) 
 		switch {
 		case strings.EqualFold(key, "tasks"), strings.EqualFold(key, "chain"), strings.EqualFold(key, "team_name"):
 			if !emptySingleSubagentModeValue(value) {
-				return nil, fmt.Errorf("novel-studio 只允许 subagent 的单任务 agent+task 模式；并行/链式/team 会破坏单世界状态的单写者顺序")
+				return nil, fmt.Errorf("Scriptorium 只允许 subagent 的单任务 agent+task 模式；并行/链式/team 会破坏单世界状态的单写者顺序")
 			}
 			delete(raw, key)
 			changed = true
 		case strings.EqualFold(key, "background"):
 			var background bool
 			if json.Unmarshal(value, &background) != nil || background {
-				return nil, fmt.Errorf("novel-studio 禁止后台 subagent 写共享故事状态；请使用同步 agent+task")
+				return nil, fmt.Errorf("Scriptorium 禁止后台 subagent 写共享故事状态；请使用同步 agent+task")
 			}
 		}
 	}

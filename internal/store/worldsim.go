@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // WorldSimStore 管理世界模拟（离屏推演）的事实工件：

@@ -6,9 +6,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/reviewreport"
-	qualityrules "github.com/chenhongyang/novel-studio/internal/rules"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/reviewreport"
+	qualityrules "github.com/prantosmss/Scriptorium/internal/rules"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 func TestDraftChapterPrewriteRejectsSimulationIDMetadata(t *testing.T) {

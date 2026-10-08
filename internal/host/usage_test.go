@@ -3,7 +3,7 @@ package host
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/models"
+	"github.com/prantosmss/Scriptorium/internal/models"
 	"github.com/voocel/agentcore"
 )
 

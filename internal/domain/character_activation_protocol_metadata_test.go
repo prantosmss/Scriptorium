@@ -9,7 +9,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func metadataV3Prefix(t *testing.T, cycles int) domain.VerifiedCharacterActivationPrefix {
@@ -142,7 +142,7 @@ func TestVerifiedPrefixCycleProtocolRejectsMixedVersionsAndProtocolChange(t *tes
 // Explicit opt-in keeps dynamic benchmark calibration out of ordinary tests
 // and race CI. Use -benchtime=3x for a small fixed-count comparison.
 func TestVerifiedPrefixCycleProtocolWorkComparison(t *testing.T) {
-	if os.Getenv("NOVEL_STUDIO_PREFIX_PROTOCOL_BENCHMARK") != "1" {
+	if os.Getenv("SCRIPTORIUM_PREFIX_PROTOCOL_BENCHMARK") != "1" {
 		t.Skip("opt-in metadata-only work comparison")
 	}
 	prefix := metadataV3Prefix(t, 3)

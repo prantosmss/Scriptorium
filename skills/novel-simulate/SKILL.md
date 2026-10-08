@@ -18,13 +18,13 @@ Coordinator / Architect / Writer / Editor 都能读取——只借鉴结构、�
 
 ```bash
 # 分析 simulate/ 语料，合成 / 增量更新仿写画像
-novel-studio --simulate
+scriptorium --simulate
 
 # 导入此前生成的画像 JSON（simulation_profile.v1），按语料指纹合并、重复来源跳过
-novel-studio --import-sim ./profile.json
+scriptorium --import-sim ./profile.json
 
 # 仅更新画像，不写 meta/diag-export.md
-novel-studio --simulate --no-diag
+scriptorium --simulate --no-diag
 ```
 
 ## 行为

@@ -3,8 +3,8 @@ package tools
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
-	"github.com/chenhongyang/novel-studio/internal/store"
+	"github.com/prantosmss/Scriptorium/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/store"
 )
 
 // Only a real Store view can bind this tool. Neither output JSON nor the

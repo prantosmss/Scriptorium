@@ -15,13 +15,13 @@ description: "LLM 连通性自检：对默认模型与各角色模型做一次�
 
 ```bash
 # 自检当前配置的所有模型目标（按 provider/model 去重，每个只 ping 一次）
-novel-studio --check
+scriptorium --check
 
 # 调长单次超时（默认 30s）
-novel-studio --check --timeout 60s
+scriptorium --check --timeout 60s
 
 # 只验证某个备用 provider（不改配置），确认它能用作 fallback
-novel-studio --check --provider minimax --model MiniMax-M3
+scriptorium --check --provider minimax --model MiniMax-M3
 ```
 
 ## 参数

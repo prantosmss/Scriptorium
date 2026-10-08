@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>novel-studio · 长篇小说创作引擎 · 端到端架构</title>
+<title>Scriptorium · 长篇小说创作引擎 · 端到端架构</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
 <style>
@@ -395,7 +395,7 @@
       <div class="brand-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
       </div>
-      novel-studio · 架构总览
+      Scriptorium · 架构总览
     </div>
     <div class="topnav-links">
       <a href="#sec-entry">入口</a>
@@ -418,7 +418,7 @@
     <div class="eyebrow"><span class="dot"></span>END-TO-END PIPELINE · v2026.07</div>
     <h1>从一句话指令<br/>到 <em>100 章完整长篇</em> 的全链路</h1>
     <p class="hero-sub">
-      novel-studio 是一个 Go + LLM 长篇小说创作引擎。它把「前提 → 大纲 → 人物 → 世界规则 → 第一章 → 第 N 章 → 全文导出」拆成可断点续跑的流水线，让多个 AI Agent 分工协作，并通过本地 RAG（千问 Embedding + Qdrant）保持长程一致性。
+      Scriptorium 是一个 Go + LLM 长篇小说创作引擎。它把「前提 → 大纲 → 人物 → 世界规则 → 第一章 → 第 N 章 → 全文导出」拆成可断点续跑的流水线，让多个 AI Agent 分工协作，并通过本地 RAG（千问 Embedding + Qdrant）保持长程一致性。
     </p>
     <div class="hero-meta">
       <div class="cell">
@@ -448,7 +448,7 @@
       <span class="sec-num">01 / ENTRY</span>
       <h2 class="sec-title">三种入口</h2>
     </div>
-    <p class="sec-sub">novel-studio 提供了三种主入口，覆盖「从零起手」「复用旧稿」「逐步澄清」三种场景。</p>
+    <p class="sec-sub">Scriptorium 提供了三种主入口，覆盖「从零起手」「复用旧稿」「逐步澄清」三种场景。</p>
 
     <div class="g3">
       <div class="card">
@@ -461,13 +461,13 @@
           最常用。从 prompt.md / inline prompt 启动，自动跑完整条 write→review→rewrite→export 链路。状态写到 <code>meta/pipeline.json</code>，可断点续跑。
         </div>
         <pre style="margin-top:14px"><span class="c-cmt"># 写法 A：inline prompt</span>
-./novel-studio <span class="c-key">--pipeline</span> <span class="c-key">--prompt</span> <span class="c-str">"写一部诡异末日..."</span>
+./scriptorium <span class="c-key">--pipeline</span> <span class="c-key">--prompt</span> <span class="c-str">"写一部诡异末日..."</span>
 
 <span class="c-cmt"># 写法 B：从 prompt 文件</span>
-./novel-studio <span class="c-key">--pipeline</span> <span class="c-key">--prompt-file</span> prompt.md
+./scriptorium <span class="c-key">--pipeline</span> <span class="c-key">--prompt-file</span> prompt.md
 
 <span class="c-cmt"># 写完第 10 章后停</span>
-./novel-studio <span class="c-key">--pipeline</span> <span class="c-key">--prompt-file</span> prompt.md \
+./scriptorium <span class="c-key">--pipeline</span> <span class="c-key">--prompt-file</span> prompt.md \
   <span class="c-key">--stages</span> write,review,rewrite <span class="c-key">--write-to</span> <span class="c-num">10</span></pre>
       </div>
 
@@ -481,10 +481,10 @@
           不直接写正文，先多轮对话把创作意图聊清楚，定稿 prompt 后再进入 pipeline。需要 TTY。
         </div>
         <pre style="margin-top:14px"><span class="c-cmt"># 多轮澄清需求</span>
-./novel-studio <span class="c-key">--cocreate</span>
+./scriptorium <span class="c-key">--cocreate</span>
 
 <span class="c-cmt"># 等价写法：显式列出 cocreate 阶段</span>
-./novel-studio <span class="c-key">--pipeline</span> <span class="c-key">--stages</span> cocreate,write,...</pre>
+./scriptorium <span class="c-key">--pipeline</span> <span class="c-key">--stages</span> cocreate,write,...</pre>
         <div class="hint">通常用 <code>--pipeline</code> 入口，<code>--cocreate</code> 是 TTY 下的快捷方式。</div>
       </div>
     </div>
@@ -537,7 +537,7 @@
       <div class="mermaid-wrap">
         <div class="mermaid">
 flowchart LR
-    A["./novel-studio --pipeline"] --> B{"FoundationMissing?"}
+    A["./scriptorium --pipeline"] --> B{"FoundationMissing?"}
     B -- yes --> C["dispatch architect"]
     C --> D["save_foundation × N"]
     D --> E[Phase=Writing]
@@ -861,7 +861,7 @@ flowchart LR
       <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
         LLM judge 对同族输出有 75–84% 自我偏好——writer 与 reviewer 建议用不同模型家族。请求级 failover：主 provider 失败（宕机 / 限流 / 余额不足）自动切兜底，恢复后自动回主。
       </p>
-      <pre><span class="c-cmt">// ~/.novel-studio/config.json</span>
+      <pre><span class="c-cmt">// ~/.scriptorium/config.json</span>
 {
   <span class="c-key">"roles"</span>: {
     <span class="c-key">"writer"</span>: {
@@ -952,7 +952,7 @@ flowchart LR
           <div>
             <div style="font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px;">全量构建</div>
             <pre><span class="c-cmt"># 手动构建 / 更新 RAG</span>
-./novel-studio <span class="c-key">--build-rag</span> \
+./scriptorium <span class="c-key">--build-rag</span> \
   <span class="c-key">--dir</span> data/runs/鬼城/output/novel</pre>
           </div>
           <div>
@@ -1008,14 +1008,14 @@ flowchart LR
         </tbody>
       </table>
       <pre style="margin-top: 18px;"><span class="c-cmt"># 跑一次零章（foundation 缺失会拒绝继续）</span>
-./novel-studio <span class="c-key">--zero-init</span> \
+./scriptorium <span class="c-key">--zero-init</span> \
   <span class="c-key">--dir</span> data/runs/鬼城/output/novel
 
 <span class="c-cmt"># 只检查不写盘</span>
-./novel-studio <span class="c-key">--zero-init</span> <span class="c-key">--check</span>
+./scriptorium <span class="c-key">--zero-init</span> <span class="c-key">--check</span>
 
 <span class="c-cmt"># 切到新 generation_id（旧章当种子，新事实重推）</span>
-./novel-studio <span class="c-key">--zero-init</span> \
+./scriptorium <span class="c-key">--zero-init</span> \
   <span class="c-key">--reset-simulation-state</span> <span class="c-key">--generation-id</span> sim-20260706-001</pre>
     </div>
   </div>
@@ -1037,9 +1037,9 @@ flowchart LR
           Dashboard 浏览器看板
         </div>
         <div class="card-desc" style="margin-bottom:10px;">本地起一个 HTTP 服务，浏览器里看项目进度 / 章节 / 评审 / 元数据。</div>
-        <pre><span class="c-fn">novel-studio</span> service start
-<span class="c-fn">novel-studio</span> service open
-<span class="c-fn">novel-studio</span> service status</pre>
+        <pre><span class="c-fn">scriptorium</span> service start
+<span class="c-fn">scriptorium</span> service open
+<span class="c-fn">scriptorium</span> service status</pre>
       </div>
 
       <div class="card">
@@ -1076,7 +1076,7 @@ flowchart LR
           Steer 干预指令
         </div>
         <div class="card-desc" style="margin-bottom:10px;">不打断当前 run，排队一条指令，下次启动生效。</div>
-        <pre><span class="c-fn">novel-studio</span> <span class="c-key">--steer</span> <span class="c-str">"第 5 章加一个反转"</span></pre>
+        <pre><span class="c-fn">scriptorium</span> <span class="c-key">--steer</span> <span class="c-str">"第 5 章加一个反转"</span></pre>
       </div>
 
       <div class="card">
@@ -1085,7 +1085,7 @@ flowchart LR
           Cocreate 多轮澄清
         </div>
         <div class="card-desc" style="margin-bottom:10px;">先聊清楚再开写。需要 TTY，CI / 远程场景走 <code>--pipeline</code>。</div>
-        <pre><span class="c-fn">novel-studio</span> <span class="c-key">--cocreate</span></pre>
+        <pre><span class="c-fn">scriptorium</span> <span class="c-key">--cocreate</span></pre>
       </div>
 
       <div class="card">
@@ -1105,8 +1105,8 @@ flowchart LR
           Check LLM 连通
         </div>
         <div class="card-desc" style="margin-bottom:10px;">正式跑前先确认 provider 能用。</div>
-        <pre><span class="c-fn">novel-studio</span> <span class="c-key">--check</span>
-<span class="c-fn">novel-studio</span> <span class="c-key">--check</span> <span class="c-key">--role</span> writer</pre>
+        <pre><span class="c-fn">scriptorium</span> <span class="c-key">--check</span>
+<span class="c-fn">scriptorium</span> <span class="c-key">--check</span> <span class="c-key">--role</span> writer</pre>
       </div>
 
       <div class="card">
@@ -1115,8 +1115,8 @@ flowchart LR
           Skills / 拆文库
         </div>
         <div class="card-desc" style="margin-bottom:10px;">内置 story skills + 工程内 <code>拆文库/</code> 参考素材，可导入 RAG。</div>
-        <pre><span class="c-fn">novel-studio</span> skills list
-<span class="c-fn">novel-studio</span> skills export <span class="c-key">--to</span> ./skills</pre>
+        <pre><span class="c-fn">scriptorium</span> skills list
+<span class="c-fn">scriptorium</span> skills export <span class="c-key">--to</span> ./skills</pre>
       </div>
     </div>
   </div>
@@ -1138,7 +1138,7 @@ flowchart LR
           Deliver 交付
         </div>
         <div class="card-desc" style="margin-bottom: 12px;">推进台账 + RAG 事实入库 + 交付快照，一次沉淀。</div>
-        <pre><span class="c-fn">novel-studio</span> <span class="c-key">--pipeline</span> \
+        <pre><span class="c-fn">scriptorium</span> <span class="c-key">--pipeline</span> \
   <span class="c-key">--stages</span> deliver</pre>
       </div>
     </div>
@@ -1149,8 +1149,8 @@ flowchart LR
         <span class="tag primary">一行</span>
       </div>
       <pre><span class="c-cmt"># 从 prompt 启动流水线，写 1-10 章就停，跑完整 5 阶段（含 deliver）</span>
-cd /Users/chenhongyang/Desktop/book/novel-studio
-./novel-studio <span class="c-key">--pipeline</span> \
+cd /path/to/Scriptorium
+./scriptorium <span class="c-key">--pipeline</span> \
   <span class="c-key">--dir</span> data/runs/鬼城/output/novel \
   <span class="c-key">--prompt-file</span> data/runs/鬼城/prompt.md \
   <span class="c-key">--stages</span> write,review,rewrite,deliver \
@@ -1184,7 +1184,7 @@ cd /Users/chenhongyang/Desktop/book/novel-studio
           <div class="k">当前章节</div><div class="v">1</div>
           <div class="k">已完成</div><div class="v">0 / 100</div>
           <div class="k">RAG chunks</div><div class="v">770</div>
-          <div class="k">Qdrant collection</div><div class="v">novel_studio_3cfd597a1235</div>
+          <div class="k">Qdrant collection</div><div class="v">scriptorium_3cfd597a1235</div>
           <div class="k">Embedding</div><div class="v">Qwen3-Embedding-0.6B-Q8_0 (1024d)</div>
           <div class="k">主对话模型</div><div class="v">MiniMax-M3[1M]</div>
           <div class="k">generation_id</div><div class="v" style="word-break:break-all">simulation-20260705-071820-0800</div>
@@ -1227,7 +1227,7 @@ cd /Users/chenhongyang/Desktop/book/novel-studio
 <!-- ============ FOOTER ============ -->
 <footer>
   <div class="wrap">
-    <div class="meta">novel-studio · Go + LLM · local-first long-form novel engine</div>
+    <div class="meta">Scriptorium · Go + LLM · local-first long-form novel engine</div>
     <div style="margin-top:8px;">端到端架构总览 · 内容来源于代码实证（commit_chapter.go · zero_init_cmd.go · save_foundation.go · pipeline_cmd.go · config.example.jsonc）</div>
   </div>
 </footer>

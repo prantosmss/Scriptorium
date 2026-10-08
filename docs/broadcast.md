@@ -10,7 +10,7 @@
 python3 services/dashboard/server.py --host 127.0.0.1 --port 8766
 ```
 
-默认读取 `data/runs`。需要其他书目目录时，设置 `NOVEL_STUDIO_RUNS_DIR` 为包含各个运行目录的父目录。已有服务可直接使用原端口的 `/broadcast`；旧 Release 必须升级到包含本功能的版本。
+默认读取 `data/runs`。需要其他书目目录时，设置 `SCRIPTORIUM_RUNS_DIR` 为包含各个运行目录的父目录。已有服务可直接使用原端口的 `/broadcast`；旧 Release 必须升级到包含本功能的版本。
 
 在 OBS 中添加“浏览器”来源，将地址设为 `http://127.0.0.1:8766/broadcast`，建议画布 **1920 × 1080**。浏览器内也可使用“全屏”或 `F`；“净屏”隐藏操作区，`Esc` 恢复。
 

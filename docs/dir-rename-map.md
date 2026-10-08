@@ -2,7 +2,7 @@
 
 范围:仅结构/组织目录。书名、作品/项目目录(戏神、鬼舍、十日、data/runs/鬼城、data/runs/她的第二算法、generated-output 全部、reference-library 各题材下的书目)与角色数据目录(meta/characters/*)保留原名,避免破坏自引用、RAG 索引路径与 eval 基线。
 
-RAG 门禁:`internal/rag/policy.go`、`cmd/novel-studio/rag_cmd.go`、`cmd/novel-studio/zero_init_cmd.go` 在保留中文段(兼容旧索引/旧 chunk 文本)的同时,新增英文段 `deconstruction-library`。
+RAG 门禁:`internal/rag/policy.go`、`cmd/scriptorium/rag_cmd.go`、`cmd/scriptorium/zero_init_cmd.go` 在保留中文段(兼容旧索引/旧 chunk 文本)的同时,新增英文段 `deconstruction-library`。
 
 ## 顶层
 

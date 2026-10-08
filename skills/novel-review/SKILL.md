@@ -1,10 +1,10 @@
 ---
 name: novel-review
-description: "通过 novel-studio pipeline 的 review 阶段对已有项目逐章跑 Editor 评审，只产出审阅意见、不改原文。触发：「评审我的小说」「逐章审一遍」「给章节挑问题」，需要质量诊断但要保留原文时使用。"
+description: "通过 Scriptorium pipeline 的 review 阶段对已有项目逐章跑 Editor 评审，只产出审阅意见、不改原文。触发：「评审我的小说」「逐章审一遍」「给章节挑问题」，需要质量诊断但要保留原文时使用。"
 ---
 # novel-review：pipeline review 阶段评审（不改原文）
 
-对一个已有 novel-studio 项目通过 `novel-studio --pipeline --stages review` 逐章调用 Editor 评审，
+对一个已有 Scriptorium 项目通过 `scriptorium --pipeline --stages review` 逐章调用 Editor 评审，
 输出审阅意见到 `reviews/`，不改动原文。
 Editor 会读取内置 `human_feel_craft` 作为人工感正向标尺：检查现场异常、物件/痕迹回扣、主观误判、短对话/动作拍、现实支架和可复核因果链，避免只用禁用词和 AI 腔做负向判断。
 Editor 也会读取内置 `writing_techniques_digest`：检查前台故事、目标/阻力/失败代价/新增信息、钩子接力、事件铺垫/过程/余波、过渡章期待铺垫和中文标点功能。
@@ -20,13 +20,13 @@ Editor 也会读取内置 `writing_techniques_digest`：检查前台故事、目
 ```bash
 # 先进入项目目录，再评审全部章节
 cd ./output/novel
-novel-studio --pipeline --stages review
+scriptorium --pipeline --stages review
 
 # 只评审第 3–8 章
-novel-studio --pipeline --stages review --from 3 --to 8
+scriptorium --pipeline --stages review --from 3 --to 8
 
 # 调整每章 Editor 的硬时间预算（默认 90s）
-novel-studio --pipeline --stages review --budget 5m
+scriptorium --pipeline --stages review --budget 5m
 ```
 
 ## 参数

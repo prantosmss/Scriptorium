@@ -3,7 +3,7 @@ package bootstrap
 import (
 	"testing"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 func TestCharacterActivationConfigDefaultsAndLegacyLimits(t *testing.T) {

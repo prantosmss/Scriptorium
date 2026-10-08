@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/chenhongyang/novel-studio/internal/domain"
+	"github.com/prantosmss/Scriptorium/internal/domain"
 )
 
 // SaveWorldCodex 全量写入 world_codex.json + world_codex.md（原子写入）。

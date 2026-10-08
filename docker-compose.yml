@@ -7,18 +7,18 @@ services:
     volumes:
       - qdrant-storage:/qdrant/storage
 
-  novel-studio:
-    image: ghcr.io/xiaoyangy/novel-studio:latest
+  scriptorium:
+    image: scriptorium:latest
     build:
       context: .
       args:
         # 中国大陆默认使用可达的 Go module mirror；可通过宿主 GOPROXY 覆盖。
         GOPROXY: ${GOPROXY:-https://goproxy.cn,direct}
     volumes:
-      - ./config:/root/.novel-studio
+      - ./config:/root/.scriptorium
       - ./workspace:/workspace
     environment:
-      NOVEL_STUDIO_RUNS_DIR: /workspace/data/runs
+      SCRIPTORIUM_RUNS_DIR: /workspace/data/runs
     ports:
       - "8765:8765"
     stdin_open: true

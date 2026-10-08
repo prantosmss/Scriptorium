@@ -3,7 +3,7 @@ package domain
 import (
 	"fmt"
 
-	"github.com/chenhongyang/novel-studio/internal/errs"
+	"github.com/prantosmss/Scriptorium/internal/errs"
 )
 
 // 状态迁移规则（最小版）
