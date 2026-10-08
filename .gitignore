@@ -29,11 +29,26 @@ go.work.sum
 .env
 
 # 项目级配置 dotdir（镜像 ~/.novel-studio/）：config.json 含密钥，rules/ 为本地写作偏好
+# 真正的配置文件都在 .novel-studio/，仓库根部的空 config/ 目录不入库
 .novel-studio/
+config/
 
 # Editor/IDE
 .idea/
 .vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs & temporary files
+*.log
+logs/
+*.tmp
 
 # GoReleaser artifacts
 dist/
@@ -58,8 +73,11 @@ data/
 # 本地 embedding 模型权重(>100MB,下载方式见 models/embedding/README.md)
 models/embedding/*.gguf
 
-# Claude Code 本地会话配置
-.claude/settings.local.json
+# AI agent / coding-assistant 本地会话与工具配置（不入库）
+.claude/
+.opencode/
+.codex/
+.cursor/
 
 # Python 缓存
 __pycache__/

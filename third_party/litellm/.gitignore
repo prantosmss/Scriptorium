@@ -26,6 +26,30 @@ go.work.sum
 
 # env file
 .env
+.env.*
+!.env.example
+
+# Python 缓存（本目录若跑 Python 工具链）
+__pycache__/
+*.pyc
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Logs & temporary files
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# AI agent / coding-assistant 本地会话与工具配置
+.claude/
+.opencode/
+.codex/
+.cursor/
 
 # Editor/IDE
 .idea
